@@ -8,7 +8,6 @@ import { APP_PATHS, THEME } from "../../utilities/constants.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "../../customHooks/themingRules.js";
-import { useAppHooks } from "../../customHooks/useAppHooks.js";
 import { useHistory } from "react-router";
 
 /**
@@ -93,7 +92,7 @@ const top = theming( THEMING_VARIABLES.NAV_STYLE, {
 } );
 
 const StyledBar = styled.div`
-  background: ${ backgroundColor };
+  background: transparent;
   display: flex;
   justify-content: center;
   z-index: 15;

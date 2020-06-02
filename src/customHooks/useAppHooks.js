@@ -34,11 +34,13 @@ export const useAppHooks = () => {
   const changePath = useChangePath();
   const history = useHistory();
   const [ deleteClicked, setDeleteClicked ] = useState( false );
+  const [ editClicked, setEditClicked ] = useState( false );
   const [ selectingCards, setSelectingCards ] = useState( false );
   const { usersState, photosState, cardsState, decksState } = useSelector(
     reducerState => reducerState );
   
   useEffect( () => {
+    
     if( history.location.pathname !== hooks.path ){
       setHookVariable( "path", history.location.pathname );
     }
@@ -69,6 +71,7 @@ export const useAppHooks = () => {
      */
     return {
       path: history.location.pathname,
+      pushedState: history.location.pushedState,
       theme,
       setHookVariable,
       dispatch,
@@ -79,6 +82,8 @@ export const useAppHooks = () => {
       changePath,
       deleteClicked,
       setDeleteClicked,
+      editClicked,
+      setEditClicked,
       selectingCards,
       setSelectingCards, ...hooks,
     };
@@ -157,9 +162,8 @@ export const useAppHooksState = () => {
   
   const setHookVariable = ( name, value, items = undefined ) => {
     if( items === undefined ){
-      let newState;
-      newState = { ...hooks, [ name ]: value };
-      setHooks( newState );
+      
+      setHooks( hooks => ( { ...hooks, [ name ]: value } ) );
     }else{
       const newHooks = { ...hooks };
       items.forEach( item => {

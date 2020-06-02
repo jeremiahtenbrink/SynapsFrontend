@@ -1,27 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import {PreviewDeckCards, SearchBar, TitleText,} from '../components';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { PreviewDeckCards, SearchBar, TitleText } from "../components";
+import PropTypes from "prop-types";
 import {
-  APP_VIEW_DESKTOP, APP_VIEW_MOBILE, MEDIA_QUERIES, THEME
-} from '../utilities/constants.js';
-import {getUserDecks} from '../actions';
-import Fuse from 'fuse.js';
+  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, MEDIA_QUERIES, THEME,
+} from "../utilities/constants.js";
+import { getUserDecks } from "../actions";
+import Fuse from "fuse.js";
 
 const options = {
-  // isCaseSensitive: false,
-  // includeScore: false,
-  // shouldSort: true,
-  // includeMatches: false,
-  // findAllMatches: false,
-  // minMatchCharLength: 1,
-  // location: 0,
-  // threshold: 0.6,
-  // distance: 100,
-  // useExtendedSearch: false,
   keys: [
-    'deck_name',
-  ]
+    "deck_name",
+  ],
 };
 
 /**
@@ -30,102 +20,95 @@ const options = {
  * @component
  * @example return (<Dashboard />);
  */
-export const Dashboard = ({getHooks}) => {
-
-  const [searchTerm, setSearchTerm] = useState('');
+export const Dashboard = ( { getHooks } ) => {
+  
+  const [ searchTerm, setSearchTerm ] = useState( "" );
   const {
-    appView,
-    changePath,
-    dispatch,
-    usersState,
-    decksState,
-    theme
+    appView, changePath, dispatch, usersState, decksState, theme,
   } = getHooks();
   const search = e => {
-    setSearchTerm(e.target.value);
+    setSearchTerm( e.target.value );
   };
-
-  useEffect(() => {
-
-    dispatch(getUserDecks(usersState.user.uid));
-  }, []);
-
-  const deckClicked = (deck = undefined) => {
-
-    if (!deck) {
-      changePath('/create/deck');
+  
+  useEffect( () => {
+    
+    dispatch( getUserDecks( usersState.user.uid ) );
+  }, [] );
+  
+  const deckClicked = ( deck = undefined ) => {
+    
+    if( !deck ){
+      console.log( APP_PATHS.CREATE_DECK_PATH );
+      changePath( APP_PATHS.CREATE_DECK_PATH );
       return;
     }
-    changePath('/preview', deck);
-
+    changePath( APP_PATHS.PREVIEW_DECK_PATH + "/" + deck.deck_name );
+    
   };
-
+  
   const getDecks = () => {
-
-    if (decksState && decksState.decks) {
-      const fuse = new Fuse(decksState.decks, options);
-      if (searchTerm !== '') {
-
-        const decks = fuse.search(searchTerm);
-        console.log(decks);
+    
+    if( decksState && decksState.decks ){
+      const fuse = new Fuse( decksState.decks, options );
+      if( searchTerm !== "" ){
+        
+        const decks = fuse.search( searchTerm );
+        console.log( decks );
         return decks;
-
-      } else {
+        
+      }else{
         return decksState.decks;
       }
     }
     return [];
-
+    
   };
   const paddingBottom = window;
-  console.log(paddingBottom);
-  return (
-    <StyledDashboard className={'dashboard'}>
-
-      <Container>
-        <TitleText color={'#36405C'}
-                   text={appView === APP_VIEW_MOBILE ? 'Dashboard' : 'My' +
-                     ' Flash Cards'}/>
-
-        <SearchBar
-          theme={theme}
-          onChange={search}
-          style={{
-            marginTop: '8px',
-            marginBottom: '33px',
-            width: '80%',
-            marginLeft: '10%',
-            height: '37px',
-          }}
-        />
-      </Container>
-
-
-      <StyledDeckHolder className={'deck-container'}>
-        <PreviewDeckCards
-          border={'dashed'}
-          getHooks={getHooks}
-          onClick={e => deckClicked()}
-
-        />
-        {getDecks().map(deck => {
-          if (deck['item']) {
-            deck = deck['item'];
-          }
-
-          return (
-            <PreviewDeckCards
-              key={deck.deck_id}
-              getHooks={getHooks}
-              deck={deck}
-              border={'solid'}
-              onClick={e => deckClicked(deck)}
-            />
-          );
-        })}
-      </StyledDeckHolder>
-    </StyledDashboard>
-  );
+  console.log( paddingBottom );
+  return ( <StyledDashboard className={ "dashboard" }>
+    
+    <Container>
+      <TitleText color={ "#36405C" }
+                 text={ appView === APP_VIEW_MOBILE ? "Dashboard" :
+                   "My" + " Flash Cards" }/>
+      
+      <SearchBar
+        theme={ theme }
+        onSearch={ search }
+        onChange={ search }
+        style={ {
+          marginTop: "8px",
+          marginBottom: "33px",
+          width: "80%",
+          marginLeft: "10%",
+          height: "37px",
+        } }
+      />
+    </Container>
+    
+    
+    <StyledDeckHolder className={ "deck-container" }>
+      <PreviewDeckCards
+        border={ "dashed" }
+        getHooks={ getHooks }
+        onClick={ e => deckClicked() }
+      
+      />
+      { getDecks().map( deck => {
+        if( deck[ "item" ] ){
+          deck = deck[ "item" ];
+        }
+        
+        return ( <PreviewDeckCards
+          key={ deck.deck_id }
+          getHooks={ getHooks }
+          deck={ deck }
+          border={ "solid" }
+          onClick={ e => deckClicked( deck ) }
+        /> );
+      } ) }
+    </StyledDeckHolder>
+  </StyledDashboard> );
 };
 
 Dashboard.propTypes = {
@@ -133,17 +116,15 @@ Dashboard.propTypes = {
 };
 
 const Selected = styled.p`
-  color: ${props => props.selected === (true) ? '#14E59E' : '#000'};
+  color: ${ props => props.selected === ( true ) ? "#14E59E" : "#000" };
   margin-right: 9%;
 `;
 const Container = styled.div`
 display: flex;
-flex-direction: ${props => {
-
-  return props.theme.appView === APP_VIEW_DESKTOP ? 'row' :
-    'column';
-}
-};
+flex-direction: ${ props => {
+  
+  return props.theme.appView === APP_VIEW_DESKTOP ? "row" : "column";
+} };
 
   /* width */
 ::-webkit-scrollbar {
@@ -169,8 +150,8 @@ const StyledDashboard = styled.div`
   height: 100%;
   overflow-y: scroll;
   padding-bottom: 250px;
-  background: ${THEME.white};
-  @media screen and ${MEDIA_QUERIES.tablet} {
+  background: ${ THEME.white };
+  @media screen and ${ MEDIA_QUERIES.tablet } {
     margin-top: 50px;
     border-radius: 10px;
     top: 11%;

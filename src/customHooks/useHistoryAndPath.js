@@ -21,9 +21,10 @@ export const useChangePath = () => {
    * @returns void
    */
   const changePath = ( pathToChangeTo, stateToPush = null ) => {
+    
     pathToChangeTo = pathToChangeTo.toLowerCase();
     if( pathToChangeTo !== undefined && pathToChangeTo !==
-      history.location.path ){
+      history.location.pathname ){
       if( stateToPush ){
         history.push( pathToChangeTo, stateToPush );
       }else{

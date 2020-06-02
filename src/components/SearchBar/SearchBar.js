@@ -31,5 +31,6 @@ SearchBar.propTypes = {
   onSearch: PropTypes.func.isRequired,
   borderRadius: PropTypes.string,
   height: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
