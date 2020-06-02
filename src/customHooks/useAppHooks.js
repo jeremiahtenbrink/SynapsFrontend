@@ -1,11 +1,11 @@
-import React, {useContext, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useChangePath} from './useHistoryAndPath.js';
-import {useHistory} from 'react-router-dom';
-import {useTheme} from 'styled-components';
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useChangePath } from "./useHistoryAndPath.js";
+import { useHistory } from "react-router-dom";
+import { useTheme } from "styled-components";
 import {
   APP_VIEW_DESKTOP, APP_VIEW_MOBILE, SIZES,
-} from '../utilities/constants.js';
+} from "../utilities/constants.js";
 
 /**
  * Use App Hooks
@@ -20,7 +20,7 @@ import {
  *
  */
 export const useAppHooks = () => {
-  const {setHookVariable, hooks} = useContext(AppHooksContext);
+  const { setHookVariable, hooks } = useContext( AppHooksContext );
   /**
    * @typedef {object} Theme
    * @property {function} changeTheme
@@ -28,16 +28,22 @@ export const useAppHooks = () => {
    * @property {object.<THEMING_VALUE, {string}>}
    *
    */
+  
   const theme = useTheme();
   const dispatch = useDispatch();
   const changePath = useChangePath();
   const history = useHistory();
-  const [deleteClicked, setDeleteClicked] = useState(false);
-  const [selectingCards, setSelectingCards] = useState(false);
-  const {usersState, photosState, cardsState, decksState} = useSelector(
-    reducerState => reducerState
-  );
-
+  const [ deleteClicked, setDeleteClicked ] = useState( false );
+  const [ selectingCards, setSelectingCards ] = useState( false );
+  const { usersState, photosState, cardsState, decksState } = useSelector(
+    reducerState => reducerState );
+  
+  useEffect( () => {
+    if( history.location.pathname !== hooks.path ){
+      setHookVariable( "path", history.location.pathname );
+    }
+  } );
+  
   const getHooks = () => {
     /**
      * @typedef {object} UseAppHooksReturn
@@ -62,9 +68,8 @@ export const useAppHooks = () => {
      * @property {function} setDeleteClicked
      */
     return {
-      theme: theme,
       path: history.location.pathname,
-      pathPushedState: history.location.state,
+      theme,
       setHookVariable,
       dispatch,
       usersState,
@@ -72,11 +77,13 @@ export const useAppHooks = () => {
       photosState,
       decksState,
       changePath,
-      deleteClicked, setDeleteClicked, selectingCards, setSelectingCards,
-      ...hooks,
+      deleteClicked,
+      setDeleteClicked,
+      selectingCards,
+      setSelectingCards, ...hooks,
     };
   };
-
+  
   /**
    * @typedef {object} UseAppHooksReturn
    * @property {function} setHookVariable
@@ -99,7 +106,6 @@ export const useAppHooks = () => {
    */
   return {
     path: history.location.pathname,
-    pathPushedState: history.location.state,
     theme: theme,
     setHookVariable,
     dispatch,
@@ -109,32 +115,33 @@ export const useAppHooks = () => {
     decksState,
     changePath,
     getHooks,
-    deleteClicked, setDeleteClicked,
-    ...hooks,
+    deleteClicked,
+    setDeleteClicked, ...hooks,
   };
 };
 
-export const USE_APP_HOOKS_STATE_DEBUG_NAME = 'App Hooks State';
+export const USE_APP_HOOKS_STATE_DEBUG_NAME = "App Hooks State";
 
 /**
  * Use App Hook State
  * App Hooks Theme Provider State manager.
  * @typedef {function} useAppAHooksState
  *
-
+ 
  * @return {{setHookVariable: setHookVariable, hooks: {pushedState: {}, path:
  *   string, appView: (string | string), width: number,
  *   history: *, height: number}}}
  */
 export const useAppHooksState = () => {
+  
   const history = useHistory();
   const path = history.location.pathname;
   const pushedState = {};
-  const appView =
-    window.innerWidth > SIZES.tablet ? APP_VIEW_DESKTOP : APP_VIEW_MOBILE;
+  const appView = window.innerWidth > SIZES.tablet ? APP_VIEW_DESKTOP :
+    APP_VIEW_MOBILE;
   const width = window.innerWidth;
   const height = window.innerHeight;
-
+  
   /**
    * @typedef {object} AppProviderState
    * @property {object} pushedState
@@ -143,31 +150,27 @@ export const useAppHooksState = () => {
    * @property {number} height
    */
   const initialState = {
-    appView,
-    width,
-    height,
-    history,
+    appView, width, height, path: history.location.pathname,
   };
-
-  const [hooks, setHooks] = useState(initialState);
-
-  const setHookVariable = (name, value, items = undefined) => {
-    if (items === undefined) {
+  
+  const [ hooks, setHooks ] = useState( initialState );
+  
+  const setHookVariable = ( name, value, items = undefined ) => {
+    if( items === undefined ){
       let newState;
-      newState = {...hooks, [name]: value};
-      setHooks(newState);
-    } else {
-      const newHooks = {...hooks};
-      items.forEach(item => {
-        newHooks[item.name] = item.value;
-      });
-      setHooks(newHooks);
+      newState = { ...hooks, [ name ]: value };
+      setHooks( newState );
+    }else{
+      const newHooks = { ...hooks };
+      items.forEach( item => {
+        newHooks[ item.name ] = item.value;
+      } );
+      setHooks( newHooks );
     }
   };
-
+  
   return {
-    hooks,
-    setHookVariable,
+    hooks, setHookVariable,
   };
 };
 

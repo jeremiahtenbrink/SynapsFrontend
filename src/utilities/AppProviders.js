@@ -1,53 +1,50 @@
-import React from 'react';
-import {Provider} from 'react-redux';
-import {getStore} from './getStore.js';
-import {getGlobalStyles} from './getGlobalStyles.js';
+import React from "react";
+import { Provider } from "react-redux";
+import { getStore } from "./getStore.js";
+import { getGlobalStyles } from "./getGlobalStyles.js";
 import {
   AppHooksContext, useAppHooks, useAppHooksState,
-} from '../customHooks/useAppHooks.js';
-import {ErrorBoundary} from '../components';
-import {REDUCER_NAMES} from '../reducers';
-import {SYNAPS_CONFIG} from '../synapsConfig.js';
+} from "../customHooks/useAppHooks.js";
+import { ErrorBoundary } from "../components";
+import { REDUCER_NAMES } from "../reducers";
+import { SYNAPS_CONFIG } from "../synapsConfig.js";
 import {
   useThemeContext, useThemeRules,
-} from '../customHooks/useThemeContext.js';
-import {useDimensions} from '../customHooks/useDimensions.js';
-import {ThemeProvider} from 'styled-components';
-import {useAppView} from '../customHooks/useAppView.js';
-import {BrowserRouter as Router} from 'react-router-dom';
+} from "../customHooks/useThemeContext.js";
+import { useDimensions } from "../customHooks/useDimensions.js";
+import { ThemeProvider } from "styled-components";
+import { useAppView } from "../customHooks/useAppView.js";
+import { useHistory } from "react-router";
 
-export const APP_PROVIDER_DEBUG_NAME = 'App Provider';
 const GlobalStyles = getGlobalStyles();
 const initialState = {};
 
-if (process.env.NODE_ENV !== 'test') {
-
-  REDUCER_NAMES.forEach(key => {
-    try {
-
-      const stateKey = JSON.parse(
-        localStorage.getItem(SYNAPS_CONFIG.localStorageBasePath + key),
-      );
-
-      if (typeof stateKey === 'object' && stateKey !== null) {
-        initialState[key] = stateKey;
-      } else {
-
+if( process.env.NODE_ENV !== "test" ){
+  
+  REDUCER_NAMES.forEach( key => {
+    try{
+      
+      const stateKey = JSON.parse( localStorage.getItem( SYNAPS_CONFIG.localStorageBasePath +
+        key ) );
+      
+      if( typeof stateKey === "object" && stateKey !== null ){
+        initialState[ key ] = stateKey;
+      }else{
+      
       }
-
-    } catch(e) {
-
-      initialState[key] = '';
+      
+    }catch( e ){
+      
+      initialState[ key ] = "";
     }
-  });
+  } );
 }
 let store;
-if (Object.values(initialState).length >= REDUCER_NAMES.length) {
-  store = getStore(
-    Object.values(initialState).length >= REDUCER_NAMES.length && initialState,
-  );
-} else {
-  store = getStore(false);
+if( Object.values( initialState ).length >= REDUCER_NAMES.length ){
+  store = getStore( Object.values( initialState ).length >=
+    REDUCER_NAMES.length && initialState );
+}else{
+  store = getStore( false );
 }
 
 /**
@@ -57,53 +54,49 @@ if (Object.values(initialState).length >= REDUCER_NAMES.length) {
  * @description Store and theme provider setup for our application.
  */
 const AppProvider = props => {
-
-  const {themeRules, themeState, changeTheme} = useThemeRules();
-
+  const { themeRules, themeState, changeTheme } = useThemeRules();
+  
   return (
+    
     <ErrorBoundary>
-      <Router>
-        <ThemeProvider theme={{changeTheme, themeState, ...themeRules}}>
-          <Provider store={store}>
-            <AfterStoreTheme {...props} />
-          </Provider>
-        </ThemeProvider>
-      </Router>
-
+      <ThemeProvider theme={ { changeTheme, themeState, ...themeRules } }>
+        <Provider store={ store }>
+          <AfterStoreTheme { ...props }/>
+        </Provider>
+      </ThemeProvider>
     </ErrorBoundary>
+  
   );
 };
 
 const AfterStoreTheme = props => {
-
-  const {hooks, setHookVariable} = useAppHooksState();
-
-  return (
-    <>
-      <GlobalStyles/>
-      <AppHooksContext.Provider
-        value={{setHookVariable, hooks}}>
-
-        <AfterHooks{...props}/>
-      </AppHooksContext.Provider>
-    </>
-  );
+  
+  const { hooks, setHookVariable } = useAppHooksState();
+  
+  return ( <>
+    <GlobalStyles/>
+    <AppHooksContext.Provider
+      value={ { setHookVariable, hooks } }>
+      
+      <AfterHooks{ ...props }/>
+    </AppHooksContext.Provider>
+  </> );
 };
 
 const AfterHooks = props => {
-
+  const { getHooks } = useAppHooks();
   useThemeContext();
   useDimensions();
   useAppView();
-  const {getHooks} = useAppHooks();
-  const {children, ...rest} = props;
-
-  const newChildren = React.cloneElement(props.children, {getHooks, ...rest});
-  return (
-    <>
-      {newChildren}
-    </>
+  
+  const { children, ...rest } = props;
+  
+  const newChildren = React.cloneElement( props.children,
+    { getHooks, ...rest },
   );
+  return ( <>
+    { newChildren }
+  </> );
 };
 
 export default AppProvider;

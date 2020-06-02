@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import {ContainerDiv, NavBarAvatar} from '../index.js';
-import {signOut} from '../../actions';
-import theming from 'styled-theming';
-import LogoLeft from './LogoLeft.js';
-import {APP_PATHS, THEME} from '../../utilities/constants.js';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { ContainerDiv, NavBarAvatar } from "../index.js";
+import { signOut } from "../../actions";
+import theming from "styled-theming";
+import LogoLeft from "./LogoLeft.js";
+import { APP_PATHS, THEME } from "../../utilities/constants.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
-} from '../../customHooks/themingRules.js';
+} from "../../customHooks/themingRules.js";
+import { useAppHooks } from "../../customHooks/useAppHooks.js";
+import { useHistory } from "react-router";
 
 /**
  * Nav Bar
@@ -16,106 +18,103 @@ import {
  * @example
  *  return (<NavBar />)
  */
-export const NavBar = ({getHooks}) => {
-  const {usersState, dispatch, changePath, path} = getHooks(
-    'Nav Bar');
-  const [setMenuOpen] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState('');
-
-  useEffect(() => {
-
-    if (usersState.user && usersState.user.photoURL) {
-      setAvatarUrl(usersState.user.photoURL);
-
-    } else {
-      setAvatarUrl('');
-
+export const NavBar = ( { getHooks } ) => {
+  const { usersState, dispatch, changePath } = getHooks();
+  const history = useHistory();
+  const path = history.location.pathname;
+  const [ setMenuOpen ] = useState( false );
+  const [ avatarUrl, setAvatarUrl ] = useState( "" );
+  
+  useEffect( () => {
+    
+    if( usersState.user && usersState.user.photoURL ){
+      setAvatarUrl( usersState.user.photoURL );
+      
+    }else{
+      setAvatarUrl( "" );
+      
     }
-  }, [usersState]);
-
+  }, [ usersState ] );
+  
   const logout = () => {
-    setMenuOpen(false);
-    signOut(dispatch);
+    setMenuOpen( false );
+    signOut( dispatch );
   };
-
+  
   const navBarRightContent = () => {
-
-    if (path === APP_PATHS.SIGN_UP_PATH || path === APP_PATHS.LANDING_PAGE) {
-      return <Styledh2 onClick={() => changePath(APP_PATHS.SIGN_IN_PATH)}>Sign
+    
+    if( path === APP_PATHS.SIGN_UP_PATH || path === APP_PATHS.LANDING_PAGE ){
+      return <Styledh2 onClick={ () => changePath( APP_PATHS.SIGN_IN_PATH ) }>Sign
         In</Styledh2>;
-    } else if (path === APP_PATHS.SIGN_IN_PATH) {
-      return <Styledh2 onClick={() => changePath(APP_PATHS.SIGN_UP_PATH)}>Sign
+    }else if( path === APP_PATHS.SIGN_IN_PATH ){
+      return <Styledh2 onClick={ () => changePath( APP_PATHS.SIGN_UP_PATH ) }>Sign
         Up</Styledh2>;
     }
-
-    return (
-      <NavBarAvatar
-        getHooks={getHooks}
-        onClick={logout}
-        avatarUrl={avatarUrl}
-        className={'ant-dropdown-link'}
-      />
-    );
-
+    
+    return ( <NavBarAvatar
+      getHooks={ getHooks }
+      onClick={ logout }
+      avatarUrl={ avatarUrl }
+      className={ "ant-dropdown-link" }
+    /> );
+    
   };
-
-  return (
-    <StyledBar className={'nav-bar'}>
-      <ContainerDiv
-        justifyContent={'space-between'}
-        className={'nav-bar-container'}
-        flexDirection={'row'}
-        width={'100%'}
-        height={'75px'}
-        position={'relative'}
-        overFlowY={'hidden'}
-        backgroundColor={'transparent'}
-      >
-        <LogoLeft getHooks={getHooks}/>
-        {navBarRightContent()}
-      </ContainerDiv>
-    </StyledBar>
-  );
+  
+  return ( <StyledBar className={ "nav-bar" }>
+    <ContainerDiv
+      justifyContent={ "space-between" }
+      className={ "nav-bar-container" }
+      flexDirection={ "row" }
+      width={ "100%" }
+      height={ "75px" }
+      position={ "relative" }
+      overFlowY={ "hidden" }
+      backgroundColor={ "transparent" }
+    >
+      <LogoLeft getHooks={ getHooks }/>
+      { navBarRightContent() }
+    </ContainerDiv>
+  </StyledBar> );
 };
 
 NavBar.propTypes = {};
 
-const backgroundColor = theming(THEMING_VARIABLES.NAV_STYLE, {
-  [THEMING_VALUES.DARK]: THEME.NAV_BAR_DARK,
-  [THEMING_VALUES.LIGHT]: THEME.NAV_BAR_LIGHT,
-  [THEMING_VALUES.HIDDEN]: 'transparent',
+const backgroundColor = theming( THEMING_VARIABLES.NAV_STYLE, {
+  [ THEMING_VALUES.DARK ]: THEME.NAV_BAR_DARK,
+  [ THEMING_VALUES.LIGHT ]: THEME.NAV_BAR_LIGHT,
+  [ THEMING_VALUES.HIDDEN ]: "transparent",
+  
+} );
 
-});
-
-const top = theming(THEMING_VARIABLES.NAV_STYLE, {
-  [THEMING_VALUES.DARK]: 0,
-  [THEMING_VALUES.LIGHT]: 0,
-  [THEMING_VALUES.HIDDEN]: '-75px',
-});
+const top = theming( THEMING_VARIABLES.NAV_STYLE, {
+  [ THEMING_VALUES.DARK ]: 0,
+  [ THEMING_VALUES.LIGHT ]: 0,
+  [ THEMING_VALUES.HIDDEN ]: "-75px",
+} );
 
 const StyledBar = styled.div`
-  background: ${backgroundColor};
+  background: ${ backgroundColor };
   display: flex;
   justify-content: center;
   z-index: 15;
   position: absolute;
-  top: ${top};
+  top: ${ top };
   width: 100%;
-  height: ${THEME.NAV_BAR_HEIGHT + 'px'};
+  height: ${ THEME.NAV_BAR_HEIGHT + "px" };
 
  
 `;
 
-const color = theming(THEMING_VARIABLES.NAV_STYLE, {
-  [THEMING_VALUES.DARK]: 'white',
-  [THEMING_VALUES.LIGHT]: THEME.SYNAPS_DARK,
-  [THEMING_VALUES.HIDDEN]: THEME.SYNAPS_DARK,
-});
+const color = theming( THEMING_VARIABLES.NAV_STYLE, {
+  [ THEMING_VALUES.DARK ]: "white",
+  [ THEMING_VALUES.LIGHT ]: THEME.SYNAPS_DARK,
+  [ THEMING_VALUES.HIDDEN ]: THEME.SYNAPS_DARK,
+} );
 
 const Styledh2 = styled.h2`
   display: flex;
   align-items: center;
-  color: ${color};
+  color: ${ color };
   margin: 0 10% 0 0;
   font-style: normal;
   font-weight: bold;
