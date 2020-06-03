@@ -145,6 +145,7 @@ export const PreviewDeck = ( { getHooks, computedMatch } ) => {
         <LeftContainer>
           <TitleText
             text={ ( deck && deck.deck_name ) || "Preview" } count={ cardCount }
+            color={ appView === APP_VIEW_DESKTOP ? "#0d2545" : "#2A685B" }
           />
           
           { appView === APP_VIEW_DESKTOP && <StudyButton
@@ -238,8 +239,6 @@ margin-bottom: 20px;
 margin-left: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "9%;" :
   "0" };
   > span {
-  margin-bottom: 20px;
-  margin-top:15px;
   font-weight: bold;
   color: white;
   font-size:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "24px" :
@@ -285,9 +284,9 @@ const SearchContainer = styled.div`
 `;
 
 const previewDeckHeight = theming( THEMING_VARIABLES.FOOTER, {
-  [ THEMING_VALUES.VISIBLE ]: window.innerHeight - THEME.navBarTopHeight + "px",
-  [ THEMING_VALUES.HIDDEN ]: ( window.innerHeight - THEME.navBarTopHeight -
-    50 ) + "px",
+  [ THEMING_VALUES.HIDDEN ]: window.innerHeight - THEME.navBarTopHeight + "px",
+  [ THEMING_VALUES.VISIBLE ]: ( window.innerHeight - THEME.navBarTopHeight -
+    75 ) + "px",
 } );
 
 const marginBottom = theming( THEMING_VARIABLES.FOOTER, {

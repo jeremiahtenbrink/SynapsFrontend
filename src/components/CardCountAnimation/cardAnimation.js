@@ -50,6 +50,9 @@ const Container = styled.div`
     width: 50px;
     height: 50px;
     p {
+      color: white;
+      font-weight: bold;
+      font-family: "Fredoka One", "Source Sans Pro",serif;
       position: absolute;
       top: 50%;
       left: 50%;

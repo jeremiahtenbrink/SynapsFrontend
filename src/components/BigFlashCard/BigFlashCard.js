@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { darken } from "polished";
-import FlashCards from "../../svgComponents/FlashCards.js";
+import TopCard from "../../svgComponents/TopCard.js";
 import { APP_VIEW_DESKTOP } from "../../utilities/constants.js";
+import BottomQuizCards from "../../svgComponents/BottomQuizCards.js";
 
 /**
  * Big Flash Card
@@ -28,10 +29,10 @@ const BigFlashCard = ( { flashCard, appView } ) => {
                                 style={ { position: "relative" } }
                                 onClick={ flipCard }>
       
-      <FlashCards url={ position === "front" ? flashCard.image_front :
-        flashCard.image_back } position={ position }
-                  text={ position === "front" ? flashCard.question :
-                    flashCard.answer }/>
+      <TopCard position={ position } question={ flashCard.question }
+               answer={ flashCard.answer } front_url={ flashCard.image_front }
+               back_url={ flashCard.image_back }/>
+      <BottomQuizCards/>
     </StyledCardContainer>
   
   );
@@ -44,6 +45,7 @@ BigFlashCard.prototypes = {
 };
 
 const StyledCardContainer = styled.div`
+margin-top: 2rem;
   height: 390px;
   width: 283px;
   position: relative;
