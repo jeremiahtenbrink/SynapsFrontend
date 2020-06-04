@@ -2,6 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import CardAnimation from "../../CardCountAnimation/cardAnimation.js";
+import {
+  APP_VIEW_DESKTOP, APP_VIEW_MOBILE,
+} from "../../../utilities/constants.js";
+import moment from "moment";
 
 /**
  * Title Text
@@ -12,32 +16,50 @@ import CardAnimation from "../../CardCountAnimation/cardAnimation.js";
  *
  * @param text
  * @param color
+ * @param count
+ * @param appView
+ * @param deckCreatedDate
  * @return {*}
  */
-export const TitleText = ( { text, color = "#2A685B", count } ) => {
+export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreatedDate } ) => {
+  console.log( appView );
   return ( <StyledTitleContainer>
     <StyledTitle color={ color }>{ text }</StyledTitle>
-    { count && <CardAnimation open={ true } count={ count }/> }
+    { count && appView !== APP_VIEW_DESKTOP &&
+    <CardAnimation open={ true } count={ count }/> }
+    { appView === APP_VIEW_DESKTOP &&
+    <><p>{ count } cards</p><p>created { moment( deckCreatedDate )
+      .format( "MM.DD.YYYY" ) }</p> </> }
   </StyledTitleContainer> );
 };
 
 const StyledTitleContainer = styled.div`
 width: 100%;
 display: flex;
-align-items: center;
+flex-direction: column;
+align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
+  "flex-start" : "center" };
+p{
+margin-left: 9.5%;
+font-size: 24px;
+font-weight: bold;
+line-height: 1.1;
+}
 `;
 
 const StyledTitle = styled.div`
+
   color: ${ props => props.color };
   font-weight: 900;
   font-size: 45px;
-  margin-left: 10%;
-  margin-right: 5%;
-  margin-top: 24px;
   text-align: left;
-  margin-bottom: 36px;
+  margin: 9.5% 5% 15px 10%;
 `;
 
 TitleText.propTypes = {
-  text: PropTypes.string.isRequired, color: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  count: PropTypes.number,
+  appView: PropTypes.number,
+  deckCreatedDate: PropTypes.number,
 };

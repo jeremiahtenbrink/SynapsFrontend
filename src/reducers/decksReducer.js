@@ -1,27 +1,16 @@
 import {
-  RETRIEVE_DECKS_START,
-  RETRIEVE_DECKS_SUCCESS,
-  RETRIEVE_DECKS_FAILURE,
-  POSTING_DECK_START,
-  POSTING_DECK_SUCCESS,
-  POSTING_DECK_FAILURE,
-  DELETING_DECK_START,
-  DELETING_DECK_SUCCESS,
-  DELETING_DECK_FAILURE,
-  UPDATING_DECK_START,
-  UPDATING_DECK_SUCCESS,
-  UPDATING_DECK_FAILURE,
-  RETRIEVE_USER_DECKS_START,
-  RETRIEVE_USER_DECKS_SUCCESS,
-  RETRIEVE_USER_DECKS_FAILURE,
-  RETRIEVE_DECK_START,
-  RETRIEVE_DECK_SUCCESS,
+  RETRIEVE_DECKS_START, RETRIEVE_DECKS_SUCCESS, RETRIEVE_DECKS_FAILURE,
+  POSTING_DECK_START, POSTING_DECK_SUCCESS, POSTING_DECK_FAILURE,
+  DELETING_DECK_START, DELETING_DECK_SUCCESS, DELETING_DECK_FAILURE,
+  UPDATING_DECK_START, UPDATING_DECK_SUCCESS, UPDATING_DECK_FAILURE,
+  RETRIEVE_USER_DECKS_START, RETRIEVE_USER_DECKS_SUCCESS,
+  RETRIEVE_USER_DECKS_FAILURE, RETRIEVE_DECK_START, RETRIEVE_DECK_SUCCESS,
   RETRIEVE_DECK_FAILURE,
-} from '../actions';
+} from "../actions";
 
 /**
  * @typedef DecksState
- * @property {} decks
+ * @property {Deck[]} decks
  * @property {} fetchingDecks
  * @property {} errorDecksMessage
  *
@@ -29,23 +18,25 @@ import {
 
 /**
  * @typedef {object} Deck
- *
+ * @property {number} deck_id
+ * @property {number} user_id
+ * @property {number} created_at
+ * @property {number} updated_at
+ * @property {number} deck_name
+ * @property {number} tags
+ * @property {number} public
  */
 
 const initialState = {
-  decks: [],
-  fetchingDecks: false,
-  errorDecksMessage: undefined,
+  decks: [], fetchingDecks: false, errorDecksMessage: undefined,
 };
 
-export const decksReducer = (state = initialState, action) => {
+export const decksReducer = ( state = initialState, action ) => {
   
-  switch(action.type){
+  switch( action.type ){
     case RETRIEVE_DECKS_START:
       return {
-        ...state,
-        fetchingDecks: true,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: true, errorDecksMessage: undefined,
       };
     case RETRIEVE_DECKS_SUCCESS:
       return {
@@ -65,15 +56,13 @@ export const decksReducer = (state = initialState, action) => {
     // Creates a new deck
     case POSTING_DECK_START:
       return {
-        ...state,
-        fetchingDecks: true,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: true, errorDecksMessage: undefined,
       };
     case POSTING_DECK_SUCCESS:
       return {
         ...state,
         fetchingDecks: false,
-        decks: [...state.decks, action.payload],
+        decks: [ ...state.decks, action.payload ],
         errorDecksMessage: undefined,
       };
     case POSTING_DECK_FAILURE:
@@ -87,9 +76,7 @@ export const decksReducer = (state = initialState, action) => {
     // Deletes a single deck
     case DELETING_DECK_START:
       return {
-        ...state,
-        fetchingDecks: true,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: true, errorDecksMessage: undefined,
       };
     case DELETING_DECK_SUCCESS:
       return {
@@ -109,9 +96,7 @@ export const decksReducer = (state = initialState, action) => {
     //Edits single deck
     case UPDATING_DECK_START:
       return {
-        ...state,
-        fetchingDecks: true,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: true, errorDecksMessage: undefined,
       };
     case UPDATING_DECK_SUCCESS:
       return {
@@ -131,15 +116,13 @@ export const decksReducer = (state = initialState, action) => {
     // Retrieves all current User's decks
     case RETRIEVE_USER_DECKS_START:
       return {
-        ...state,
-        fetchingDecks: true,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: true, errorDecksMessage: undefined,
       };
     case RETRIEVE_USER_DECKS_SUCCESS:
       return {
         ...state,
         fetchingDecks: false,
-        decks: [...state.decks, action.payload],
+        decks: [ ...state.decks, action.payload ],
         errorDecksMessage: undefined,
       };
     case RETRIEVE_USER_DECKS_FAILURE:
@@ -153,15 +136,11 @@ export const decksReducer = (state = initialState, action) => {
     //Retrieve single deck
     case RETRIEVE_DECK_START:
       return {
-        ...state,
-        fetchingDecks: true,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: true, errorDecksMessage: undefined,
       };
     case RETRIEVE_DECK_SUCCESS:
       return {
-        ...state,
-        fetchingDecks: false,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: false, errorDecksMessage: undefined,
       };
     case RETRIEVE_DECK_FAILURE:
       return {

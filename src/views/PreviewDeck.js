@@ -144,7 +144,10 @@ export const PreviewDeck = ( { getHooks, computedMatch } ) => {
         </TopContainer>
         <LeftContainer>
           <TitleText
-            text={ ( deck && deck.deck_name ) || "Preview" } count={ cardCount }
+            text={ ( deck && deck.deck_name ) || "Preview" }
+            count={ cardCount }
+            appView={ appView }
+            deckCreatedDate={ deck.created_at }
             color={ appView === APP_VIEW_DESKTOP ? "#0d2545" : "#2A685B" }
           />
           
@@ -157,7 +160,7 @@ export const PreviewDeck = ( { getHooks, computedMatch } ) => {
         </LeftContainer>
       
       </Container>
-      <StyledPreviewDeckHolder class={ "deck-holder" }>
+      <StyledPreviewDeckHolder className={ "deck-holder" }>
         <PreviewDeckCards cardType={ "card" } key={ 0 }
                           getHooks={ getHooks }
                           onClick={ () => changePath( APP_PATHS.CREATE_DECK_PATH +
@@ -198,6 +201,8 @@ display: flex;
 
 const LeftContainer = styled.div`
 display: flex;
+margin: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 0 0 6.5%" :
+  "0" };
 flex-direction: column;
 width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "50%" : "100%" };
 order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "1" : "2" };
@@ -235,7 +240,7 @@ align-self: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
 border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "33px" :
   "5px" };
 margin-top: 20px;
-margin-bottom: 20px;
+margin-bottom: 6px;
 margin-left: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "9%;" :
   "0" };
   > span {
@@ -253,8 +258,10 @@ flex-direction: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "row" :
   "row" };
 font-size: 12px;
 width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "50%" : "100%" };
-justify-content: center;
-align-items: center;
+justify-content: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
+  "flex-end" : "center" };
+align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "flex-end" :
+  "center" };
 margin-top: 15px;
 order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2" : "1" };
 
@@ -276,9 +283,9 @@ const StyledIconLeft = styled( Icon )`
 `;
 
 const SearchContainer = styled.div`
-  margin: 0 auto;
-  width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "100%%" :
-  "50%" };
+  margin:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 21% 2px 0" :
+  "0 auto" };
+  width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "58%" : "50%" };
   max-width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "70%" :
   "100%" };
 `;
@@ -322,7 +329,8 @@ const StyledPreviewDeckHolder = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
   padding-bottom: 150px;
-  
+  margin: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 6.4%" :
+  "0px" };
     /* width */
 ::-webkit-scrollbar {
 display: none;
