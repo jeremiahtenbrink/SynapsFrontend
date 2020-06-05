@@ -78,36 +78,22 @@ export const NavBar = ( { getHooks } ) => {
 
 NavBar.propTypes = {};
 
-const backgroundColor = theming( THEMING_VARIABLES.NAV_STYLE, {
-  [ THEMING_VALUES.DARK ]: THEME.NAV_BAR_DARK,
-  [ THEMING_VALUES.LIGHT ]: THEME.NAV_BAR_LIGHT,
-  [ THEMING_VALUES.HIDDEN ]: "transparent",
-  
-} );
-
-const top = theming( THEMING_VARIABLES.NAV_STYLE, {
-  [ THEMING_VALUES.DARK ]: 0,
-  [ THEMING_VALUES.LIGHT ]: 0,
-  [ THEMING_VALUES.HIDDEN ]: "-75px",
-} );
-
 const StyledBar = styled.div`
   background: transparent;
   display: flex;
   justify-content: center;
   z-index: 15;
   position: absolute;
-  top: ${ top };
+  top: 0;
   width: 100%;
   height: ${ THEME.NAV_BAR_HEIGHT + "px" };
 
  
 `;
 
-const color = theming( THEMING_VARIABLES.NAV_STYLE, {
-  [ THEMING_VALUES.DARK ]: "white",
-  [ THEMING_VALUES.LIGHT ]: THEME.SYNAPS_DARK,
-  [ THEMING_VALUES.HIDDEN ]: THEME.SYNAPS_DARK,
+const color = theming( THEMING_VARIABLES.BACKGROUND, {
+  [ THEMING_VALUES.DARK ]: THEME.TEXT_LIGHT,
+  [ THEMING_VALUES.LIGHT ]: THEME.TEXT_DARK,
 } );
 
 const Styledh2 = styled.h2`

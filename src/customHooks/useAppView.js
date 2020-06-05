@@ -4,8 +4,6 @@ import {
   APP_VIEW_DESKTOP, APP_VIEW_MOBILE, SIZES,
 } from "../utilities/constants.js";
 
-export const APP_VIEW_DEBUG_NAME = "Use App View";
-
 export const useAppView = () => {
   
   const { setHookVariable, hooks } = useContext( AppHooksContext );
@@ -16,7 +14,7 @@ export const useAppView = () => {
    * view width to desktop or to mobile.
    */
   useEffect( () => {
-    debugger;
+    
     const size = SIZES.tablet;
     
     if( width > SIZES.tablet && appView !== APP_VIEW_DESKTOP ){

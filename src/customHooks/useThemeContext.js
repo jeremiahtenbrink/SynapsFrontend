@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AppHooksContext, useAppHooks } from "./useAppHooks.js";
+import { useAppHooks } from "./useAppHooks.js";
 import { useStyledThemingRules } from "./useStyledThemingRules.js";
 import { useHistory } from "react-router-dom";
 import { DEFAULT_THEME_RULE_VALUES } from "./themingRules.js";
@@ -20,7 +20,6 @@ export const useThemeRules = () => {
   let baseConfig = DEFAULT_THEME_RULE_VALUES;
   if( localStorage.getItem( SYNAPS_CONFIG.localStorageBasePath +
     "/themeRules" ) ){
-    
     let storedRules = JSON.parse( localStorage.getItem( SYNAPS_CONFIG.localStorageBasePath +
       "/themeRules" ) );
     if( typeof storedRules === "object" ){
@@ -31,13 +30,16 @@ export const useThemeRules = () => {
       } );
     }
   }
+  
   baseConfig[ "appView" ] = window.innerWidth < SIZES.tablet ? APP_VIEW_MOBILE :
     APP_VIEW_DESKTOP;
   const [ themeRules, setThemeRules ] = useState( baseConfig );
   
   const changeTheme = ( value ) => {
     
-    setThemeRules( value );
+    setThemeRules( state => ( {
+      ...state, ...value,
+    } ) );
   };
   
   useEffect( () => {
@@ -49,7 +51,6 @@ export const useThemeRules = () => {
   /**
    * @typedef {object} UseThemeRulesReturn
    * @property {ThemeRuleValues} themeRules
-   * @property {ThemeRuleValues} themeRules
    */
   return { themeRules, changeTheme, themeState: THEME };
   
@@ -57,7 +58,7 @@ export const useThemeRules = () => {
 
 export const useThemeContext = () => {
   const { changeTheme, themeState, ...themeRules } = useContext( ThemeContext );
-  const { appView } = useAppHooks();
+  const { appView, height, width, path } = useAppHooks();
   const history = useHistory();
   const checkAllRules = useStyledThemingRules();
   
@@ -81,5 +82,17 @@ export const useThemeContext = () => {
       changeRules,
     );
   }, [ appView, history.location.pathname ] );
+  
+  useEffect( () => {
+    changeTheme( { height } );
+  }, [ height ] );
+  
+  useEffect( () => {
+    changeTheme( { width } );
+  }, [ width ] );
+  
+  useEffect( () => {
+    changeTheme( { path } );
+  }, [ path ] );
   
 };

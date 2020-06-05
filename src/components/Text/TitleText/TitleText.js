@@ -48,12 +48,10 @@ line-height: 1.1;
 `;
 
 const StyledTitle = styled.div`
-
   color: ${ props => props.color };
   font-weight: 900;
   font-size: 45px;
   text-align: left;
-  margin: 9.5% 5% 15px 10%;
 `;
 
 TitleText.propTypes = {

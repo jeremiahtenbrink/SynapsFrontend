@@ -39,8 +39,9 @@ export const useAppHooks = () => {
   const { usersState, photosState, cardsState, decksState } = useSelector(
     reducerState => reducerState );
   
+  console.log( theme );
+  
   useEffect( () => {
-    
     if( history.location.pathname !== hooks.path ){
       setHookVariable( "path", history.location.pathname );
     }
@@ -125,14 +126,11 @@ export const useAppHooks = () => {
   };
 };
 
-export const USE_APP_HOOKS_STATE_DEBUG_NAME = "App Hooks State";
-
 /**
  * Use App Hook State
  * App Hooks Theme Provider State manager.
  * @typedef {function} useAppAHooksState
  *
- 
  * @return {{setHookVariable: setHookVariable, hooks: {pushedState: {}, path:
  *   string, appView: (string | string), width: number,
  *   history: *, height: number}}}
@@ -141,7 +139,6 @@ export const useAppHooksState = () => {
   
   const history = useHistory();
   const path = history.location.pathname;
-  const pushedState = {};
   const appView = window.innerWidth > SIZES.tablet ? APP_VIEW_DESKTOP :
     APP_VIEW_MOBILE;
   const width = window.innerWidth;
@@ -155,14 +152,13 @@ export const useAppHooksState = () => {
    * @property {number} height
    */
   const initialState = {
-    appView, width, height, path: history.location.pathname,
+    appView, width, height, path,
   };
   
   const [ hooks, setHooks ] = useState( initialState );
   
   const setHookVariable = ( name, value, items = undefined ) => {
     if( items === undefined ){
-      
       setHooks( hooks => ( { ...hooks, [ name ]: value } ) );
     }else{
       const newHooks = { ...hooks };
@@ -173,6 +169,9 @@ export const useAppHooksState = () => {
     }
   };
   
+  /**
+   *
+   */
   return {
     hooks, setHookVariable,
   };

@@ -46,7 +46,7 @@ export const CreateDeck = props => {
   useEffect( () => {
     if( photosState ){
       Object.values( photosState.photos ).forEach( photoObject => {
-        debugger;
+        
         if( photoObject.id === "question" && photoObject.file ){
           setNewCard( newCard => ( {
             ...newCard, image_front: photoObject.file.url,
@@ -295,7 +295,6 @@ const StyledCreateDeck = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #f6f5f3;
   ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "margin-top: 50px;" :
   "" };
 `;
