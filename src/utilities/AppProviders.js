@@ -14,7 +14,6 @@ import {
 import { useDimensions } from "../customHooks/useDimensions.js";
 import { ThemeProvider } from "styled-components";
 import { useAppView } from "../customHooks/useAppView.js";
-import { useHistory } from "react-router";
 
 const GlobalStyles = getGlobalStyles();
 const initialState = {};
@@ -34,7 +33,6 @@ if( process.env.NODE_ENV !== "test" ){
       }
       
     }catch( e ){
-      
       initialState[ key ] = "";
     }
   } );
@@ -90,7 +88,6 @@ const AfterHooks = props => {
   useAppView();
   
   const { children, ...rest } = props;
-  
   const newChildren = React.cloneElement( props.children,
     { getHooks, ...rest },
   );

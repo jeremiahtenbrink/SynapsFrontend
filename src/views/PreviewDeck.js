@@ -311,7 +311,6 @@ const StyledPreviewDeck = styled.div`
   border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "10px" :
   "0px" };
   padding-bottom: ${ marginBottom };
-  background: ${ props => props.theme.themeState.navBarLight };
   margin:  ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
   "50px auto 0 auto" : "0 auto" };
   
