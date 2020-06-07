@@ -14,11 +14,11 @@ import { useAppHooks } from "../../customHooks/useAppHooks.js";
  *  <Uploader id={"1"} />
  * )
  */
-export const Uploader = props => {
+export const Uploader = ( props ) => {
   /**
    * @type PhotoReducerState
    */
-  const { photosState, usersState, dispatch } = useAppHooks( "Uploader" );
+  const { photosState, usersState, dispatch } = useAppHooks();
   const [ photoObject, setPhotoObject ] = useState( false );
   
   useEffect( () => {

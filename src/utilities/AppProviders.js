@@ -82,17 +82,13 @@ const AfterStoreTheme = props => {
 };
 
 const AfterHooks = props => {
-  const { getHooks } = useAppHooks();
+  const getHooks = useAppHooks();
   useThemeContext();
   useDimensions();
   useAppView();
   
-  const { children, ...rest } = props;
-  const newChildren = React.cloneElement( props.children,
-    { getHooks, ...rest },
-  );
   return ( <>
-    { newChildren }
+    { props.children }
   </> );
 };
 

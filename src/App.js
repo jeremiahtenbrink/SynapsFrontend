@@ -11,6 +11,7 @@ import {
 import { THEME } from "./utilities/constants.js";
 import theming from "styled-theming";
 import { useTheming } from "./customHooks/useTheming.js";
+import { useAppHooks } from "./customHooks/useAppHooks.js";
 
 /**
  * App
@@ -20,10 +21,10 @@ import { useTheming } from "./customHooks/useTheming.js";
  * @param getHooks
  * @return {*}
  */
-export default function App( { getHooks } ){
+export default function App( props ){
   
   const [ alertMessage, setAlert ] = useState( "" );
-  const { theme, usersState } = getHooks();
+  const { theme, usersState, getHooks } = useAppHooks();
   const getValue = useTheming();
   
   useAuthStateChange( getHooks );
@@ -42,44 +43,44 @@ export default function App( { getHooks } ){
   }, [ usersState ] );
   
   return ( <StyledApp className="App">
-      { theme.BRAIN_SVG !== THEMING_VALUES.HIDDEN && ( <SvgBrainPic
-          maxWidth={ "3000px" }
-          maxHeight={ "3000px" }
-          height={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-            [ THEMING_VALUES.BOTTOM ]: "1800px",
-            [ THEMING_VALUES.TOP ]: "1800px",
-            [ THEMING_VALUES.MOBILE ]: "624px",
-          } ) }
-          width={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-            [ THEMING_VALUES.BOTTOM ]: "1800px",
-            [ THEMING_VALUES.TOP ]: "1800px",
-            [ THEMING_VALUES.MOBILE ]: "624px",
-          } ) }
-          left={ "50%" }
-          transform={ "translate(-50%, 0)" }
-          top={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-            [ THEMING_VALUES.BOTTOM ]: "800px",
-            [ THEMING_VALUES.TOP ]: "65px",
-            [ THEMING_VALUES.MOBILE ]: "624px",
-          } ) }
-          fill={ getValue( THEMING_VARIABLES.BACKGROUND, {
-            [ THEMING_VALUES.DARK ]: THEME.BRAIN_PIC_DARK,
-            [ THEMING_VALUES.LIGHT ]: THEME.BRAIN_PIC_LIGHT,
-          } ) }
-        /> ) }
-      { alertMessage && ( <Alert
-          type={ "error" }
-          onClose={ () => setAlert( false ) }
-          message={ alertMessage }
-          closable
-          style={ {
-            position: "absolute", top: "20px", zIndex: "15",
-          } }
-        /> ) }
-      <NavBar getHooks={ getHooks }/>
-      <RouteContainer getHooks={ getHooks }/>
-      <Footer deleteClick={ deleteClick } getHooks={ getHooks }/>
-    </StyledApp> );
+    { theme.BRAIN_SVG !== THEMING_VALUES.HIDDEN && ( <SvgBrainPic
+      maxWidth={ "3000px" }
+      maxHeight={ "3000px" }
+      height={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
+        [ THEMING_VALUES.BOTTOM ]: "1800px",
+        [ THEMING_VALUES.TOP ]: "1800px",
+        [ THEMING_VALUES.MOBILE ]: "624px",
+      } ) }
+      width={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
+        [ THEMING_VALUES.BOTTOM ]: "1800px",
+        [ THEMING_VALUES.TOP ]: "1800px",
+        [ THEMING_VALUES.MOBILE ]: "624px",
+      } ) }
+      left={ "50%" }
+      transform={ "translate(-50%, 0)" }
+      top={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
+        [ THEMING_VALUES.BOTTOM ]: "800px",
+        [ THEMING_VALUES.TOP ]: "65px",
+        [ THEMING_VALUES.MOBILE ]: "624px",
+      } ) }
+      fill={ getValue( THEMING_VARIABLES.BACKGROUND, {
+        [ THEMING_VALUES.DARK ]: THEME.BRAIN_PIC_DARK,
+        [ THEMING_VALUES.LIGHT ]: THEME.BRAIN_PIC_LIGHT,
+      } ) }
+    /> ) }
+    { alertMessage && ( <Alert
+      type={ "error" }
+      onClose={ () => setAlert( false ) }
+      message={ alertMessage }
+      closable
+      style={ {
+        position: "absolute", top: "20px", zIndex: "15",
+      } }
+    /> ) }
+    <NavBar getHooks={ getHooks }/>
+    <RouteContainer getHooks={ getHooks }/>
+    <Footer deleteClick={ deleteClick } getHooks={ getHooks }/>
+  </StyledApp> );
 }
 
 App.propTypes = {

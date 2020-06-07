@@ -18,8 +18,8 @@ export const SearchBar = props => {
 
 const StyledAntdSearch = styled( Input.Search )`
   && > .ant-input {
-    height: ${ props => props.height || "min-content" };
-    width: ${ props => props.width || "100%" };
+    height: min-content;
+    width:  100%;
     border-radius: ${ props => props.borderRadius || props.theme.largeRadius };
     border-color: #343D58;
     border-width: 2px;
@@ -32,7 +32,6 @@ const StyledAntdSearch = styled( Input.Search )`
   && {
     span.ant-input-suffix {
     font-size: 26px;
-    
       svg {
         fill: #343D58;
         stroke: #343D58;
@@ -43,9 +42,6 @@ const StyledAntdSearch = styled( Input.Search )`
 `;
 
 SearchBar.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-  borderRadius: PropTypes.string,
-  height: PropTypes.string,
-  placeholder: PropTypes.string,
+  onSearch: PropTypes.func.isRequired, placeholder: PropTypes.string,
 };
 

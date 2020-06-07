@@ -39,14 +39,15 @@ export const useAppHooks = () => {
   const { usersState, photosState, cardsState, decksState } = useSelector(
     reducerState => reducerState );
   
-  console.log( theme );
-  
   useEffect( () => {
     if( history.location.pathname !== hooks.path ){
       setHookVariable( "path", history.location.pathname );
     }
   } );
-  
+  /**
+   * @typedef GetHooksFunction
+   * @return {}
+   */
   const getHooks = () => {
     /**
      * @typedef {object} UseAppHooksReturn
@@ -120,9 +121,11 @@ export const useAppHooks = () => {
     photosState,
     decksState,
     changePath,
-    getHooks,
-    deleteClicked,
-    setDeleteClicked, ...hooks,
+    setDeleteClicked,
+    editClicked,
+    setEditClicked,
+    selectingCards,
+    setSelectingCards, ...hooks,
   };
 };
 
@@ -159,6 +162,7 @@ export const useAppHooksState = () => {
   
   const setHookVariable = ( name, value, items = undefined ) => {
     if( items === undefined ){
+      
       setHooks( hooks => ( { ...hooks, [ name ]: value } ) );
     }else{
       const newHooks = { ...hooks };

@@ -11,6 +11,7 @@ import SvgPlusIcon from "../../svgComponents/SvgPlusIcon.js";
 import { Icon } from "antd";
 import { ReactComponent as Delete } from "../../svgs/delete.svg";
 import { ReactComponent as Edit } from "../../svgs/edit.svg";
+import { useAppHooks } from "../../customHooks/useAppHooks.js";
 
 /**
  * Footer
@@ -20,7 +21,7 @@ import { ReactComponent as Edit } from "../../svgs/edit.svg";
  */
 export const Footer = ( props ) => {
   
-  const { changePath, path, setDeleteClicked, selectingCards, setEditClicked } = props.getHooks();
+  const { changePath, path, setDeleteClicked, selectingCards, setEditClicked } = useAppHooks();
   
   /**
    * Add Deck

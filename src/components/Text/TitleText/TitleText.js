@@ -22,7 +22,6 @@ import moment from "moment";
  * @return {*}
  */
 export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreatedDate } ) => {
-  console.log( appView );
   return ( <StyledTitleContainer>
     <StyledTitle color={ color }>{ text }</StyledTitle>
     { count && appView !== APP_VIEW_DESKTOP &&

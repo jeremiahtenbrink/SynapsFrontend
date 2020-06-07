@@ -11,8 +11,8 @@ import {
 /**
  * @typedef DecksState
  * @property {Deck[]} decks
- * @property {} fetchingDecks
- * @property {} errorDecksMessage
+ * @property {boolean} fetchingDecks
+ * @property {undefined | string} errorDecksMessage
  *
  */
 
@@ -25,6 +25,7 @@ import {
  * @property {number} deck_name
  * @property {number} tags
  * @property {number} public
+ * @property {bool} favorite
  */
 
 const initialState = {

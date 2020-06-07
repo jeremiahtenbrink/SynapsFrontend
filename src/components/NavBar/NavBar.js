@@ -9,6 +9,7 @@ import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "../../customHooks/themingRules.js";
 import { useHistory } from "react-router";
+import { useAppHooks } from "../../customHooks/useAppHooks.js";
 
 /**
  * Nav Bar
@@ -17,8 +18,8 @@ import { useHistory } from "react-router";
  * @example
  *  return (<NavBar />)
  */
-export const NavBar = ( { getHooks } ) => {
-  const { usersState, dispatch, changePath } = getHooks();
+export const NavBar = ( props ) => {
+  const { usersState, dispatch, changePath } = useAppHooks();
   const history = useHistory();
   const path = history.location.pathname;
   const [ setMenuOpen ] = useState( false );
@@ -51,7 +52,6 @@ export const NavBar = ( { getHooks } ) => {
     }
     
     return ( <NavBarAvatar
-      getHooks={ getHooks }
       onClick={ logout }
       avatarUrl={ avatarUrl }
       className={ "ant-dropdown-link" }
@@ -70,7 +70,7 @@ export const NavBar = ( { getHooks } ) => {
       overFlowY={ "hidden" }
       backgroundColor={ "transparent" }
     >
-      <LogoLeft getHooks={ getHooks }/>
+      <LogoLeft/>
       { navBarRightContent() }
     </ContainerDiv>
   </StyledBar> );

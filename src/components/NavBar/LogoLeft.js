@@ -7,6 +7,7 @@ import {
 import {
   APP_PATHS, APP_VIEW_DESKTOP, THEME,
 } from "../../utilities/constants.js";
+import { useAppHooks } from "../../customHooks/useAppHooks.js";
 
 /**
  *  LogoLeft
@@ -14,8 +15,8 @@ import {
  *  @component
  *
  */
-const LogoLeft = ( { getHooks } ) => {
-  const { appView, changePath, usersState } = getHooks();
+const LogoLeft = () => {
+  const { appView, changePath, usersState } = useAppHooks();
   
   const logoClicked = () => {
     
@@ -42,6 +43,7 @@ const LogoLeft = ( { getHooks } ) => {
       <SvgSynapsLogoText onClick={ () => logoClicked() }
                          width={ "60%" }
                          height={ "100%" }
+                         fill={ THEME.SYNAPS_DARK }
       />
     </ContainerDiv> );
   }else{

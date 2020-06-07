@@ -13,7 +13,7 @@ import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "../customHooks/themingRules.js";
 import Fuse from "fuse.js";
-import CardAnimation from "../components/CardCountAnimation/cardAnimation.js";
+import { useAppHooks } from "../customHooks/useAppHooks.js";
 
 const options = {
   // isCaseSensitive: false,
@@ -37,14 +37,14 @@ const options = {
  * @component
  * @example return (<PreviewDeck />);
  */
-export const PreviewDeck = ( { getHooks, computedMatch } ) => {
+export const PreviewDeck = ( { computedMatch } ) => {
   // @type CardState
   
   const [ searchTerm, setSearchTerm ] = useState( "" );
   
   const {
     cardsState, dispatch, usersState, changePath, height, appView, setSelectingCards, deleteClicked, setDeleteClicked, decksState,
-  } = getHooks( "PreviewDeck" );
+  } = useAppHooks();
   const deck = decksState.decks.filter( deck => deck.deck_name.toLowerCase() ===
     computedMatch.params.deck_name )[ 0 ];
   const cardCount = cardsState.cards.filter( card => card.deck_id ===
@@ -162,7 +162,6 @@ export const PreviewDeck = ( { getHooks, computedMatch } ) => {
       </Container>
       <StyledPreviewDeckHolder className={ "deck-holder" }>
         <PreviewDeckCards cardType={ "card" } key={ 0 }
-                          getHooks={ getHooks }
                           onClick={ () => changePath( APP_PATHS.CREATE_DECK_PATH +
                             "/" + deck.deck_name ) }
         />
@@ -172,7 +171,7 @@ export const PreviewDeck = ( { getHooks, computedMatch } ) => {
           }
           
           return <PreviewDeckCards onClick={ () => cardClicked( card ) }
-                                   getHooks={ getHooks } cardType={ "card" }
+                                   cardType={ "card" }
                                    key={ card.card_id }
                                    selected={ !!cardsSelected[ card.card_id ] }
                                    card={ card }/>;

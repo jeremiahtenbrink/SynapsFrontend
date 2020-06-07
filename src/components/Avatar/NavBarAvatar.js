@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
-import {Avatar} from 'antd';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import {Popover} from 'antd';
-import {signOut} from '../../actions';
-import {APP_PATHS} from '../../utilities/constants.js';
+import React, { useState } from "react";
+import { Avatar } from "antd";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { Popover } from "antd";
+import { signOut } from "../../actions";
+import { APP_PATHS } from "../../utilities/constants.js";
+import { useAppHooks } from "../../customHooks/useAppHooks.js";
 
 /**
  * Nav Bar Avatar
@@ -14,46 +15,42 @@ import {APP_PATHS} from '../../utilities/constants.js';
  *  <NavBarAvatar />
  *  )
  */
-export const NavBarAvatar = ({getHooks, avatarUrl, ...props}) => {
+export const NavBarAvatar = ( { avatarUrl, ...props } ) => {
   
-  const [open, setOpen] = useState(false);
-  const {dispatch, usersState, changePath} = getHooks();
+  const [ open, setOpen ] = useState( false );
+  const { dispatch, usersState, changePath } = useAppHooks();
   
-  const handleClick = (path) => {
-    setOpen(false);
-    if(path === 'logout'){
-      dispatch(signOut());
-    }else if(path === 'signin'){
-      changePath(APP_PATHS.SIGN_IN_PATH);
+  const handleClick = ( path ) => {
+    setOpen( false );
+    if( path === "logout" ){
+      dispatch( signOut() );
+    }else if( path === "signin" ){
+      changePath( APP_PATHS.SIGN_IN_PATH );
     }
   };
   
   const getContent = () => {
-    return (
-      <AvatarMenu>
-        {/*<p onClick={() => handleClick("logout")}>Edit Profile</p>*/}
-        <p style={{background: '#D7EDE8'}}
-           onClick={() => handleClick('logout')}>Logout</p>
-      </AvatarMenu>
-    );
+    return ( <AvatarMenu>
+        {/*<p onClick={() => handleClick("logout")}>Edit Profile</p>*/ }
+        <p style={ { background: "#D7EDE8" } }
+           onClick={ () => handleClick( "logout" ) }>Logout</p>
+      </AvatarMenu> );
   };
   
-  return (
-    <Popover placement="bottomRight"
-             title={'Hi ' + usersState.user.displayName}
-             content={getContent()}
-             visible={open}
-             trigger="click">
-      {avatarUrl ? <StyledAntAvatar src={avatarUrl} {...props} size={40}
-                                    onClick={() => setOpen(!open)}
-        /> :
-        <StyledAntAvatar {...props} size={40} onClick={() => setOpen(!open)}
-        />}
-    </Popover>
-  );
+  return ( <Popover placement="bottomRight"
+                    title={ "Hi " + usersState.user.displayName }
+                    content={ getContent() }
+                    visible={ open }
+                    trigger="click">
+      { avatarUrl ? <StyledAntAvatar src={ avatarUrl } { ...props } size={ 40 }
+                                     onClick={ () => setOpen( !open ) }
+      /> : <StyledAntAvatar { ...props } size={ 40 }
+                            onClick={ () => setOpen( !open ) }
+      /> }
+    </Popover> );
 };
 
-const StyledAntAvatar = styled(Avatar)`
+const StyledAntAvatar = styled( Avatar )`
   && {
     position: absolute;
     background-color: #585858;
@@ -75,6 +72,5 @@ p {
 `;
 
 NavBarAvatar.propTypes = {
-  getHooks: PropTypes.func,
-  avatarUrl: PropTypes.string,
+  getHooks: PropTypes.func, avatarUrl: PropTypes.string,
 };

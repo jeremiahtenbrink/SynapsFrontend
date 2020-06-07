@@ -36,7 +36,7 @@ export const useThemeRules = () => {
   const [ themeRules, setThemeRules ] = useState( baseConfig );
   
   const changeTheme = ( value ) => {
-    
+    console.log( "Changing Theme: ", value );
     setThemeRules( state => ( {
       ...state, ...value,
     } ) );

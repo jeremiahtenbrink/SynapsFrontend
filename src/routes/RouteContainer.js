@@ -45,7 +45,6 @@ export const RouteContainer = ( props ) => {
   </RouteContainerDiv> );
 };
 
-
 const RouteContainerDiv = styled( BaseContainer )`
 
 align-self: center;
@@ -57,7 +56,7 @@ padding: 47px;
 z-index: 10;
 
 ${ ( { theme } ) => {
-  debugger;
+  
   return `
 height: ${ calcMinHeight( theme ) }px;
 background: ${ getColor( theme ) };

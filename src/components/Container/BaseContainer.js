@@ -16,8 +16,15 @@ export const BaseContainer = ( { children, ...props } ) => {
 
 const Container = styled.div`
 display: flex;
-width: 100%;
-height: 100%;
+
+${ props => {
+  return `
+width: ${ props.width || "100%" };
+height: ${ props.height || "100%" };
+flex-direction: ${ props.flexDirection || "row" };
+border: ${ props.border ? "1px solid red" : "" };
+  `;
+} };
 `;
 
 BaseContainer.propTypes = {};
