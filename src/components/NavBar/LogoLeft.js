@@ -8,6 +8,7 @@ import {
   APP_PATHS, APP_VIEW_DESKTOP, THEME,
 } from "../../utilities/constants.js";
 import { THEMING_VALUES } from "../../customHooks/themingRules.js";
+import { useAppHooks } from "../../customHooks/useAppHooks.js";
 
 /**
  *  LogoLeft
@@ -15,8 +16,8 @@ import { THEMING_VALUES } from "../../customHooks/themingRules.js";
  *  @component
  *
  */
-const LogoLeft = ( { getHooks } ) => {
-  const { appView, changePath, usersState, theme } = getHooks();
+const LogoLeft = () => {
+  const { appView, changePath, usersState, theme } = useAppHooks();
   
   const logoClicked = () => {
     

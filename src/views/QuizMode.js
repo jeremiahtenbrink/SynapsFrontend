@@ -10,9 +10,10 @@ import { ReactComponent as Absolutely } from "../svgs/Absolutley.svg";
 import { updateCard } from "../actions/cardActions.js";
 import moment from "moment";
 import { APP_VIEW_DESKTOP } from "../utilities/constants.js";
+import { useAppHooks } from "../customHooks/useAppHooks.js";
 
 export default function QuizMode( { getHooks, computedMatch } ){
-  const { cardsState, dispatch, usersState, appView, decksState } = getHooks();
+  const { cardsState, dispatch, usersState, appView, decksState } = useAppHooks();
   const [ quizCards, setQuizCards ] = useState( {} );
   const [ filteredQuizCards, setFilteredQuizCards ] = useState( {} );
   const [ displayedCard, setDisplayedCard ] = useState( {} );

@@ -9,6 +9,7 @@ import {
 import { getUserDecks } from "../actions";
 import Fuse from "fuse.js";
 import TitleAndDecks from "../components/TitleAndDecks/TitleAndDecks.js";
+import { useAppHooks } from "../customHooks/useAppHooks.js";
 
 const options = {
   keys: [
@@ -22,12 +23,12 @@ const options = {
  * @component
  * @example return (<Dashboard />);
  */
-export const Dashboard = ( { getHooks } ) => {
+export const Dashboard = () => {
   
   const [ searchTerm, setSearchTerm ] = useState( "" );
   const {
     appView, changePath, dispatch, usersState, decksState, theme,
-  } = getHooks();
+  } = useAppHooks();
   
   const search = e => {
     setSearchTerm( e.target.value );

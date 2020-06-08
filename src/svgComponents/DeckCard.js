@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { ReactComponent as DeckCardSvg } from "../svgs/DeckCard.svg";
 import { APP_VIEW_DESKTOP } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
-import { callEveryNode } from "../utilities/CallEveryNode.js";
+import { callEveryNode } from "../utilities/callEveryNode.js";
 import { APP_PATHS } from "../utilities/constants.js";
 
 /**
