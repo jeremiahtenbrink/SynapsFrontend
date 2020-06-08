@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Input } from "antd";
 import PropTypes from "prop-types";
+import { BaseContainer } from "../Container/BaseContainer.js";
 
+const { Search } = Input;
 /**
  * Search Bar
  * @component
@@ -12,15 +14,19 @@ import PropTypes from "prop-types";
  *  <SearchBar onSearch={search} />
  * )
  */
-export const SearchBar = props => {
-  return <StyledAntdSearch { ...props }/>;
+export const SearchBar = ( { borderRadius, ...props } ) => {
+  return <StyledAntdSearch name={'search'} data-testid={ "search-container" }
+                           borderRadius={ borderRadius }>
+    <Search onSearch={ props.onSearch } placeholder={ props.placeholder }/>
+  </StyledAntdSearch>;
 };
 
-const StyledAntdSearch = styled( Input.Search )`
-  && > .ant-input {
+const StyledAntdSearch = styled( BaseContainer )`
+  && {
+  > .ant-input-search input.ant-input {
     height: min-content;
     width:  100%;
-    border-radius: ${ props => props.borderRadius || props.theme.largeRadius };
+    border-radius: 15px;
     border-color: #343D58;
     border-width: 2px;
     font-size: 18px;
@@ -29,7 +35,7 @@ const StyledAntdSearch = styled( Input.Search )`
       border-color: ${ props => props.theme.gray };
     }
   }
-  && {
+  
     span.ant-input-suffix {
     font-size: 26px;
       svg {

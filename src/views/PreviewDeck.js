@@ -14,6 +14,7 @@ import {
 } from "../customHooks/themingRules.js";
 import Fuse from "fuse.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
+import { useParams } from "react-router";
 
 const options = {
   // isCaseSensitive: false,
@@ -45,8 +46,9 @@ export const PreviewDeck = ( { computedMatch } ) => {
   const {
     cardsState, dispatch, usersState, changePath, height, appView, setSelectingCards, deleteClicked, setDeleteClicked, decksState,
   } = useAppHooks();
+  const { deck_name } = useParams();
   const deck = decksState.decks.filter( deck => deck.deck_name.toLowerCase() ===
-    computedMatch.params.deck_name )[ 0 ];
+    deck_name )[ 0 ];
   const cardCount = cardsState.cards.filter( card => card.deck_id ===
     deck.deck_id ).length;
   const [ cardsSelected, setCardsSelected ] = useState( {} );
@@ -117,7 +119,8 @@ export const PreviewDeck = ( { computedMatch } ) => {
     return [];
   };
   
-  return ( <StyledPreviewDeck data-testid={ "preview-deck-container" }
+  return ( <StyledPreviewDeck key={ "preview-container" }
+                              data-testid={ "preview-deck-container" }
                               heigth={ height }>
     
     <DeckDisplayContainer>
@@ -134,6 +137,7 @@ export const PreviewDeck = ( { computedMatch } ) => {
               height={ appView === APP_VIEW_DESKTOP ? "37px" : "24px" }
               borderRadius={ "14px" }
               onChange={ search }
+              onSearch={ search }
               placeholder={ "Search all cards" }
             />
           </SearchContainer>

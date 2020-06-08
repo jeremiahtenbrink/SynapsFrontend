@@ -10,6 +10,7 @@ import {
 } from "../../customHooks/themingRules.js";
 import { useHistory } from "react-router";
 import { useAppHooks } from "../../customHooks/useAppHooks.js";
+import "./NavBar.css";
 
 /**
  * Nav Bar
@@ -44,10 +45,10 @@ export const NavBar = ( props ) => {
   const navBarRightContent = () => {
     
     if( path === APP_PATHS.SIGN_UP_PATH || path === APP_PATHS.LANDING_PAGE ){
-      return <Styledh2 onClick={ () => changePath( APP_PATHS.SIGN_IN_PATH ) }>Sign
+      return <Styledh2 className={"nav-bar-h2"} onClick={ () => changePath( APP_PATHS.SIGN_IN_PATH ) }>Sign
         In</Styledh2>;
     }else if( path === APP_PATHS.SIGN_IN_PATH ){
-      return <Styledh2 onClick={ () => changePath( APP_PATHS.SIGN_UP_PATH ) }>Sign
+      return <Styledh2 className={"nav-bar-h2"} onClick={ () => changePath( APP_PATHS.SIGN_UP_PATH ) }>Sign
         Up</Styledh2>;
     }
     
@@ -78,32 +79,35 @@ export const NavBar = ( props ) => {
 
 NavBar.propTypes = {};
 
-const StyledBar = styled.div`
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  z-index: 15;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: ${ THEME.NAV_BAR_HEIGHT + "px" };
+const navBarTheme = theming( THEMING_VARIABLES.THEME, {
+  [ THEMING_VALUES.DESKTOP_LIGHT ]: ( theme ) => {
+    return `
+    background: transparent;
+    `;
+  }, [ THEMING_VALUES.MOBILE_DARK ]: ( theme ) => {
+    return `
+    background: ${ THEME.NAV_BAR_DARK };
+    `;
+  }, [ THEMING_VALUES.MOBILE_LIGHT ]: ( theme ) => {
+    return `
+    background: ${ THEME.NAV_BAR_LIGHT };
+    `;
+  },
+} );
 
- 
+const StyledBar = styled.div`
+  height: ${ THEME.NAV_BAR_HEIGHT + "px" };
+ ${ navBarTheme }
 `;
 
-const color = theming( THEMING_VARIABLES.BACKGROUND, {
-  [ THEMING_VALUES.DARK ]: THEME.TEXT_LIGHT,
-  [ THEMING_VALUES.LIGHT ]: THEME.TEXT_DARK,
+const color = theming( THEMING_VARIABLES.THEME, {
+  [ THEMING_VALUES.DESKTOP_DARK ]: THEME.WHITE_1,
+  [ THEMING_VALUES.MOBILE_DARK ]: THEME.WHITE_1,
+  [ THEMING_VALUES.DESKTOP_LIGHT ]: THEME.SYNAPS_DARK,
+  [ THEMING_VALUES.MOBILE_LIGHT ]: THEME.SYNAPS_DARK,
 } );
 
 const Styledh2 = styled.h2`
-  display: flex;
-  align-items: center;
   color: ${ color };
-  margin: 0 10% 0 0;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 28px;
-  line-height: 24px;
 `;
 

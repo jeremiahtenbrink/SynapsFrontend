@@ -57,6 +57,6 @@ TitleText.propTypes = {
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
   count: PropTypes.number,
-  appView: PropTypes.number,
-  deckCreatedDate: PropTypes.number,
+  appView: PropTypes.string,
+  deckCreatedDate: PropTypes.string,
 };

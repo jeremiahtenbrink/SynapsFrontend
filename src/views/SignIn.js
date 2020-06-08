@@ -66,7 +66,7 @@ export function SignIn( props ){
         maxWidth={ "1000px" }
         margin={ "10px 0 0 0" }
         fill={ theme.BACKGROUND === THEMING_VALUES.DARK ?
-          theme.themeState.NAV_BAR_LIGHT : theme.themeState.SECONDARY_DARKER1 }
+          theme.themeState.WHITE_1 : theme.themeState.SECONDARY_DARKER1 }
         height={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
           [ THEMING_VALUES.BOTTOM ]: "176px",
           [ THEMING_VALUES.TOP ]: "1500px",

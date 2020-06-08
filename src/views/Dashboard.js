@@ -26,7 +26,7 @@ const options = {
  */
 export const Dashboard = () => {
   
-  const { dispatch, usersState, decksState } = useAppHooks();
+  const { dispatch, usersState, decksState, theme } = useAppHooks();
   const [ searchTerm, setSearchTerm ] = useState( "" );
   
   useEffect( () => {
@@ -55,42 +55,28 @@ export const Dashboard = () => {
     
   };
   
-  return ( <StyledDashboard className={ "dashboard" }>
-    <RowOfDecksAndTitle key={ "favorites" } name={ "Favorites" }
-                        searchFunction={ search }
-                        decks={ decksState.decks.filter( deck => deck.favorite ===
-                          true ) }/>
-    <RowOfDecksAndTitle key={ "decks" }
-                        decks={ getDecks() }
-                        name={ "My Flashcard Decks" }/>
-  
-  </StyledDashboard> );
+  return (
+    <StyledDashboard key={ "dashboard-container" } data-testid={ "dashboard" }
+                     name={ "dashboard" } flexDirection={ "column" }
+                     minHeight={ "100%" }>
+      <RowOfDecksAndTitle key={ "favorites" } name={ "Favorites" }
+                          searchFunction={ search }
+                          decks={ decksState.decks.filter( deck => deck.favorite ===
+                            true ) }/>
+      <RowOfDecksAndTitle key={ "decks" }
+                          decks={ getDecks() }
+                          name={ "My Flashcard Decks" }/>
+    
+    </StyledDashboard> );
 };
-
-const DeckRow = styled( BaseContainer )`
-align-items: center;
-`;
 
 Dashboard.propTypes = {
   history: PropTypes.object,
 };
 
-const Selected = styled.p`
-  color: ${ props => props.selected === ( true ) ? "#14E59E" : "#000" };
-  margin-right: 9%;
-`;
-
-const StyledDeckHolder = styled.div`
-  max-width: 100%;
+const StyledDashboard = styled( BaseContainer )`
   display: flex;
-  height: min-content;
-  left: 10%;
-`;
-const StyledDashboard = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
+  min-height: 700px;
   overflow-y: scroll;
   
   /* width */

@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as DeckCardSvg } from "../svgs/DeckCard.svg";
-import {
-  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, THEME,
-} from "../utilities/constants.js";
+import { APP_PATHS } from "../utilities/constants.js";
 import { callEveryNode } from "../utilities/callEveryNode.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
+import DeckContainer from "../components/Container/DeckContainer.js";
 
 /**
  *   DeckCard
@@ -80,50 +79,8 @@ const DeckCard = ( { deck } ) => {
   </Container> );
 };
 
-const Container = styled.div`
-position: relative;
-cursor: pointer;
-margin-right: 40px;
-#favorite {
-cursor: pointer;
-}
-.deck-name {
-position: absolute;
-top: 20%;
-left: 50%;
-transform: translate(-50%, 0);
-font-size: 38px;
-font-weight: 600;
-color: ${ THEME.TEXT_DARK };
-}
+const Container = styled( DeckContainer )`
 
-#heart {
-cursor: pointer;
-}
-
-${ props => {
-  return `
-  opacity ${ props.deck ? 0 : 1 };
-  `;
-} }
-  
-  ${ ( props ) => {
-  if( props.theme.appView === APP_VIEW_DESKTOP ){
-    return `
-  width: 150px;
-  height: 195px;
-  `;
-  }else{
-    return `
-
-  width: 75px;
-  height: 100px;
-  
-`;
-  }
-}
-
-};
 `;
 
 DeckCard.propTypes = {};

@@ -154,7 +154,7 @@ export const CreateDeck = props => {
   };
   
   const deckNameChanged = () => {
-    debugger;
+    
     let stateDeckName = decksState.decks[ decksState.decks.length -
     1 ].deck_name;
     

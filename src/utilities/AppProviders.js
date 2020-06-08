@@ -82,11 +82,10 @@ const AfterStoreTheme = props => {
 };
 
 const AfterHooks = props => {
-  const getHooks = useAppHooks();
+  useAppHooks();
   useThemeContext();
   useDimensions();
   useAppView();
-  
   return ( <>
     { props.children }
   </> );

@@ -20,17 +20,17 @@ export const ProtectedRoute = ( { component: Component, ...rest } ) => {
   const { usersState } = useAppHooks();
   
   return ( <Route
-      { ...rest }
-      render={ props => {
-        try{
-          if( usersState.user.uid ){
-            return <Component { ...rest } />;
-          }else{
-            return <Redirect to={ "/" }/>;
-          }
-        }catch( e ){
+    { ...rest }
+    render={ props => {
+      try{
+        if( usersState.user.uid ){
+          return <Component { ...props } />;
+        }else{
           return <Redirect to={ "/" }/>;
         }
-      } }
-    /> );
+      }catch( e ){
+        return <Redirect to={ "/" }/>;
+      }
+    } }
+  /> );
 };

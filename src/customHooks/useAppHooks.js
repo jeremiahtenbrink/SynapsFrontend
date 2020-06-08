@@ -40,6 +40,7 @@ export const useAppHooks = () => {
     reducerState => reducerState );
   
   useEffect( () => {
+    
     if( history.location.pathname !== hooks.path ){
       setHookVariable( "path", history.location.pathname );
     }

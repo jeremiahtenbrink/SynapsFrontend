@@ -54,16 +54,7 @@ const LogoLeft = () => {
       position={ "relative" }>
       <SvgSynapsLogoText onClick={ () => logoClicked() }
                          svgFill={ THEME.SYNAPS_LIGHT } zIndex={ 10 }
-                         margin={ "15% auto 0 auto" }/> //eslint-disable-line
-      null
-      
-      <Brain containerPosition={ "absolute" } height={ "300px" }
-             zIndex={ 5 } svgFill={ THEME.BRAIN_PIC_DARK }
-             maxWidth={ "600px" }
-             maxHeight={ "600px" }
-             width={ "300px" } top={ "-25%" } svgWidth={ "100%" }
-             svgHeight={ "100%" }
-             left={ "-40%" }/>
+                         margin={ "15% auto 0 auto" }/>
     </ContainerDiv> );
   }
   

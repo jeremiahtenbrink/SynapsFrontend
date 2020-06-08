@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getThemingRules } from "./themingRules.js";
 import { APP_PATHS } from "../utilities/constants.js";
-
-export const THEMING_DEBUG_NAME = "Styled Theming";
 
 /**
  *  Used Styled Theming Rules
@@ -12,14 +10,6 @@ export const THEMING_DEBUG_NAME = "Styled Theming";
  *
  */
 export const useStyledThemingRules = () => {
-  
-  const [ rules, setRules ] = useState();
-  
-  useEffect( () => {
-    
-    const themeRules = getThemingRules();
-    setRules( themeRules );
-  }, [] );
   
   /**
    *  Check all rules.

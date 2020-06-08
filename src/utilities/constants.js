@@ -76,9 +76,6 @@ export const THEME = {
   navBarTopHeight: 75,
   footerHeight: 70,
   
-  navBarDark: "#0C2545",
-  navBarLight: "#F6F5F3",
-  
   synapsDark: "#36405C",
   synapsLight: "#FFFFFF",
   
@@ -87,7 +84,6 @@ export const THEME = {
   PRIMARY_COLOR: "#0d2545",
   PRIMARY_COLOR_LIGHTER1: "#36405c",
   
-  TEXT_LIGHT: "#F6F5F3",
   TEXT_DARK: "#323C56",
   TEXT_SECONDARY_COLOR: "#4CB69F",
   
@@ -99,8 +95,12 @@ export const THEME = {
   NAV_BAR_HEIGHT: 75,
   FOOTER_HEIGHT: 70,
   
+  WHITE_1: "#F6F5F3",
+  
+  BACKGROUND_LIGHT: "#F6F5F3",
+  BACKGROUND_DARK: "#0d2545",
+  
   NAV_BAR_DARK: "#0C2545",
-  NAV_BAR_LIGHT: "#F6F5F3",
   
   SYNAPS_DARK: "#36405C",
   SYNAPS_LIGHT: "#FFFFFF",
@@ -142,7 +142,7 @@ export const THEME = {
  * @property {number} NAV_BAR_HEIGHT
  * @property {number} FOOTER_HEIGHT
  *
- * @property {string} NAV_BAR_LIGHT
+ * @property {string} WHITE_1
  * @property {string} NAV_BAR_DARK
  *
  * @property {THEMING_VALUES} NAV_STYLE
@@ -194,7 +194,7 @@ export const MEDIA_QUERIES = {
   mobileS: `(min-width: ${ SIZES.mobileS }px)`,
   mobileM: `(min-width: ${ SIZES.mobileM }px)`,
   mobileL: `(min-width: ${ SIZES.mobileL }px)`,
-  tablet: `(min-width: ${ SIZES.tablet }px)`,
+  tablet: `(max-width: ${ SIZES.tablet }px)`,
   laptop: `(min-width: ${ SIZES.laptop }px)`,
   laptopL: `(min-width: ${ SIZES.laptopL }px)`,
   desktop: `(min-width: ${ SIZES.desktop }px)`,

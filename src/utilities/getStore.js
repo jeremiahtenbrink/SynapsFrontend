@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {composeWithDevTools} from 'redux-devtools-extension';
-import {createStore, applyMiddleware} from 'redux';
-import Thunk from 'redux-thunk';
-import {storageBackUp, logger} from '../middleWare/reduxMiddware.js';
-import rootReducer from '../reducers';
+import React from "react";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore, applyMiddleware } from "redux";
+import Thunk from "redux-thunk";
+import { storageBackUp, logger } from "../middleWare/reduxMiddware.js";
+import rootReducer from "../reducers";
 
 /**
  * Get Store
@@ -14,34 +14,30 @@ import rootReducer from '../reducers';
  * @returns Store
  *
  */
-export const getStore = (initialState) => {
+export const getStore = ( initialState ) => {
   let store = null;
   
-  if(initialState){
+  if( initialState ){
     try{
-      store = createStore(
-        rootReducer,
+      store = createStore( rootReducer,
         initialState,
-        composeWithDevTools(applyMiddleware(storageBackUp, logger, Thunk)),
+        composeWithDevTools( applyMiddleware( storageBackUp, logger, Thunk ) ),
       );
-      if(store){
-        const state = store.getState();
+      if( store ){
         return store;
       }
-    }catch(e){
-      store = createStore(
-        rootReducer,
-        composeWithDevTools(applyMiddleware(storageBackUp, logger, Thunk)),
+    }catch( e ){
+      store = createStore( rootReducer,
+        composeWithDevTools( applyMiddleware( storageBackUp, logger, Thunk ) ),
       );
-      if(store){
+      if( store ){
         return store;
       }
     }
   }
   
-  store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(storageBackUp, logger, Thunk)),
+  store = createStore( rootReducer,
+    composeWithDevTools( applyMiddleware( storageBackUp, logger, Thunk ) ),
   );
   return store;
 };

@@ -27,7 +27,8 @@ export const LandingPage = ( props ) => {
     }
   };
   
-  return ( <StyledLandingPage data-testid={ "landing-page" }>
+  return ( <StyledLandingPage data-testid={ "landing-page" }
+                              key={ "landing-page-container" }>
     <Mobile data-testid={ "landing-page-mobile" }>
       <SvgBrainPaths svgFill={ THEME.COLOR_WHITE } strokeWidth={ "1" }
                      stroke={ THEME.COLOR_WHITE }
