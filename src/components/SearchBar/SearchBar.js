@@ -13,13 +13,15 @@ import PropTypes from "prop-types";
  * )
  */
 export const SearchBar = props => {
-  return <StyledAntdSearch { ...props }/>;
+  return <StyledAntdSearch data-testid={ "search-bar" } { ...props }/>;
 };
 
 const StyledAntdSearch = styled( Input.Search )`
+height: ${ props => props.height || "100%" };
+width: ${ props => props.width || "100%" };
+justify-content:${ props => props.justifyContent || "center" };
   && > .ant-input {
     height: ${ props => props.height || "min-content" };
-    width: ${ props => props.width || "100%" };
     border-radius: ${ props => props.borderRadius || props.theme.largeRadius };
     border-color: #343D58;
     border-width: 2px;

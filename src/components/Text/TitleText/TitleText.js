@@ -40,7 +40,6 @@ flex-direction: column;
 align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
   "flex-start" : "center" };
 p{
-margin-left: 9.5%;
 font-size: 24px;
 font-weight: bold;
 line-height: 1.1;

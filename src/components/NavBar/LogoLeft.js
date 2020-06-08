@@ -7,6 +7,7 @@ import {
 import {
   APP_PATHS, APP_VIEW_DESKTOP, THEME,
 } from "../../utilities/constants.js";
+import { THEMING_VALUES } from "../../customHooks/themingRules.js";
 
 /**
  *  LogoLeft
@@ -15,7 +16,7 @@ import {
  *
  */
 const LogoLeft = ( { getHooks } ) => {
-  const { appView, changePath, usersState } = getHooks();
+  const { appView, changePath, usersState, theme } = getHooks();
   
   const logoClicked = () => {
     
@@ -40,6 +41,9 @@ const LogoLeft = ( { getHooks } ) => {
                         width={ "40%" }
                         top={ "-10px" }/>
       <SvgSynapsLogoText onClick={ () => logoClicked() }
+                         svgFill={ theme.BACKGROUND === THEMING_VALUES.DARK ?
+                           theme.themeState.white :
+                           theme.themeState.SYNAPS_DARK }
                          width={ "60%" }
                          height={ "100%" }
       />
@@ -52,8 +56,7 @@ const LogoLeft = ( { getHooks } ) => {
       position={ "relative" }>
       <SvgSynapsLogoText onClick={ () => logoClicked() }
                          svgFill={ THEME.SYNAPS_LIGHT } zIndex={ 10 }
-                         margin={ "15% auto 0 auto" }/> //eslint-disable-line
-      null
+                         margin={ "15% auto 0 auto" }/>
       
       <Brain containerPosition={ "absolute" } height={ "300px" }
              zIndex={ 5 } svgFill={ THEME.BRAIN_PIC_DARK }

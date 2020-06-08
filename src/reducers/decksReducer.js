@@ -22,9 +22,10 @@ import {
  * @property {number} user_id
  * @property {number} created_at
  * @property {number} updated_at
- * @property {number} deck_name
- * @property {number} tags
- * @property {number} public
+ * @property {string} deck_name
+ * @property {string[]} tags
+ * @property {boolean} public
+ * @property {boolean} favorite
  */
 
 const initialState = {

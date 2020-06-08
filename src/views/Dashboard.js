@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { PreviewDeckCards, SearchBar, TitleText } from "../components";
 import { BaseContainer } from "../components/Container/BaseContainer.js";
 import PropTypes from "prop-types";
@@ -8,6 +8,7 @@ import {
 } from "../utilities/constants.js";
 import { getUserDecks } from "../actions";
 import Fuse from "fuse.js";
+import TitleAndDecks from "../components/TitleAndDecks/TitleAndDecks.js";
 
 const options = {
   keys: [
@@ -27,6 +28,7 @@ export const Dashboard = ( { getHooks } ) => {
   const {
     appView, changePath, dispatch, usersState, decksState, theme,
   } = getHooks();
+  
   const search = e => {
     setSearchTerm( e.target.value );
   };
@@ -66,44 +68,14 @@ export const Dashboard = ( { getHooks } ) => {
   };
   
   return ( <StyledDashboard className={ "dashboard" }>
-    <TitleContainer className={ "title-container" }>
-      <TitleText color={ "#36405C" }
-                 text={ appView === APP_VIEW_MOBILE ? "Dashboard" :
-                   "My" + " Flash Cards" }
-      />
-      <SearchBar
-        theme={ theme }
-        onSearch={ search }
-        onChange={ search }
-      />
-    </TitleContainer>
     
-    
-    <StyledDeckHolder className={ "deck-container" }>
-      <PreviewDeckCards
-        border={ "dashed" }
-        getHooks={ getHooks }
-        onClick={ e => deckClicked() }
-      
-      />
-      { getDecks().map( deck => {
-        if( deck[ "item" ] ){
-          deck = deck[ "item" ];
-        }
-        
-        return ( <PreviewDeckCards
-          key={ deck.deck_id }
-          getHooks={ getHooks }
-          deck={ deck }
-          border={ "solid" }
-          onClick={ e => deckClicked( deck ) }
-        /> );
-      } ) }
-    </StyledDeckHolder>
+    <TitleAndDecks decks={ decksState.decks.filter( deck => deck.favorite ) }
+                   title={ "Favorites" } onSearch={ search }
+    >
+    </TitleAndDecks>
+    <TitleAndDecks decks={ getDecks() } title={ "My Decks" }/>
   </StyledDashboard> );
 };
-
-
 
 Dashboard.propTypes = {
   history: PropTypes.object,
@@ -112,19 +84,6 @@ Dashboard.propTypes = {
 const Selected = styled.p`
   color: ${ props => props.selected === ( true ) ? "#14E59E" : "#000" };
   margin-right: 9%;
-`;
-
-const TitleContainer = styled( BaseContainer )`
-display: flex;
-flex-direction: ${ props => {
-  return props.theme.appView === APP_VIEW_DESKTOP ? "row" : "column";
-} };
-
-  /* width */
-::-webkit-scrollbar {
-display: none;
-}
-
 `;
 
 const StyledDeckHolder = styled.div`
