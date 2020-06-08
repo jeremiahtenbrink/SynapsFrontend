@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import theming from 'styled-theming';
-import {deleteCard, getAllCardsForDeck} from '../actions/cardActions.js';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import theming from "styled-theming";
+import { deleteCard, getAllCardsForDeck } from "../actions/cardActions.js";
 import {
   PreviewDeckCards, SearchBar, SynapsButton, TitleText,
-} from '../components';
+} from "../components";
 import {
-  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, THEME
-} from '../utilities/constants.js';
-import {Icon} from 'antd';
+  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, THEME,
+} from "../utilities/constants.js";
+import { Icon } from "antd";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
-} from '../customHooks/themingRules.js';
-import Fuse from 'fuse.js';
+} from "../customHooks/themingRules.js";
+import Fuse from "fuse.js";
+import { useAppHooks } from "../customHooks/useAppHooks.js";
 
 const options = {
   // isCaseSensitive: false,
@@ -26,9 +27,8 @@ const options = {
   // distance: 100,
   // useExtendedSearch: false,
   keys: [
-    'question',
-    'answer'
-  ]
+    "question", "answer",
+  ],
 };
 
 /**
@@ -37,153 +37,152 @@ const options = {
  * @component
  * @example return (<PreviewDeck />);
  */
-export const PreviewDeck = ({getHooks}) => {
+export const PreviewDeck = ( { computedMatch } ) => {
   // @type CardState
-
-  const [searchTerm, setSearchTerm] = useState('');
-
+  
+  const [ searchTerm, setSearchTerm ] = useState( "" );
+  
   const {
-    cardsState,
-    pathPushedState,
-    dispatch,
-    usersState,
-    changePath,
-    height,
-    appView,
-    setSelectingCards, deleteClicked, setDeleteClicked
-  } = getHooks('PreviewDeck');
-  const deck = pathPushedState;
-
-  const [cardsSelected, setCardsSelected] = useState({});
-  const [selectMode, setSelectMode] = useState(false);
-
-  useEffect(() => {
-
-    if (!selectMode) {
-      setDeleteClicked(false);
+    cardsState, dispatch, usersState, changePath, height, appView, setSelectingCards, deleteClicked, setDeleteClicked, decksState,
+  } = useAppHooks();
+  const deck = decksState.decks.filter( deck => deck.deck_name.toLowerCase() ===
+    computedMatch.params.deck_name )[ 0 ];
+  const cardCount = cardsState.cards.filter( card => card.deck_id ===
+    deck.deck_id ).length;
+  const [ cardsSelected, setCardsSelected ] = useState( {} );
+  const [ selectMode, setSelectMode ] = useState( false );
+  
+  useEffect( () => {
+    
+    if( !selectMode ){
+      setDeleteClicked( false );
       return;
-
+      
     }
-    if (Object.values(cardsSelected).length > 0) {
-      Object.values(cardsSelected).forEach(card => {
-        dispatch(deleteCard(card, usersState.user.uid));
-      });
+    if( Object.values( cardsSelected ).length > 0 ){
+      Object.values( cardsSelected ).forEach( card => {
+        dispatch( deleteCard( card, usersState.user.uid ) );
+      } );
     }
-    setDeleteClicked(false);
-  }, [deleteClicked]);
-
-  useEffect(() => {
-    if (pathPushedState === undefined) {
-    } else {
-      dispatch(
-        getAllCardsForDeck(pathPushedState.deck_id, usersState.user.uid)
-      );
+    setDeleteClicked( false );
+  }, [ deleteClicked ] );
+  
+  useEffect( () => {
+    if( deck === undefined ){
+    }else{
+      dispatch( getAllCardsForDeck( deck.deck_id, usersState.user.uid ) );
     }
-  }, [pathPushedState]);
-
+  }, [ decksState ] );
+  
   const cardClicked = card => {
-    if (!selectMode) {
+    if( !selectMode ){
       return;
     }
-    if (!!cardsSelected[card.card_id]) {
-      delete cardsSelected[card.card_id];
-      setCardsSelected({...cardsSelected});
-    } else {
-      setCardsSelected({...cardsSelected, [card.card_id]: card});
+    if( !!cardsSelected[ card.card_id ] ){
+      delete cardsSelected[ card.card_id ];
+      setCardsSelected( { ...cardsSelected } );
+    }else{
+      setCardsSelected( { ...cardsSelected, [ card.card_id ]: card } );
     }
   };
-
+  
   const unSelected = () => {
-    if (selectMode) {
-      setCardsSelected([]);
+    if( selectMode ){
+      setCardsSelected( [] );
     }
-    setSelectMode(!selectMode);
-    setSelectingCards(!selectMode);
-
+    setSelectMode( !selectMode );
+    setSelectingCards( !selectMode );
+    
   };
-
+  
   const search = e => {
-    setSearchTerm(e.target.value);
+    setSearchTerm( e.target.value );
   };
-
+  
   const getCards = () => {
-    if (cardsState && cardsState.cards) {
-      const cards = cardsState.cards.filter(
-        card => card.deck_id === deck.deck_id);
-
-      if (searchTerm !== '') {
-        const fuse = new Fuse(
-          cards,
-          options
-        );
-        const decks = fuse.search(searchTerm);
-        console.log(cards);
+    if( cardsState && cardsState.cards ){
+      const cards = cardsState.cards.filter( card => card.deck_id ===
+        deck.deck_id );
+      
+      if( searchTerm !== "" ){
+        const fuse = new Fuse( cards, options );
+        const decks = fuse.search( searchTerm );
+        console.log( cards );
         return decks;
-
-      } else {
+        
+      }else{
         return cards;
       }
     }
     return [];
   };
-
-  return (
-    <StyledPreviewDeck data-testid={'preview-deck-container'} heigth={height}>
-
-      <DeckDisplayContainer>
-        <Container className={'container'}>
-          <TopContainer className={'top-container'}>
-            <BackArrow>
-              <StyledIconLeft type="left"/>
-              <p onClick={() => changePath(APP_PATHS.DASHBOARD_PATH)}>Back</p>
-            </BackArrow>
-
-            <SearchContainer className={'search-container'}>
-              <SearchBar
-                height={'23px'}
-                borderRadius={'14px'}
-                onChange={search}
-              />
-            </SearchContainer>
-            <Selected selected={selectMode} onClick={unSelected}>
-              {selectMode === false ? 'Select' : 'Cancel'}
-            </Selected>
-          </TopContainer>
-          <LeftContainer>
-            <TitleText
-              text={(pathPushedState && pathPushedState.deck_name) || 'Preview'}
+  
+  return ( <StyledPreviewDeck data-testid={ "preview-deck-container" }
+                              heigth={ height }>
+    
+    <DeckDisplayContainer>
+      <Container className={ "container" }>
+        <TopContainer className={ "top-container" }>
+          <BackArrow className={ "back-arrow" }>
+            <StyledIconLeft type="left"/>
+            <p
+              onClick={ () => changePath( APP_PATHS.DASHBOARD_PATH ) }>Back</p>
+          </BackArrow>
+          
+          <SearchContainer className={ "search-container" }>
+            <SearchBar
+              height={ appView === APP_VIEW_DESKTOP ? "37px" : "24px" }
+              borderRadius={ "14px" }
+              onChange={ search }
+              placeholder={ "Search all cards" }
             />
-            {appView === APP_VIEW_DESKTOP && <StudyButton
-              onClick={() => changePath(APP_PATHS.QUIZ_MODE, pathPushedState)}
-              height={'54px'}
-              width={'264px'} text={'Study Deck'}
-              type={'secondary'}/>}
-          </LeftContainer>
-
-        </Container>
-        <StyledPreviewDeckHolder class={'deck-holder'}>
-          <PreviewDeckCards cardType={'card'} key={0}
-                            getHooks={getHooks}
+          </SearchContainer>
+          <Selected className={ "select-text" } selected={ selectMode }
+                    onClick={ unSelected }>
+            { selectMode === false ? "Select" : "Cancel" }
+          </Selected>
+        </TopContainer>
+        <LeftContainer data-testid={ "left-container" }>
+          <TitleText
+            text={ ( deck && deck.deck_name ) || "Preview" }
+            count={ cardCount }
+            appView={ appView }
+            deckCreatedDate={ deck.created_at }
+            color={ appView === APP_VIEW_DESKTOP ? "#0d2545" : "#2A685B" }
           />
-          {getCards().map(
-            card => {
-              if (card['item']) {
-                card = card['item'];
-              }
-              return <PreviewDeckCards onClick={() => cardClicked(card)}
-                                       getHooks={getHooks} cardType={'card'}
-                                       key={card.card_id}
-                                       selected={!!cardsSelected[card.card_id]}
-                                       card={card}/>;
-            })}
-        </StyledPreviewDeckHolder>
-      </DeckDisplayContainer>
-      {appView === APP_VIEW_MOBILE && <StudyButton
-        onClick={() => changePath(APP_PATHS.QUIZ_MODE, pathPushedState)}
-        height={'73px'} width={'90%'} text={'Study Deck'}
-        type={'secondary'}/>}
-    </StyledPreviewDeck>
-  );
+          
+          { appView === APP_VIEW_DESKTOP && <StudyButton
+            onClick={ () => changePath( APP_PATHS.QUIZ_MODE + "/" +
+              deck.deck_name ) }
+            height={ "54px" }
+            width={ "264px" } text={ "Study Deck" }
+            type={ "secondary" }/> }
+        </LeftContainer>
+      
+      </Container>
+      <StyledPreviewDeckHolder className={ "deck-holder" }>
+        <PreviewDeckCards cardType={ "card" } key={ 0 }
+                          onClick={ () => changePath( APP_PATHS.CREATE_DECK_PATH +
+                            "/" + deck.deck_name ) }
+        />
+        { getCards().map( card => {
+          if( card[ "item" ] ){
+            card = card[ "item" ];
+          }
+          
+          return <PreviewDeckCards onClick={ () => cardClicked( card ) }
+                                   cardType={ "card" }
+                                   key={ card.card_id }
+                                   selected={ !!cardsSelected[ card.card_id ] }
+                                   card={ card }/>;
+        } ) }
+      </StyledPreviewDeckHolder>
+    </DeckDisplayContainer>
+    { appView === APP_VIEW_MOBILE && <StudyButton
+      onClick={ () => changePath( APP_PATHS.QUIZ_MODE + "/" + deck.deck_name ) }
+      height={ "73px" } width={ "90%" } text={ "Study Deck" }
+      type={ "secondary" }/> }
+  </StyledPreviewDeck> );
 };
 
 const DeckDisplayContainer = styled.div`
@@ -202,15 +201,14 @@ display: flex;
 const LeftContainer = styled.div`
 display: flex;
 flex-direction: column;
-width: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '50%' : '100%'};
-order: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '1' : '2'};
+width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "50%" : "100%" };
+order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "1" : "2" };
 `;
 
 const Container = styled.div`
 display: flex;
-flex-direction: ${props => props.theme.appView === APP_VIEW_DESKTOP ? 'row' :
-  'column'
-};
+flex-direction: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "row" :
+  "column" };
 
   /* width */
 ::-webkit-scrollbar {
@@ -219,7 +217,7 @@ display: none;
 `;
 
 const Selected = styled.p`
-  color: ${props => (props.selected === true ? '#14E59E' : '#000')};
+  color: ${ props => ( props.selected === true ? "#14E59E" : "#000" ) };
   margin-right: 9%;
 `;
 
@@ -231,76 +229,81 @@ const Blur = styled.div`
   background-image: linear-gradient(transparent, #ffffff8c);
 `;
 
-const StudyButton = styled(SynapsButton)`
+const StudyButton = styled( SynapsButton )`
 box-sizing: border-box;
-align-self: ${props => props.theme.appView === APP_VIEW_DESKTOP ? 'flex-start' :
-  'center'};
-border-radius: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '33px' :
-  '5px'};
+align-self: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
+  "flex-start" : "center" };
+border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "33px" :
+  "5px" };
 margin-top: 20px;
-margin-bottom: 20px;
-margin-left: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '9%;' :
-  '0'};
+margin-bottom: 6px;
   > span {
-  margin-bottom: 20px;
-  margin-top:15px;
   font-weight: bold;
   color: white;
-  font-size:${props => props.theme.appView === APP_VIEW_DESKTOP ? '24px' :
-  '32px'};
+  font-size:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "24px" :
+  "32px" };
   }
 
 `;
 
 const TopContainer = styled.div`
 display: flex;
-flex-direction: ${props => props.theme.appView === APP_VIEW_DESKTOP ? 'row' :
-  'row'};
+flex-direction: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "row" :
+  "row" };
 font-size: 12px;
-width: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '50%' : '100%'};
+width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "50%" : "100%" };
+justify-content: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
+  "flex-end" : "center" };
+align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "flex-end" :
+  "center" };
+order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2" : "1" };
+
+.back-arrow{
+display: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "none" :
+  "flex" };
 justify-content: center;
-align-items: center;
-margin-top: 15px;
-order: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '2' : '1'};
+width: 20%;
+}
+
+.select-text{
+display: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "none" :
+  "block" }
+}
 `;
 
-const StyledIconLeft = styled(Icon)`
+const StyledIconLeft = styled( Icon )`
   margin-right: 9%;
 `;
 
 const SearchContainer = styled.div`
-  margin: 0 auto;
-  max-width: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '50%' :
-  '100%'};
+  margin:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 21% 2px 0" :
+  "0 auto" };
+  width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "58%" : "50%" };
+  max-width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "70%" :
+  "100%" };
 `;
 
-const previewDeckHeight = theming(THEMING_VARIABLES.FOOTER, {
-  [THEMING_VALUES.VISIBLE]: window.innerHeight - THEME.navBarTopHeight + 'px',
-  [THEMING_VALUES.HIDDEN]:
-  window.innerHeight - THEME.navBarTopHeight - 95 + 'px',
-  [THEMING_VALUES.HIDDEN]:
-  (window.innerHeight - THEME.navBarTopHeight - 50) + 'px',
-});
+const previewDeckHeight = theming( THEMING_VARIABLES.FOOTER, {
+  [ THEMING_VALUES.HIDDEN ]: window.innerHeight - THEME.navBarTopHeight + "px",
+  [ THEMING_VALUES.VISIBLE ]: ( window.innerHeight - THEME.navBarTopHeight -
+    75 ) + "px",
+} );
 
-const marginBottom = theming(THEMING_VARIABLES.FOOTER, {
-  [THEMING_VALUES.VISIBLE]: THEME.footerHeight + 20 + 'px',
-  [THEMING_VALUES.HIDDEN]: '10px',
-});
+const marginBottom = theming( THEMING_VARIABLES.FOOTER, {
+  [ THEMING_VALUES.VISIBLE ]: THEME.footerHeight + 20 + "px",
+  [ THEMING_VALUES.HIDDEN ]: "10px",
+} );
 
 const StyledPreviewDeck = styled.div`
   align-self: flex-start;
   display: flex;
   flex-direction: column;
   max-width: 1140px;
-  height: ${previewDeckHeight};
+  height: ${ previewDeckHeight };
   width: 100%;
-  border-radius: ${props => props.theme.appView === APP_VIEW_DESKTOP ? '10px' :
-  '0px'};
-  padding-bottom: ${marginBottom};
-  background: ${props => props.theme.themeState.navBarLight};
-  margin:  ${props => props.theme.appView === APP_VIEW_DESKTOP ?
-  '50px auto 0 auto' :
-  '0 auto'};
+  border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "10px" :
+  "0px" };
+  padding-bottom: ${ marginBottom };
   
     /* width */
 ::-webkit-scrollbar {
@@ -316,7 +319,6 @@ const StyledPreviewDeckHolder = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
   padding-bottom: 150px;
-  
     /* width */
 ::-webkit-scrollbar {
 display: none;

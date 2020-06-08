@@ -1,0 +1,5 @@
+{
+  "backendStagingAppUrl": "https://synaps-backend-staging.herokuapp.com/",
+  "backendLocalhostApp": "http://localhost:5000",
+  "backendProductionAppUrl": "https://synaps-backend.herokuapp.com/"
+}

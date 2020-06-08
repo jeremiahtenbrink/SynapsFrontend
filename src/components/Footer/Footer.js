@@ -1,15 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import theming from 'styled-theming';
-import {ContainerDiv} from '../Container/ContainerDiv.js';
-import PropTypes from 'prop-types';
-import {APP_PATHS, THEME} from '../../utilities/constants.js';
+import React from "react";
+import styled from "styled-components";
+import theming from "styled-theming";
+import { ContainerDiv } from "../Container/ContainerDiv.js";
+import PropTypes from "prop-types";
+import { APP_PATHS, THEME } from "../../utilities/constants.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
-} from '../../customHooks/themingRules.js';
-import SvgPlusIcon from '../../svgComponents/SvgPlusIcon.js';
-import {Icon} from 'antd';
-import {ReactComponent as Delete} from '../../svgs/delete.svg';
+} from "../../customHooks/themingRules.js";
+import SvgPlusIcon from "../../svgComponents/SvgPlusIcon.js";
+import { Icon } from "antd";
+import { ReactComponent as Delete } from "../../svgs/delete.svg";
+import { ReactComponent as Edit } from "../../svgs/edit.svg";
+import { useAppHooks } from "../../customHooks/useAppHooks.js";
 
 /**
  * Footer
@@ -17,10 +19,10 @@ import {ReactComponent as Delete} from '../../svgs/delete.svg';
  * @example return (<Footer />)
  *
  */
-export const Footer = (props) => {
-
-  const {changePath, path, setDeleteClicked, selectingCards} = props.getHooks();
-
+export const Footer = ( props ) => {
+  
+  const { changePath, path, setDeleteClicked, selectingCards, setEditClicked } = useAppHooks();
+  
   /**
    * Add Deck
    * @description Function called to add a deck to the users decks.
@@ -28,51 +30,52 @@ export const Footer = (props) => {
    * @name addDeck
    */
   const addDeck = () => {
-    changePath('/create/deck');
+    changePath( "/create/deck" );
   };
-
+  
   const getFooterIcons = () => {
     
-    if (path === APP_PATHS.QUIZ_MODE) {
-      return <Icons onClick={() => changePath(APP_PATHS.DASHBOARD_PATH)}
-                    type={'home'}/>;
-    } else if (path === APP_PATHS.PREVIEW_DECK_PATH) {
-
-      if (selectingCards) {
-        return <Delete onClick={() => setDeleteClicked(true)}></Delete>;
+    if( path === APP_PATHS.QUIZ_MODE ){
+      return <Icons onClick={ () => changePath( APP_PATHS.DASHBOARD_PATH ) }
+                    type={ "home" }/>;
+    }else if( path.includes( APP_PATHS.PREVIEW_DECK_PATH ) ){
+      
+      if( selectingCards ){
+        return ( <><Edit
+          onClick={ () => setEditClicked( true ) }></Edit><Delete
+          onClick={ () => setDeleteClicked( true ) }></Delete></> );
       }
-    } else {
-      return <SvgPlusIcon onClick={() => addDeck()}/>;
+    }else{
+      return <SvgPlusIcon onClick={ () => addDeck() }/>;
     }
   };
-
-  return (<StyledFooter {...props} className={'footer'}
-                        pathname={path}>
-    {path === './preview' && <Blur/>}
+  
+  return ( <StyledFooter { ...props } className={ "footer" }
+                         pathname={ path }>
+    { path === "./preview" && <Blur/> }
     <ContainerDiv
-      className={'footer-container'}
-      maxHeight={THEME.footerHeight + 'px'}
-      height={THEME.footerHeight + 'px'}
-      alignItems={'center'}
-      justifyContent={'center'}
-      position={'relative'}
-      overFlowY={'visible'}
-      flexDirection={'row'}
-
+      className={ "footer-container" }
+      maxHeight={ THEME.footerHeight + "px" }
+      height={ THEME.footerHeight + "px" }
+      alignItems={ "center" }
+      justifyContent={ selectingCards ? "space-around" : "center" }
+      position={ "relative" }
+      overFlowY={ "visible" }
+      flexDirection={ "row" }
+    
     >
-      {getFooterIcons()}
-
+      { getFooterIcons() }
+    
     </ContainerDiv>
-  </StyledFooter>);
+  </StyledFooter> );
 };
 
-const Icons = styled(Icon)`
+const Icons = styled( Icon )`
 font-size: 40px;
 `;
 
 Footer.prototypes = {
-  getHooks: PropTypes.func.isRequired,
-  navBarVis: PropTypes.bool,
+  getHooks: PropTypes.func.isRequired, navBarVis: PropTypes.bool,
 };
 
 const Blur = styled.div`
@@ -83,19 +86,18 @@ height: 80px;
 background-image: linear-gradient(transparent, #ffffff8c);
 `;
 
-const bottom = theming(THEMING_VARIABLES.FOOTER, {
-  [THEMING_VALUES.HIDDEN]: '-75px',
-  [THEMING_VALUES.VISIBLE]: '0',
-});
+const bottom = theming( THEMING_VARIABLES.FOOTER, {
+  [ THEMING_VALUES.HIDDEN ]: "-75px", [ THEMING_VALUES.VISIBLE ]: "0",
+} );
 
 const StyledFooter = styled.div`
   position: absolute;
   display: flex;
-  bottom: ${bottom};
+  bottom: ${ bottom };
   margin-top: auto;
   min-width: 100vw;
   z-index: 1;
-  height: ${THEME.footerHeight}px;
+  height: ${ THEME.footerHeight }px;
   background: #E1DED7;
   align-items: center;
   

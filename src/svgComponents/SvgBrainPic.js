@@ -1,5 +1,5 @@
-import React from 'react';
-import {ContainerDiv} from '../components';
+import React from "react";
+import { ContainerDiv } from "../components";
 
 /**
  * Svg Brain Pic
@@ -7,27 +7,29 @@ import {ContainerDiv} from '../components';
  * @param {SvgComponentProps} props
  * @returns SvgComponent
  */
-function SvgBrainPic(props){
-  return (
-    <ContainerDiv position={'absolute'} margin={props.margin}
-                  width={props.width} top={props.top} left={props.left}
-                  maxHeight={props.maxHeight} maxWidth={props.maxWidth}
-                  height={props.height} backgroundColor={props.backgroundColor}
-                  zIndex={props.zIndex} id={'svg-container'}
-                  overFlowY={'visible'} onClick={props.onClick}
-                  overFlowX={'visible'}
-                  transform={props.transform} style={props.style}
+function SvgBrainPic( props ){
+  return ( <ContainerDiv position={ "absolute" } margin={ props.margin }
+                         width={ props.width } top={ props.top }
+                         left={ props.left }
+                         maxHeight={ props.maxHeight }
+                         maxWidth={ props.maxWidth }
+                         height={ props.height }
+                         backgroundColor={ props.backgroundColor }
+                         zIndex={ props.zIndex } id={ "svg-container" }
+                         overFlowY={ "visible" } onClick={ props.onClick }
+                         overFlowX={ "visible" }
+                         transform={ props.transform } style={ props.style }
     >
       <svg
-        id={'brain-pic-svg'}
+        id={ "brain-pic-svg" }
         viewBox="0 0 1738 1692"
-        fill={props.svgFill}
-        width={props.svgWidth}
-        height={props.svgHeight}
-        {...props}
+        fill={ props.svgFill }
+        width={ props.svgWidth }
+        height={ props.svgHeight }
+      
       >
-        <g opacity={props.opacity}
-           fill={props.fill}
+        <g opacity={ props.opacity }
+           fill={ props.fill }
            clipPath="url(#BrainPic_svg__clip0)"
         >
           <path
@@ -39,12 +41,11 @@ function SvgBrainPic(props){
         </g>
         <defs>
           <clipPath id="BrainPic_svg__clip0">
-            <path fill={props.fill} d="M0 0h1738v1692H0z"/>
+            <path fill={ props.fill } d="M0 0h1738v1692H0z"/>
           </clipPath>
         </defs>
       </svg>
-    </ContainerDiv>
-  );
+    </ContainerDiv> );
 }
 
 /**

@@ -9,7 +9,6 @@ import withSvgContainer from "./withSvgContainer.js";
 function SvgSynapsLogoText(props){
   
   return (
-    
     <svg
       viewBox="0 0 120 34"
       width={props.width}
