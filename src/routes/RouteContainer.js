@@ -6,7 +6,7 @@ import {
 import { Switch, Route } from "react-router";
 import { BaseContainer } from "../components/Container/BaseContainer.js";
 import { THEMING_VALUES } from "../customHooks/themingRules.js";
-import { APP_PATHS } from "../utilities/constants.js";
+import { APP_PATHS, APP_VIEW_DESKTOP } from "../utilities/constants.js";
 import QuizMode from "../views/QuizMode.js";
 import styled from "styled-components";
 
@@ -21,6 +21,8 @@ import styled from "styled-components";
  *
  */
 export const RouteContainer = ( props ) => {
+  
+  
   
   return ( <RouteContainerDiv className={ "route-container" }>
     <Switch>
@@ -46,21 +48,21 @@ export const RouteContainer = ( props ) => {
 };
 
 const RouteContainerDiv = styled( BaseContainer )`
-
 align-self: center;
 background: white;
 max-width: 1140px;
 position: relative;
-border-radius: 10px;
-padding: 47px;
-z-index: 10;
 
+
+z-index: 10;
 ${ ( { theme } ) => {
   
   return `
 height: ${ calcMinHeight( theme ) }px;
 background: ${ getColor( theme ) };
 margin-top: ${ getMarginTop( theme ) }px;
+padding:${ theme.appView === APP_VIEW_DESKTOP ? 47 : 15 }px;
+border-radius: ${ theme.appView === APP_VIEW_DESKTOP ? "10px" : 0 };
 `;
 } };
 `;
@@ -70,7 +72,14 @@ margin-top: ${ getMarginTop( theme ) }px;
  * @param {Theme} theme
  * @return {number} marginTop
  */
-const getMarginTop = theme => theme.themeState.navBarTopHeight + 25;
+const getMarginTop = theme => {
+  if( theme.appView === APP_VIEW_DESKTOP ){
+    return theme.themeState.navBarTopHeight + 25;
+  }else{
+    return theme.themeState.navBarTopHeight;
+  }
+  
+};
 
 /**
  * Gets the color of the background of the div element should be.

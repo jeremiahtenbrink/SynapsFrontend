@@ -142,7 +142,7 @@ export const PreviewDeck = ( { computedMatch } ) => {
             { selectMode === false ? "Select" : "Cancel" }
           </Selected>
         </TopContainer>
-        <LeftContainer>
+        <LeftContainer data-testid={ "left-container" }>
           <TitleText
             text={ ( deck && deck.deck_name ) || "Preview" }
             count={ cardCount }
@@ -200,8 +200,6 @@ display: flex;
 
 const LeftContainer = styled.div`
 display: flex;
-margin: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 0 0 6.5%" :
-  "0" };
 flex-direction: column;
 width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "50%" : "100%" };
 order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "1" : "2" };
@@ -209,7 +207,6 @@ order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "1" : "2" };
 
 const Container = styled.div`
 display: flex;
-margin-top: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2rem" : "" };
 flex-direction: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "row" :
   "column" };
 
@@ -240,8 +237,6 @@ border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "33px" :
   "5px" };
 margin-top: 20px;
 margin-bottom: 6px;
-margin-left: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "9%;" :
-  "0" };
   > span {
   font-weight: bold;
   color: white;
@@ -261,7 +256,6 @@ justify-content: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
   "flex-end" : "center" };
 align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "flex-end" :
   "center" };
-margin-top: 15px;
 order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2" : "1" };
 
 .back-arrow{
@@ -310,8 +304,6 @@ const StyledPreviewDeck = styled.div`
   border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "10px" :
   "0px" };
   padding-bottom: ${ marginBottom };
-  margin:  ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
-  "50px auto 0 auto" : "0 auto" };
   
     /* width */
 ::-webkit-scrollbar {
@@ -327,8 +319,6 @@ const StyledPreviewDeckHolder = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
   padding-bottom: 150px;
-  margin: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 6.4%" :
-  "0px" };
     /* width */
 ::-webkit-scrollbar {
 display: none;

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { PreviewDeckCards, SearchBar, TitleText } from "../components";
 import { BaseContainer } from "../components/Container/BaseContainer.js";
 import PropTypes from "prop-types";
-import RowOfDecksAndTitle from "../components/RowOfDecks/RowOfDecksTitle.js";
 import {
-  APP_PATHS,
+  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, MEDIA_QUERIES, THEME,
 } from "../utilities/constants.js";
 import { getUserDecks } from "../actions";
-import { useAppHooks } from "../customHooks/useAppHooks.js";
 import Fuse from "fuse.js";
+import TitleAndDecks from "../components/TitleAndDecks/TitleAndDecks.js";
 
 const options = {
   keys: [
@@ -21,20 +21,32 @@ const options = {
  * @category Views
  * @component
  * @example return (<Dashboard />);
- * @param {Object} props
- * @property {GetHooksFunction} getHooks
  */
-export const Dashboard = () => {
+export const Dashboard = ( { getHooks } ) => {
   
-  const { dispatch, usersState, decksState } = useAppHooks();
   const [ searchTerm, setSearchTerm ] = useState( "" );
+  const {
+    appView, changePath, dispatch, usersState, decksState, theme,
+  } = getHooks();
+  
+  const search = e => {
+    setSearchTerm( e.target.value );
+  };
   
   useEffect( () => {
+    
     dispatch( getUserDecks( usersState.user.uid ) );
   }, [] );
   
-  const search = ( e ) => {
-    setSearchTerm( e.target.value );
+  const deckClicked = ( deck = undefined ) => {
+    
+    if( !deck ){
+      console.log( APP_PATHS.CREATE_DECK_PATH );
+      changePath( APP_PATHS.CREATE_DECK_PATH );
+      return;
+    }
+    changePath( APP_PATHS.PREVIEW_DECK_PATH + "/" + deck.deck_name );
+    
   };
   
   const getDecks = () => {
@@ -56,20 +68,14 @@ export const Dashboard = () => {
   };
   
   return ( <StyledDashboard className={ "dashboard" }>
-    <RowOfDecksAndTitle key={ "favorites" } name={ "Favorites" }
-                        searchFunction={ search }
-                        decks={ decksState.decks.filter( deck => deck.favorite ===
-                          true ) }/>
-    <RowOfDecksAndTitle key={ "decks" }
-                        decks={ getDecks() }
-                        name={ "My Flashcard Decks" }/>
-  
+    
+    <TitleAndDecks decks={ decksState.decks.filter( deck => deck.favorite ) }
+                   title={ "Favorites" } onSearch={ search }
+    >
+    </TitleAndDecks>
+    <TitleAndDecks decks={ getDecks() } title={ "My Decks" }/>
   </StyledDashboard> );
 };
-
-const DeckRow = styled( BaseContainer )`
-align-items: center;
-`;
 
 Dashboard.propTypes = {
   history: PropTypes.object,
@@ -83,6 +89,8 @@ const Selected = styled.p`
 const StyledDeckHolder = styled.div`
   max-width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   height: min-content;
   left: 10%;
 `;
@@ -92,6 +100,7 @@ const StyledDashboard = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  
   
   /* width */
 ::-webkit-scrollbar {

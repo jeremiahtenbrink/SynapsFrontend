@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReactComponent as DeckCardSvg } from "../svgs/DeckCard.svg";
-import {
-  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, THEME,
-} from "../utilities/constants.js";
-import { callEveryNode } from "../utilities/callEveryNode.js";
+import { APP_VIEW_DESKTOP } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
+import { callEveryNode } from "../utilities/CallEveryNode.js";
+import { APP_PATHS } from "../utilities/constants.js";
 
 /**
  *   DeckCard
  *
  *  @component
- * @param {Object} props
- * @property {GetHooksReturn} getHooks
+ *
  */
 const DeckCard = ( { deck } ) => {
   
@@ -74,56 +72,28 @@ const DeckCard = ( { deck } ) => {
   };
   
   return ( <Container onClick={ deckClicked }>
-    <DeckCardSvg ref={ deckCardRef }/>
-    { deck && <p className={ "deck-name" }>{ deck.deck_name }</p> }
-    { !deck && <p className={ "deck-name" }>Create Deck</p> }
+    <DeckCardSvg/>
   </Container> );
 };
 
 const Container = styled.div`
-position: relative;
 cursor: pointer;
-margin-right: 40px;
-#favorite {
-cursor: pointer;
-}
-.deck-name {
-position: absolute;
-top: 20%;
-left: 50%;
-transform: translate(-50%, 0);
-font-size: 38px;
-font-weight: 600;
-color: ${ THEME.TEXT_DARK };
-}
-
-#heart {
-cursor: pointer;
-}
-
-${ props => {
-  return `
-  opacity ${ props.deck ? 0 : 1 };
-  `;
-} }
-  
-  ${ ( props ) => {
-  if( props.theme.appView === APP_VIEW_DESKTOP ){
-    return `
-  width: 150px;
-  height: 195px;
-  `;
+${ ( { theme } ) => {
+  if( theme.appView === APP_VIEW_DESKTOP ){
+    return css`
+    height: 200px;
+    width: 155px;
+    margin-right: 20px;
+    `;
   }else{
-    return `
-
-  width: 75px;
-  height: 100px;
-  
+    return css`
+      height: 140px;
+      width: 108px;
+      margin-right: 10px;
 `;
   }
-}
-
-};
+  
+} }
 `;
 
 DeckCard.propTypes = {};
