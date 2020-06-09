@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { CreateCardTitleText } from "../components/Text/TitleText/CreateCardTitleText.js";
 import { CreateCard } from "../components/CreateCard/CreateCard.js";
 import { DeckName } from "../components/CreateDeck/DeckName.js";
@@ -11,6 +11,8 @@ import { useAppHooks } from "../customHooks/useAppHooks.js";
 import { APP_VIEW_DESKTOP, APP_VIEW_MOBILE } from "../utilities/constants.js";
 import { CardIcon } from "../components";
 import CardAnimation from "../components/CardCountAnimation/cardAnimation.js";
+import { THEMING_VARIABLES } from "../customHooks/themingRules.js";
+import { setUpCssValues } from "../utilities/getStyles.js";
 
 /**
  * Create Deck View
@@ -20,7 +22,7 @@ import CardAnimation from "../components/CardCountAnimation/cardAnimation.js";
  */
 export const CreateDeck = props => {
   const {
-    usersState, appView, dispatch, decksState, changePath, height, photosState,
+    usersState, appView, dispatch, decksState, changePath, photosState,
   } = useAppHooks();
   
   const passedInDeckName = props.computedMatch.params.deck_name;
@@ -154,7 +156,7 @@ export const CreateDeck = props => {
   };
   
   const deckNameChanged = () => {
-    debugger;
+    
     let stateDeckName = decksState.decks[ decksState.decks.length -
     1 ].deck_name;
     
@@ -197,7 +199,7 @@ export const CreateDeck = props => {
     updateDeckNameIfChange();
   };
   
-  return ( <StyledCreateDeck height={ height }>
+  return ( <StyledCreateDeck data-testid={ "create-deck-container" }>
     <CardNameContainer appView={ appView }>
       { appView === APP_VIEW_MOBILE && ( <CancelButtonContainer>
         <CancelButton onClick={ doneSubmit }>Cancel</CancelButton>
@@ -284,46 +286,75 @@ CreateDeck.propTypes = {};
 
 const ButtonContainer = styled.div``;
 
+const themingVariables = {
+  [ THEMING_VARIABLES.APP_VIEW ]: {
+    [ APP_VIEW_DESKTOP ]: {
+      yes: css`
+width: 100%;
+max-width: 1140px;
+`, no: css`
+width: 375px;
+max-width: 100%;
+`,
+    },
+  },
+};
+const getDeckStyles = setUpCssValues( themingVariables );
+
 const StyledCreateDeck = styled.div`
-  width: ${ props => ( props.appView === APP_VIEW_MOBILE ? "375px" : "100%" ) };
-  max-width: ${ props => props.appView === APP_VIEW_MOBILE ? "100%" : "1140px" };
-  height: ${ props => ( props.height - 75 ).toString() + "px" };
   display: flex;
-  padding: ${ ( { theme } ) => theme.appView === APP_VIEW_MOBILE ? "0 36px" :
-  "63px 67px 15px 67px" };
-  ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
-  "padding: 63px 67px 0 67px;" : "" };
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "margin-top: 50px;" :
-  "" };
+  ${ props => getDeckStyles( props ) }
 `;
+
+const createContainerStyles = setUpCssValues( {
+  [ THEMING_VARIABLES.APP_VIEW ]: {
+    [ APP_VIEW_DESKTOP ]: {
+      yes: css`
+height: 40%;
+flex-direction: row;
+justify-content: space-between;
+`, no: css`
+height: 60%;
+flex-direction: column;
+`,
+    },
+    
+  },
+} );
 
 const CreateCardContainer = styled.div`
   width: 100%;
-  height: ${ props => ( props.appView === APP_VIEW_MOBILE ? "60%" : "40%" ) };
-  height: ${ props => props.theme.appView === APP_VIEW_MOBILE ? "425px" :
-  "40%" };
   display: flex;
-  flex-direction: ${ props => props.theme.appView === APP_VIEW_MOBILE ?
-  "column" : "row" };
-  ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
-  "justify-content: space-between;" : "" };
+  ${ props => createContainerStyles( props ) };
 `;
+
+const cardHeaderStyles = setUpCssValues( {
+  [ THEMING_VARIABLES.APP_VIEW ]: {
+    [ APP_VIEW_DESKTOP ]: {
+      yes: css`
+height: 50%;
+flex-direction: row;
+margin-top: 0;
+`, no: css`
+flex-direction: column;
+margin-bottom: 30px;
+margin-top: 30px;
+`,
+    },
+  },
+} );
 
 const CardHeaderContainer = styled.div`
   width: 100%;
-  ${ props => ( props.theme.appView === APP_VIEW_DESKTOP ? "height: 50%;" :
-  "" ) };
   padding: 0 2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: ${ props => props.appView === APP_VIEW_MOBILE ? "30px" :
-  "30px" };
-  margin-top: ${ props => ( props.appView === APP_VIEW_MOBILE ? "30px" :
-  "0px" ) };
+  margin-bottom:30px;
+  ${ props => cardHeaderStyles( props ) };
 `;
 
 const CardNameContainer = styled.div`
