@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FormInput, SynapsButton} from '../components';
+import {FormInput, PrimaryButton} from '../components';
 import SvgSynapsLogoText from '../svgComponents/SvgSynapsLogoText.js';
 import styled from 'styled-components';
 import {EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn} from '../actions';
@@ -46,7 +46,7 @@ export function SignUp(){
   return (<StyledSignUp>
     <SvgSynapsLogoText fill={theme.themeState.navBarDark}/>
     
-    <SynapsButton
+    <PrimaryButton
       style={{margin: '1rem 0 1.5em', padding: '0 2em 0'}}
       icon={'google'}
       text={'Sign Up with Google!'}
@@ -76,7 +76,7 @@ export function SignUp(){
       />
     </div>
     
-    <SynapsButton
+    <PrimaryButton
       style={{padding: '0 2.5em 0'}}
       text={'Continue with Email'}
       shape={'round'}

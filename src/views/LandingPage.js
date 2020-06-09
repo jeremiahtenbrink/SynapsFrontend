@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { SynapsButton } from "../components";
+import { PrimaryButton } from "../components";
 import SvgSynapsLogoText from "../svgComponents/SvgSynapsLogoText.js";
 import { SvgBrainPaths } from "../svgComponents";
 import { MEDIA_QUERIES, THEME } from "../utilities/constants.js";
@@ -36,7 +36,7 @@ export const LandingPage = ( props ) => {
       <MobileHeader>
         <SvgSynapsLogoText fill={ theme.themeState.navBarLight }/>
       </MobileHeader>
-      <SynapsButton
+      <PrimaryButton
         text={ "Sign In" }
         size={ "large" }
         type={ "primary" }
@@ -48,7 +48,7 @@ export const LandingPage = ( props ) => {
           borderRadius: "15px",
         } }
       />
-      <SynapsButton
+      <PrimaryButton
         text={ "Sign Up" }
         size={ "large" }
         type={ "darkgray" }

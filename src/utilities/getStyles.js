@@ -24,37 +24,45 @@ class StyledComponentStyles{
       if( variableValue ){
         
         const variableObj = this.themingValues[ variable ];
+        let value;
         if( variableObj[ variableValue ] ){
-          if( variableObj[ variableValue ][ "prop" ] ){
-            const value = setValue( variableObj[ variableValue ].yes,
+          if( typeof variableObj[ variableValue ].yes === "function" ){
+            value = variableObj[ variableValue ].yes( props );
+          }else if( variableObj[ variableValue ][ "prop" ] ){
+            
+            value = setValue( variableObj[ variableValue ].yes,
               variableObj[ variableValue ][ "prop" ],
               variableObj[ variableValue ].unit,
             );
-            if( Array.isArray( value ) ){
-              returnString = value.join( "" );
-            }else{
-              returnString += value;
-            }
             
           }else{
-            returnString += variableObj[ variableValue ].yes;
+            value = variableObj[ variableValue ].yes;
           }
         }else{
+          
           Object.keys( variableObj ).forEach( key => {
             if( variableObj[ key ].no ){
-              if( variableObj[ key ][ props ] ){
-                const value = setValue( variableObj[ key ],
-                  variableObj[ key ].prop,
-                  variableObj[ key ].unit,
-                );
-                returnString = value.join( "" );
+              if( typeof variableObj[ key ].no === "function" ){
+                value = variableObj[ key ].no( props );
               }else{
-                const value = variableObj[ key ].no;
-                returnString += value;
+                
+                if( variableObj[ key ][ "prop" ] ){
+                  value = setValue( variableObj[ key ].no,
+                    variableObj[ key ].prop,
+                    variableObj[ key ].unit,
+                  );
+                }else{
+                  value = variableObj[ key ].no;
+                }
+                
               }
-              
             }
           } );
+        }
+        if( Array.isArray( value ) ){
+          returnString += value.join( "" );
+        }else{
+          returnString += value;
         }
       }
       
@@ -82,15 +90,17 @@ export const setValue = ( value, property, unit ) => {
 
 const checkForUnit = ( value, baseUnit ) => {
   const units = [ "px", "em", "rem", "%" ];
-  
-  let result = units.some( unit => {
-    if( value.includes( unit ) ){
+  if( typeof value === "string" ){
+    let result = units.some( unit => {
+      if( value.includes( unit ) ){
+        return value;
+      }
+    } );
+    if( result ){
       return value;
     }
-  } );
-  if( result ){
-    return value;
   }
+  
   return addUnit( value, baseUnit );
 };
 

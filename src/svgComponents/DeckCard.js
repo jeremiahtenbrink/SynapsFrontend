@@ -86,7 +86,6 @@ position: absolute;
 top:30%;
 left:50%;
 transform: translate(-50%, -50%);
-font-size: 32px;
 font-weight: 600;
 
 }
@@ -97,6 +96,10 @@ ${ ( { theme } ) => {
     width: 155px;
     margin-right: 20px;
     color: ${ theme.themeState.SYNAPS_DARK };
+    
+    p {
+    font-size: 32px;
+    }
     `;
   }else{
     return css`
@@ -104,6 +107,10 @@ ${ ( { theme } ) => {
       width: 108px;
       margin-right: 10px;
       color: ${ theme.themeState.SYNAPS_DARK };
+      
+      p{
+      font-size: 18px;
+      }
 `;
   }
   

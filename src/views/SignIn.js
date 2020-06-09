@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormInput, SynapsButton } from "../components";
+import { FormInput, PrimaryButton } from "../components";
 import SvgSynapsLogoText from "../svgComponents/SvgSynapsLogoText.js";
 import styled from "styled-components";
 import { EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn } from "../actions";
@@ -129,7 +129,7 @@ const switchText = theming( THEMING_VARIABLES.BACKGROUND, {
   },
 } );
 
-const StyledBtn2 = styled( SynapsButton )`
+const StyledBtn2 = styled( PrimaryButton )`
   && {
     color: ${ switchText };
     width: 260px;
@@ -157,7 +157,7 @@ const StyledBtn2 = styled( SynapsButton )`
   }
 `;
 
-const StyledBtn = styled( SynapsButton )`
+const StyledBtn = styled( PrimaryButton )`
   && {
     display: flex;
     justify-content: space-evenly;

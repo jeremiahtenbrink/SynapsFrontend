@@ -51,23 +51,49 @@ export const RouteContainer = ( props ) => {
 const rules = {};
 rules[ THEMING_VARIABLES.APP_VIEW ] = {
   [ APP_VIEW_DESKTOP ]: {
-    yes: css`
+    yes: theme => {
+      
+      let color = theme.themeState.CONTAINER_BG;
+      const transparentPaths = [
+        APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
+      ];
+      if( transparentPaths.includes( theme.path ) ){
+        color = "transparent";
+      }
+      
+      
+      return css`
 padding: 47px;
 border-radius: 10px;
 margin-top: ${ THEME.NAV_BAR_HEIGHT + 25 }px;
-`, no: css`
+background: ${ color };
+`;
+    }, no: theme => {
+      
+      let color = theme.themeState.CONTAINER_BG;
+      const transparentPaths = [
+        APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
+      ];
+      if( transparentPaths.includes( theme.path ) ){
+        color = "transparent";
+      }
+      
+      return css`
+background: ${ color };
 padding: 15px;
 border-radius: 0;
 margin-top: ${ THEME.NAV_BAR_HEIGHT }px;
-`,
+`;
+    },
   },
-};
-rules[ THEMING_VARIABLES.FOOTER ] = {
+}
+
+;rules[ THEMING_VARIABLES.FOOTER ] = {
   [ THEMING_VALUES.VISIBLE ]: {
-    yes: css`
-height: ${ THEME.NAV_BAR_HEIGHT - THEME.FOOTER_HEIGHT }px;
-`, no: css`
-height: ${ THEME.NAV_BAR_HEIGHT }px;
+    yes: theme => css`
+height: ${ theme.height - THEME.NAV_BAR_HEIGHT - THEME.FOOTER_HEIGHT }px;
+`, no: theme => css`
+height: ${ theme.height - THEME.NAV_BAR_HEIGHT }px;
 `,
   },
 };
@@ -76,25 +102,15 @@ const getCssStyles = setUpCssValues( rules );
 
 const RouteContainerDiv = styled( BaseContainer )`
 align-self: center;
-background: white;
 max-width: 1140px;
 position: relative;
 z-index: 10;
-${ ( { theme } ) => getCssStyles( theme ) };
-background: ${ ( { theme } ) => getColor( theme ) };
+${ ( { theme } ) => {
+  
+  const value = getCssStyles( theme );
+  
+  return value;
+} };
 `;
-
-/**
- * Gets the color of the background of the div element should be.
- * @param {Theme} theme
- * @return {string} color
- */
-const getColor = theme => {
-  const transparentPaths = [
-    APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
-  ];
-  return transparentPaths.includes( theme.path ) ? "transparent" :
-    theme.themeState.COLOR_WHITE;
-};
 
 RouteContainer.propTypes = {};

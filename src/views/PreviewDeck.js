@@ -3,7 +3,7 @@ import styled from "styled-components";
 import theming from "styled-theming";
 import { deleteCard, getAllCardsForDeck } from "../actions/cardActions.js";
 import {
-  PreviewDeckCards, SearchBar, SynapsButton, TitleText,
+  PreviewDeckCards, SearchBar, PrimaryButton, TitleText,
 } from "../components";
 import {
   APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, THEME,
@@ -240,7 +240,7 @@ const Blur = styled.div`
   background-image: linear-gradient(transparent, #ffffff8c);
 `;
 
-const StudyButton = styled( SynapsButton )`
+const StudyButton = styled( PrimaryButton )`
 box-sizing: border-box;
 align-self: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
   "flex-start" : "center" };
@@ -302,22 +302,20 @@ const previewDeckStyles = setUpCssValues( {
     [ APP_VIEW_DESKTOP ]: {
       yes: css`
 border-radius: 10px;
-margin: 50px auto 0 auto;
 `, no: css`
 border-radius: 0;
-margin: 0 auto;
 `,
     },
   }, [ THEMING_VARIABLES.FOOTER ]: {
     [ THEMING_VALUES.VISIBLE ]: {
       yes: ( props => {
-        return css`
-height:( ${ props.theme.height } - ${ THEME.navBarTopHeight } - ${ THEME.FOOTER_HEIGHT }) + px;
+        css`
+height:( ${ props.theme.height } - ${ THEME.NAV_BAR_HEIGHT } - ${ THEME.FOOTER_HEIGHT }) + px;
 padding-bottom: ${ THEME.FOOTER_HEIGHT }+ px;
 `;
       } ), no: ( props => {
-        return css`
-height:( ${ props.theme.height } - ${ THEME.navBarTopHeight } - ${ THEME.FOOTER_HEIGHT }) + px;
+        css`
+height:( ${ props.theme.height } - ${ THEME.NAV_BAR_HEIGHT } - ${ THEME.FOOTER_HEIGHT }) + px;
 padding-bottom:0;
 `;
       } ),

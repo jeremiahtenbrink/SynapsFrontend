@@ -97,7 +97,7 @@ const StyledFooter = styled.div`
   margin-top: auto;
   min-width: 100vw;
   z-index: 1;
-  height: ${ THEME.footerHeight }px;
+  height: ${ THEME.FOOTER_HEIGHT }px;
   background: #E1DED7;
   align-items: center;
   

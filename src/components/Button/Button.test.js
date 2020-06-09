@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {SynapsButton} from './SynapsButton.js';
+import {PrimaryButton} from './PrimaryButton.js';
 
 
 test('StyledButton render correctly', () => {
-    const tree = renderer.create(<SynapsButton />).toJSON();
+    const tree = renderer.create(<PrimaryButton />).toJSON();
     expect(tree).toMatchSnapshot();
 });
 

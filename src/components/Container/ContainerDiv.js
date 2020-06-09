@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
  * @example
  * return (
  *  <ContainerDiv >
- *    <SynapsButton text="Click Me" />
+ *    <PrimaryButton text="Click Me" />
  *  </ContainerDiv>
  *  )
  */

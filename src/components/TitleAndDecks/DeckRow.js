@@ -31,7 +31,7 @@ ${ ( { theme } ) => {
   `;
   }else{
     return css`
-    height: 100%;
+    height: max-content;
 `;
   }
 } }

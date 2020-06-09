@@ -4,7 +4,7 @@ import { CreateCardTitleText } from "../components/Text/TitleText/CreateCardTitl
 import { CreateCard } from "../components/CreateCard/CreateCard.js";
 import { DeckName } from "../components/CreateDeck/DeckName.js";
 import { SmallDeckSvg } from "../components/SmallDeckSvg/SmallDeckSvg.js";
-import { SynapsButton } from "../components/Button/SynapsButton.js";
+import { PrimaryButton } from "../components/Button/PrimaryButton.js";
 import { postDeck, updateDeck } from "../actions/decksActions.js";
 import { createCard } from "../actions/cardActions.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
@@ -262,7 +262,7 @@ export const CreateDeck = props => {
     </CreateCardContainer>
     <Bottom appView={ appView }>
       <ButtonContainer>
-        <SynapsButton
+        <PrimaryButton
           appView={ appView }
           onClick={ submitForm }
           text={ "Add Another Card" }
@@ -271,7 +271,7 @@ export const CreateDeck = props => {
         />
       </ButtonContainer>
       <ButtonContainer appView={ appView }>
-        <SynapsButton
+        <PrimaryButton
           appView={ appView }
           text={ appView === APP_VIEW_MOBILE ? "Done" : "Done Adding Cards" }
           type={ "defaultCreateCard" }
