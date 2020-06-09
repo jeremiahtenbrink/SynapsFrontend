@@ -12,7 +12,6 @@ import { THEME } from "./utilities/constants.js";
 import theming from "styled-theming";
 import { useTheming } from "./customHooks/useTheming.js";
 import { useAppHooks } from "./customHooks/useAppHooks.js";
-import { ReactComponent as Frame } from "./svgs/Frame5.svg";
 
 /**
  * App
@@ -80,7 +79,7 @@ export default function App( props ){
     /> ) }
     <NavBar getHooks={ getHooks }/>
     <RouteContainer getHooks={ getHooks }/>
-    <Frame/>
+    
     <Footer deleteClick={ deleteClick } getHooks={ getHooks }/>
   </StyledApp> );
 }

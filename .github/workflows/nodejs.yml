@@ -30,16 +30,16 @@ jobs:
       - uses: paambaati/codeclimate-action@v2.4.0
         env:
           # An environment variable, the value is a GitHub repo secret
-          REACT_APP_apiKey: ${{ secrets.apiKey }}
-          REACT_APP_authDomain: ${{ secrets.authDomain }}
-          REACT_APP_databaseURL: ${{ secrets.databaseURL }}
-          REACT_APP_projectId: ${{ secrets.projectId }}
-          REACT_APP_storageBucket: ${{ secrets.storageBucket }}
-          REACT_APP_messagingSenderId: ${{ secrets.messagingSenderId }}
-          REACT_APP_appId: ${{ secrets.appId }}
+          REACT_APP_apiKey: ${{ secrets.REACT_APP_APIKEY }}
+          REACT_APP_authDomain: ${{ secrets.REACT_APP_AUTHDOMAIN }}
+          REACT_APP_databaseURL: ${{ secrets.REACT_APP_DATABASEURL }}
+          REACT_APP_projectId: ${{ secrets.REACT_APP_PROJECTID }}
+          REACT_APP_storageBucket: ${{ secrets.REACT_APP_STORAGEBUCKET }}
+          REACT_APP_messagingSenderId: ${{ secrets.REACT_APP_MESSAGINGSENDERID }}
+          REACT_APP_appId: ${{ secrets.REACT_APP_APPID }}
           REACT_APP_ipinfoKey: ${{ secrets.ipinfoKey }}
-          REACT_APP_BASE_URL: ${{ secrets.BASE_URL }}
-          CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
+          REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           # Run our `coverage` command from our `package.json`
           coverageCommand: npm run clear:run
