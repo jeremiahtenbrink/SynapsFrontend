@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { setUpCssValues } from "../../utilities/getStyles.js";
+import styled, { css } from "styled-components";
 
 /**
  *   BaseContainer
@@ -16,9 +15,8 @@ export const BaseContainer = ( { children, ...props } ) => {
 
 const Container = styled.div`
 display: flex;
-
 ${ props => {
-  return `
+  return css`
 width: ${ props.width || "100%" };
 height: ${ props.height || "100%" };
 flex-direction: ${ props.flexDirection || "row" };

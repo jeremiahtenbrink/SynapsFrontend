@@ -82,19 +82,6 @@ Dashboard.propTypes = {
   history: PropTypes.object,
 };
 
-const Selected = styled.p`
-  color: ${ props => props.selected === ( true ) ? "#14E59E" : "#000" };
-  margin-right: 9%;
-`;
-
-const StyledDeckHolder = styled.div`
-  max-width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  height: min-content;
-  left: 10%;
-`;
 const StyledDashboard = styled.div`
   display: flex;
   flex-direction: column;

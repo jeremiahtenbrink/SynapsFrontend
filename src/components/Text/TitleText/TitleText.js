@@ -22,7 +22,8 @@ import moment from "moment";
  * @return {*}
  */
 export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreatedDate } ) => {
-  return ( <StyledTitleContainer>
+  
+  return ( <StyledTitleContainer b >
     <StyledTitle color={ color }>{ text }</StyledTitle>
     { count && appView !== APP_VIEW_DESKTOP &&
     <CardAnimation open={ true } count={ count }/> }
@@ -32,6 +33,11 @@ export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreate
   </StyledTitleContainer> );
 };
 
+
+/**
+ * @typedef function StyledTitleContainer
+ * @param {string} backGroundColor
+ */
 const StyledTitleContainer = styled.div`
 width: 100%;
 display: flex;

@@ -5,10 +5,13 @@ import {
 } from "../views";
 import { Switch, Route } from "react-router";
 import { BaseContainer } from "../components/Container/BaseContainer.js";
-import { THEMING_VALUES } from "../customHooks/themingRules.js";
-import { APP_PATHS, APP_VIEW_DESKTOP } from "../utilities/constants.js";
+import {
+  THEMING_VALUES, THEMING_VARIABLES,
+} from "../customHooks/themingRules.js";
+import { APP_PATHS, APP_VIEW_DESKTOP, THEME } from "../utilities/constants.js";
 import QuizMode from "../views/QuizMode.js";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { setUpCssValues } from "../utilities/getStyles.js";
 
 /**
  *   RouteContainer
@@ -21,8 +24,6 @@ import styled from "styled-components";
  *
  */
 export const RouteContainer = ( props ) => {
-  
-  
   
   return ( <RouteContainerDiv className={ "route-container" }>
     <Switch>
@@ -47,39 +48,41 @@ export const RouteContainer = ( props ) => {
   </RouteContainerDiv> );
 };
 
+const rules = {};
+rules[ THEMING_VARIABLES.APP_VIEW ] = {
+  [ APP_VIEW_DESKTOP ]: {
+    yes: css`
+padding: 47px;
+border-radius: 10px;
+margin-top: ${ THEME.NAV_BAR_HEIGHT + 25 }px;
+`, no: css`
+padding: 15px;
+border-radius: 0;
+margin-top: ${ THEME.NAV_BAR_HEIGHT }px;
+`,
+  },
+};
+rules[ THEMING_VARIABLES.FOOTER ] = {
+  [ THEMING_VALUES.VISIBLE ]: {
+    yes: css`
+height: ${ THEME.NAV_BAR_HEIGHT - THEME.FOOTER_HEIGHT }px;
+`, no: css`
+height: ${ THEME.NAV_BAR_HEIGHT }px;
+`,
+  },
+};
+
+const getCssStyles = setUpCssValues( rules );
+
 const RouteContainerDiv = styled( BaseContainer )`
 align-self: center;
 background: white;
 max-width: 1140px;
 position: relative;
-
-
 z-index: 10;
-${ ( { theme } ) => {
-  
-  return `
-height: ${ calcMinHeight( theme ) }px;
-background: ${ getColor( theme ) };
-margin-top: ${ getMarginTop( theme ) }px;
-padding:${ theme.appView === APP_VIEW_DESKTOP ? 47 : 15 }px;
-border-radius: ${ theme.appView === APP_VIEW_DESKTOP ? "10px" : 0 };
+${ ( { theme } ) => getCssStyles( theme ) };
+background: ${ ( { theme } ) => getColor( theme ) };
 `;
-} };
-`;
-
-/**
- * Gets what the margin top should be for route container div
- * @param {Theme} theme
- * @return {number} marginTop
- */
-const getMarginTop = theme => {
-  if( theme.appView === APP_VIEW_DESKTOP ){
-    return theme.themeState.navBarTopHeight + 25;
-  }else{
-    return theme.themeState.navBarTopHeight;
-  }
-  
-};
 
 /**
  * Gets the color of the background of the div element should be.
@@ -91,20 +94,7 @@ const getColor = theme => {
     APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
   ];
   return transparentPaths.includes( theme.path ) ? "transparent" :
-    theme.themeState.white;
-};
-
-/**
- * Calculates the height the div element should be.
- * @param {Theme} theme
- * @return number minHeight
- */
-const calcMinHeight = theme => {
-  let minHeight = theme.height - theme.themeState.navBarTopHeight;
-  if( theme.FOOTER === THEMING_VALUES.VISIBLE ){
-    minHeight -= theme.footerHeight;
-  }
-  return minHeight;
+    theme.themeState.COLOR_WHITE;
 };
 
 RouteContainer.propTypes = {};
