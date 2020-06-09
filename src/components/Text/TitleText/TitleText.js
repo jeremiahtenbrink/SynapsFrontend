@@ -47,7 +47,7 @@ line-height: 1.1;
 
 const StyledTitle = styled.div`
   color: ${ props => props.color };
-  font-weight: 900;
+  font-weight: 600;
   font-size: 45px;
   text-align: left;
 `;

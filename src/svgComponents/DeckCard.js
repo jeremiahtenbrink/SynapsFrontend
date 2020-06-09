@@ -72,24 +72,38 @@ const DeckCard = ( { deck } ) => {
   };
   
   return ( <Container onClick={ deckClicked }>
-    <DeckCardSvg/>
+    <DeckCardSvg ref={ deckCardRef }/>
+    <p>{ deck ? deck.deck_name : "Create Deck" }</p>
   </Container> );
 };
 
 const Container = styled.div`
 cursor: pointer;
+position: relative;;
+p {
+transform-box: fill-box;
+position: absolute;
+top:30%;
+left:50%;
+transform: translate(-50%, -50%);
+font-size: 32px;
+font-weight: 600;
+
+}
 ${ ( { theme } ) => {
   if( theme.appView === APP_VIEW_DESKTOP ){
     return css`
     height: 200px;
     width: 155px;
     margin-right: 20px;
+    color: ${ theme.themeState.SYNAPS_DARK };
     `;
   }else{
     return css`
       height: 140px;
       width: 108px;
       margin-right: 10px;
+      color: ${ theme.themeState.SYNAPS_DARK };
 `;
   }
   
