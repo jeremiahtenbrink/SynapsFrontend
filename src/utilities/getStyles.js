@@ -1,5 +1,4 @@
 import { css } from "styled-components";
-import { getThemingRules } from "../customHooks/themingRules.js";
 
 class StyledComponentStyles{
   constructor( themingValues ){

@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@master
 
       # A GitHub action to setup Node.js
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@masternpm-publish.yml
         with:
           node-version: '12'
 
