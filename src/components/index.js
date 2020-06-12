@@ -2,7 +2,6 @@ export * from "./Uploader/Uploader.js";
 export * from "./Uploader/UploadIcon.js";
 export * from "./Avatar/NavBarAvatar.js";
 export * from "./Button/BasicButton.js";
-export * from "./Button/EmailSignUpButton.js";
 export * from "./SmallFlashCard/SmallFlashCard.js";
 export * from "./Container/ContainerDiv.js";
 export * from "./PreviewDeckCards/PreviewDeckCards.js";

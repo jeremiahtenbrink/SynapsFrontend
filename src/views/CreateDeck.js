@@ -3,13 +3,12 @@ import styled, { css } from "styled-components";
 import { CreateCardTitleText } from "../components/Text/TitleText/CreateCardTitleText.js";
 import { CreateCard } from "../components/CreateCard/CreateCard.js";
 import { DeckName } from "../components/CreateDeck/DeckName.js";
-import { SmallDeckSvg } from "../components/SmallDeckSvg/SmallDeckSvg.js";
-import { BasicButton } from "../components/Button/BasicButton.js";
-import { postDeck, updateDeck } from "../actions/decksActions.js";
+import { SmallDeckSvg } from "../components";
+import { Button } from "antd";
+import { postDeck, updateDeck } from "../actions";
 import { createCard } from "../actions/cardActions.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
 import { APP_VIEW_DESKTOP, APP_VIEW_MOBILE } from "../utilities/constants.js";
-import { CardIcon } from "../components";
 import CardAnimation from "../components/CardCountAnimation/cardAnimation.js";
 import { THEMING_VARIABLES } from "../customHooks/themingRules.js";
 import { setUpCssValues } from "../utilities/getStyles.js";
@@ -26,7 +25,7 @@ export const CreateDeck = props => {
   } = useAppHooks();
   
   const passedInDeckName = props.computedMatch.params.deck_name;
-  const card_id = props.computedMatch.params.card_id;
+  
   const [ newDeck, setNewDeck ] = useState( {} );
   const [ newCard, setNewCard ] = useState( {
     question: "", answer: "", deck_id: "",
@@ -63,11 +62,7 @@ export const CreateDeck = props => {
   }, [ photosState ] );
   
   const fieldValidated = stateHook => {
-    if( stateHook !== "" && typeof stateHook !== "undefined" ){
-      return true;
-    }else{
-      return false;
-    }
+    return stateHook !== "" && typeof stateHook !== "undefined";
   };
   
   useEffect( () => {
@@ -159,12 +154,8 @@ export const CreateDeck = props => {
     
     let stateDeckName = decksState.decks[ decksState.decks.length -
     1 ].deck_name;
-    
-    if( newDeck.deck_name !== stateDeckName && cardNum > 1 ){
-      return true;
-    }else{
-      return false;
-    }
+  
+    return newDeck.deck_name !== stateDeckName && cardNum > 1;
   };
   
   const updateDeckNameIfChange = () => {
@@ -262,7 +253,7 @@ export const CreateDeck = props => {
     </CreateCardContainer>
     <Bottom appView={ appView }>
       <ButtonContainer>
-        <BasicButton
+        <Button
           appView={ appView }
           onClick={ submitForm }
           text={ "Add Another Card" }
@@ -271,7 +262,7 @@ export const CreateDeck = props => {
         />
       </ButtonContainer>
       <ButtonContainer appView={ appView }>
-        <BasicButton
+        <Button
           appView={ appView }
           text={ appView === APP_VIEW_MOBILE ? "Done" : "Done Adding Cards" }
           type={ "defaultCreateCard" }

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import theming from "styled-theming";
 import { deleteCard, getAllCardsForDeck } from "../actions/cardActions.js";
-import {
-  PreviewDeckCards, SearchBar, BasicButton, TitleText,
-} from "../components";
+import { PreviewDeckCards, SearchBar, TitleText, } from "../components";
 import {
   APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, THEME,
 } from "../utilities/constants.js";
@@ -240,7 +237,7 @@ const Blur = styled.div`
   background-image: linear-gradient(transparent, #ffffff8c);
 `;
 
-const StudyButton = styled( BasicButton )`
+const StudyButton = styled.div`
 box-sizing: border-box;
 align-self: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
   "flex-start" : "center" };

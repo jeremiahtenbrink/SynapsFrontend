@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { ButtonTheme, Footer, NavBar, RouteContainer } from "./components";
+import styled from "styled-components";
+import { Footer, NavBar, RouteContainer } from "./components";
 import { SvgBrainPic } from "./svgComponents";
 import PropTypes from "prop-types";
 import { Alert } from "antd";
@@ -8,7 +8,7 @@ import { useAuthStateChange } from "./customHooks/useAuthStateChange.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "./customHooks/themingRules.js";
-import { APP_VIEW_MOBILE, THEME } from "./utilities/constants.js";
+import { THEME } from "./utilities/constants.js";
 import theming from "styled-theming";
 import { useTheming } from "./customHooks/useTheming.js";
 import { useAppHooks } from "./customHooks/useAppHooks.js";
@@ -18,10 +18,9 @@ import { useAppHooks } from "./customHooks/useAppHooks.js";
  * @category Views
  * @component
  * @example return (<App />);
- * @param getHooks
  * @return {*}
  */
-export default function App( props ){
+export default function App(){
   
   const [ alertMessage, setAlert ] = useState( "" );
   const { theme, usersState, getHooks } = useAppHooks();
@@ -29,7 +28,7 @@ export default function App( props ){
   
   useAuthStateChange( getHooks );
   
-  const deleteClick = ( e ) => {
+  const deleteClick = () => {
   
   };
   
@@ -59,7 +58,7 @@ export default function App( props ){
       left={ "50%" }
       transform={ "translate(-50%, 0)" }
       top={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-        [ THEMING_VALUES.BOTTOM ]: "800px",
+        [ THEMING_VALUES.BOTTOM ]: "65px",
         [ THEMING_VALUES.TOP ]: "65px",
         [ THEMING_VALUES.MOBILE ]: "624px",
       } ) }

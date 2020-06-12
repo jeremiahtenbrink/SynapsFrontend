@@ -4,36 +4,7 @@
  */
 
 import { css } from "styled-components";
-import { ButtonTheme } from "../components";
-import theme from "styled-theming";
-import { mapToTheme as map } from "styled-map";
-
-/**
- * @typedef {object} LOG_TYPES
- * @param {logType} INFO
- * @param {logType} WARNING
- * @param {logType} ERROR
- * @param {logType} OBJECT
- */
-export const LOG_TYPES = {
-  VERBOSE: 1, INFO: 2, WARNING: 4, ERROR: 5, OBJECT: 6, PLAIN: 3,
-};
-
-/**
- * @typedef {string} DEBUG_LOG_SIZE
- *
- */
-
-/**
- * @typedef {object} DEBUG_LOG_SIZES
- * @param {DEBUG_LOG_SIZE} LARGE
- * @param {DEBUG_LOG_SIZE} MEDIUM
- * @param {DEBUG_LOG_SIZE} NORMAL
- * @param {DEBUG_LOG_SIZE} SMALL
- */
-export const DEBUG_LOG_SIZES = {
-  LARGE: "large", MEDIUM: "medium", NORMAL: "normal", SMALL: "small",
-};
+import { colorPallet } from "./colorPallet";
 
 /**
  * @typedef {("APP_VIEW_DESKTOP" | "APP_VIEW_MOBILE")} AppView
@@ -41,23 +12,17 @@ export const DEBUG_LOG_SIZES = {
  */
 
 /**
- * @type {{NAV_BAR_HEIGHT: number, MAX_DASHBOARD_CONTAINER_WIDTH: number,
- *   NAV_BAR_DARK: string, FOOTER_HEIGHT: number, BRAIN_PIC_DARK: string,
- *   NAV_BAR_LIGHT: string, BRAIN_PIC_LIGHT: string, PRIMARY_COLOR: string,
- *   SYNAPS_DARK: string, SECONDARY_DARKER1: string, SECONDARY_COLOR: string,
- *   SYNAPS_LIGHT: string}}
+ * @typedef {Obejct} theme
+ * @property {ColorPallet} colors
  */
 let THEMEprep = {
-  
-  secondaryButtonBg: "#4CB69F",
-  
-  light: "#4CB69F", dark: "#197d67",
+  colors: colorPallet,
   
   CONTAINER_BG: "white",
   
   PRIMARY_COLOR: "#0d2545", PRIMARY_COLOR_LIGHTER1: "#36405c",
   
-  TEXT_LIGHT: "#F6F5F3", TEXT_DARK: "#323C56", TEXT_SECONDARY_COLOR: "#4CB69F",
+  TEXT_LIGHT: "#F6F5F3", TEXT_DARK: "#323C56",
   
   COLOR_WHITE: "#f0ede6",
   
@@ -83,7 +48,7 @@ THEMEprep = {
 `,
 };
 
-export const THEME = { ...THEMEprep, ...ButtonTheme };
+export const THEME = { ...THEMEprep };
 
 /**
  * @typedef {Object} ThemeState

@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { FormInput, InputWithLine } from "../components";
-import styled from "styled-components";
+import { BasicButton, InputWithLine } from "../components";
+import styled, { css } from "styled-components";
 import { EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn } from "../actions";
 import theming from "styled-theming";
-import theme from "styled-map";
 import { useTheming } from "../customHooks/useTheming.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "../customHooks/themingRules.js";
-import { APP_PATHS, MEDIA_QUERIES, THEME } from "../utilities/constants.js";
+import { APP_PATHS, MEDIA_QUERIES } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
-import { ReactComponent as SignInModel } from "../svgs/SignUpModel.svg";
+import { ReactComponent as SignUpModel } from "../svgs/SignUpModel.svg";
+import { ReactComponent as SignInModel } from "../svgs/SignInModel.svg";
 import { ReactComponent as EmailIcon } from "../svgs/EmailIcon.svg";
-import { EmailSignUpButton } from "../components/Button/EmailSignUpButton.js";
-import GoogleSignInButton from "../components/Button/GoogleSignInButton.js";
+import withIcon from "../components/withHocs/withIcon";
 
 /**
  * Sign In
@@ -21,6 +20,10 @@ import GoogleSignInButton from "../components/Button/GoogleSignInButton.js";
  * @component
  * @example return (<SignIn />);
  */
+
+const GoogleButton = withIcon( BasicButton, );
+const EmailButton = withIcon( BasicButton, EmailIcon );
+
 export function SignIn( props ){
   const { dispatch, theme, path, appView, height } = useAppHooks();
   const [ info, setInfo ] = useState( { email: "", password: "", error: {} } );
@@ -65,31 +68,48 @@ export function SignIn( props ){
   };
   
   return ( <StyledSignIn data-testid={ "sign-in-container" }>
-    <SignInModelSvg/>
+    { path === APP_PATHS.SIGN_IN_PATH ? <SignInModelSvg/> : <SignUpModel/> }
     <PaddingContainer>
       <LeftSideModel>
-        <GoogleButton text={ "Sign In" }
-                      onClick={ () => handleSignInClick( "google" ) }/>
+        <SignInGoogleButton text={ "Sign In" } buttonType={ "primary" }
+                            dimensions={ { width: 353, height: 72 } }
+                            onClick={ () => handleSignInClick( "google" ) }/>
       </LeftSideModel>
-      
+  
       <RightSideModel>
-        <EmailButton onClick={ () => handleSignInClick( "email" ) }
-                     text={ "Sign" + " In With Email" }/>
+        <SignInEmailButton onClick={ () => handleSignInClick( "email" ) }
+                           dimensions={ { width: 353, height: 72 } }
+                           buttonType={ "secondary" }
+                           dark
+                           text={ "Sign In With Email" }/>
         <Form>
           <Input maxWidth={ "326px" } elId={ "username-signIn" }
                  for={ "username" }/>
           <Input maxWidth={ "326px" } password elId={ "password-signIn" }/>
         </Form>
       </RightSideModel>
-    
+
     </PaddingContainer>
-  
+
   </StyledSignIn> );
 }
 
-const Form = styled.form`
+const Form = styled.div`
 margin-top: 2rem;
+
 `;
+
+const backgroundColor = theming( THEMING_VARIABLES.BACKGROUND, {
+  [ THEMING_VALUES.DARK ]: () => {
+    return css`
+fill: {linearGradient('#00EFA9','#3F56F0'), 90};
+ `;
+  }, [ THEMING_VALUES.LIGHT ]: () => {
+    return css`
+fill: #36405C;
+`;
+  }
+} );
 
 const Input = styled( InputWithLine )`
 max-width: 326px;
@@ -131,17 +151,13 @@ const switchText = theming( THEMING_VARIABLES.BACKGROUND, {
   },
 } );
 
-const EmailButton = styled( EmailSignUpButton )`
-max-width: 326px;
-height: 68px;
-svg {
-  align-items: flex-end;
-  margin: 0 0 0 auto;
-}
+const SignInEmailButton = styled( EmailButton )`
+
+
 `;
 
-const GoogleButton = styled( GoogleSignInButton )`
-height: 68px;
+const SignInGoogleButton = styled( GoogleButton )`
+
 `;
 
 const PaddingContainer = styled.div`

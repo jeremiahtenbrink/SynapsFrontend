@@ -1,9 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { mapToTheme } from "styled-map";
-import theme from "../../utilities/theme.js";
+import { onPropVal, onThemeValue } from "../../utilities/themeHelper";
 import { Button } from "antd";
-import { lighten, darken } from "polished";
+import { darken, lighten } from "polished";
+import { withDimensions } from "../withHocs/withDimensions";
 
 /**
  *   Button
@@ -11,37 +11,92 @@ import { lighten, darken } from "polished";
  *  @component
  *
  */
-export const BasicButton = ( { children, ...props } ) => {
+export const BasicButton = ( { children, dimensions, ...props } ) => {
   
-  return ( <Container { ...props }
-                      shape={ "round" }>
+  const ContainerWithDimension = withDimensions( dimensions, Container );
+  
+  return ( <ContainerWithDimension { ...props }
+                                   shape={ "round" }>
     { children }
-  </Container> );
-};
-
-const bgColor = {
-  primary: "#5C6078",
-  secondary: "#4CB69F",
-  transparent: "transparent",
-};
-
-export const ButtonTheme = ( props ) => {
+    { props.text && <p>{ props.text }</p> }
+  </ContainerWithDimension> );
   
-  let background = bgColor[ props.type ];
-  if( props.light ){
-    background = lighten( .3, background );
-  }else if( props.darken ){
-    background = darken( .3, background );
-  }
-  return css`
-background:  ${ background };
-  `;
 };
+
+const lightOrDark = ( props, color ) => {
+  if( props.light ){
+    color = lighten( .2, color );
+  }else if( props.dark ){
+    color = darken( .2, color );
+  }
+  return color;
+};
+
+const themeDark = onPropVal( "buttonType" )`
+primary: ${ ( props ) => {
+  const background = lightOrDark( props,
+    props.theme.colors.PRIMARY_COLOR_LIGHTER_4
+  );
+  return css`
+background: ${ background };
+`;
+} };
+secondary: ${ ( props ) => {
+  const background = lightOrDark( props, "#4CB69F" );
+  return css`
+background: ${ background };
+`;
+} };
+gradient: ${ ( props ) => {
+  const background = lightOrDark( props, "#4CB69F" );
+  return css`
+background: ${ background };
+`;
+} };
+transparent: ${ ( props ) => {
+  const background = lightOrDark( props, "#4CB69F" );
+  return css`
+background: ${ background };
+`;
+} };
+`;
+
+const themeLight = onPropVal( "buttonType" )`
+primary: ${ ( props ) => {
+  const background = lightOrDark( props,
+    props.theme.colors.PRIMARY_COLOR_LIGHTER_4
+  );
+  return css`
+${ background };
+`;
+} };
+secondary: ${ ( props ) => {
+  const background = lightOrDark( props, "#4CB69F" );
+  return css`
+${ background };
+`;
+} };
+transparent: ${ ( props ) => {
+  const background = lightOrDark( props, "#4CB69F" );
+  debugger;
+  return css`
+${ background };
+`;
+} };
+`;
+
+const onTheme = onThemeValue( "background" )`
+dark: ${ themeDark };
+light: ${ themeLight }
+`;
 
 const Container = styled( Button )`
-&&{
-display: flex;
-${ ButtonTheme };
-}
-};
-`;
+
+
+&& {
+${ onTheme };
+  display: flex;
+}`;
+
+
+

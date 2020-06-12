@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import { APP_VIEW_DESKTOP } from "../../utilities/constants.js";
 import { ReactComponent as Check } from "../../images/Vector.svg";
 import { useAppHooks } from "../../customHooks/useAppHooks.js";
-import { BasicButton } from "../";
 
 /**
  * Preview Deck Cards
@@ -20,7 +19,6 @@ import { BasicButton } from "../";
  *  <PreviewDeckCards text={"Card Title"} />
  * )
  * @param text
- * @param icon
  * @param loading
  * @param block
  * @param hoverEffect
@@ -29,7 +27,6 @@ import { BasicButton } from "../";
  * @param {Card}card
  * @param type
  * @param size
- * @param cardOrDeck
  * @param props
  * @return {*}
  */
@@ -64,8 +61,8 @@ export const PreviewDeckCards = ( {
       Add { cardType === "deck" ? "Deck" : "Card" }
     </p> ) }
     { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
-    <BasicButton width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
-                 height={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }/> }
+    <Button width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
+            height={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }/> }
     { ( deck || card ) &&
     <p className={ "deck-text" }>{ cardType === "deck" ? deck.deck_name :
       card.question }</p> }
