@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "babel-plugin-styled-components",
+    {
+      "minify": false,
+      "pure": true
+    }
+  ],
+  "processors": [
+    "stylelint-processor-styled-components"
+  ],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-styled-components"
+  ]
+}

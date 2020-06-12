@@ -79,11 +79,11 @@ const DeckCard = ( { deck } ) => {
 
 const Container = styled.div`
 cursor: pointer;
-position: relative;;
+position: relative;
 p {
 transform-box: fill-box;
 position: absolute;
-top:30%;
+top:45%;
 left:50%;
 transform: translate(-50%, -50%);
 font-weight: 600;
@@ -93,9 +93,9 @@ ${ ( { theme } ) => {
   if( theme.appView === APP_VIEW_DESKTOP ){
     return css`
     height: 200px;
-    width: 155px;
-    margin-right: 20px;
-    color: ${ theme.themeState.SYNAPS_DARK };
+               width: 155px;
+              margin-right: 20px;
+    color: ${ theme.SYNAPS_DARK };
     
     p {
     font-size: 32px;
@@ -103,10 +103,10 @@ ${ ( { theme } ) => {
     `;
   }else{
     return css`
-      height: 140px;
-      width: 108px;
-      margin-right: 10px;
-      color: ${ theme.themeState.SYNAPS_DARK };
+        height: 140px;
+        width: 108px;
+         margin-right: 10px;
+      color: ${ theme.SYNAPS_DARK };
       
       p{
       font-size: 18px;

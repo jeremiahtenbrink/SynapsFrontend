@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Footer, NavBar, RouteContainer } from "./components";
+import styled, { css } from "styled-components";
+import { ButtonTheme, Footer, NavBar, RouteContainer } from "./components";
 import { SvgBrainPic } from "./svgComponents";
 import PropTypes from "prop-types";
 import { Alert } from "antd";
@@ -8,7 +8,7 @@ import { useAuthStateChange } from "./customHooks/useAuthStateChange.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "./customHooks/themingRules.js";
-import { THEME } from "./utilities/constants.js";
+import { APP_VIEW_MOBILE, THEME } from "./utilities/constants.js";
 import theming from "styled-theming";
 import { useTheming } from "./customHooks/useTheming.js";
 import { useAppHooks } from "./customHooks/useAppHooks.js";
@@ -90,7 +90,7 @@ App.propTypes = {
 
 const backgroundColor = theming( THEMING_VARIABLES.BACKGROUND, {
   [ THEMING_VALUES.DARK ]: THEME.PRIMARY_COLOR,
-  [ THEMING_VALUES.LIGHT ]: THEME.NAV_BAR_LIGHT,
+  [ THEMING_VALUES.LIGHT ]: THEME.COLOR_WHITE,
 } );
 
 const StyledApp = styled.div`
@@ -107,4 +107,7 @@ const StyledApp = styled.div`
   max-height: 100vh;
   min-height: 100vh;
   overflow: hidden;
+  fill: ${ backgroundColor };
+  
+}
 `;

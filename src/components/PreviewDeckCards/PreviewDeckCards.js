@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Card } from "antd";
-import { CreateButton } from "../Button/CreateButton.js";
 import { APP_VIEW_DESKTOP } from "../../utilities/constants.js";
 import { ReactComponent as Check } from "../../images/Vector.svg";
 import { useAppHooks } from "../../customHooks/useAppHooks.js";
+import { BasicButton } from "../";
 
 /**
  * Preview Deck Cards
@@ -53,27 +53,26 @@ export const PreviewDeckCards = ( {
   };
   
   return ( <StyledAntdCard
-      type={ type }
-      size={ size }
-      block={ block && "block" }
-      selected={ selected }
-      { ...props }
-    >
-      { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
-      ( <p className={ "deck-text" }>
-          Add { cardType === "deck" ? "Deck" : "Card" }
-        </p> ) }
-      { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
-      <CreateButton width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
-                    height={ appView === APP_VIEW_DESKTOP ? "55px" :
-                      "49PX" }/> }
-      { ( deck || card ) &&
-      <p className={ "deck-text" }>{ cardType === "deck" ? deck.deck_name :
-        card.question }</p> }
-      { selected && <StyledCheck> </StyledCheck> }
-    
-    
-    </StyledAntdCard> );
+    type={ type }
+    size={ size }
+    block={ block && "block" }
+    selected={ selected }
+    { ...props }
+  >
+    { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
+    ( <p className={ "deck-text" }>
+      Add { cardType === "deck" ? "Deck" : "Card" }
+    </p> ) }
+    { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
+    <BasicButton width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
+                 height={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }/> }
+    { ( deck || card ) &&
+    <p className={ "deck-text" }>{ cardType === "deck" ? deck.deck_name :
+      card.question }</p> }
+    { selected && <StyledCheck> </StyledCheck> }
+  
+  
+  </StyledAntdCard> );
 };
 
 const StyledCheck = styled( Check )`

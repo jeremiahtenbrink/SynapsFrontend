@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { FormInput, PrimaryButton } from "../components";
-import SvgSynapsLogoText from "../svgComponents/SvgSynapsLogoText.js";
+import { FormInput, InputWithLine } from "../components";
 import styled from "styled-components";
 import { EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn } from "../actions";
 import theming from "styled-theming";
+import theme from "styled-map";
 import { useTheming } from "../customHooks/useTheming.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "../customHooks/themingRules.js";
 import { APP_PATHS, MEDIA_QUERIES, THEME } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
+import { ReactComponent as SignInModel } from "../svgs/SignUpModel.svg";
+import { ReactComponent as EmailIcon } from "../svgs/EmailIcon.svg";
+import { EmailSignUpButton } from "../components/Button/EmailSignUpButton.js";
+import GoogleSignInButton from "../components/Button/GoogleSignInButton.js";
 
 /**
  * Sign In
@@ -53,183 +57,116 @@ export function SignIn( props ){
       return <StyledH2>Hey! Welcome Back.</StyledH2>;
     }else{
       return ( <StyledH2
-          style={ {
-            display: "none",
-          } }
-        ></StyledH2> );
+        style={ {
+          display: "none",
+        } }
+      ></StyledH2> );
     }
   };
   
   return ( <StyledSignIn data-testid={ "sign-in-container" }>
-      <SvgSynapsLogoText
-        maxHeight={ "1000px" }
-        maxWidth={ "1000px" }
-        margin={ "10px 0 0 0" }
-        fill={ theme.BACKGROUND === THEMING_VALUES.DARK ?
-          theme.themeState.NAV_BAR_LIGHT : theme.themeState.SECONDARY_DARKER1 }
-        height={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-          [ THEMING_VALUES.BOTTOM ]: "176px",
-          [ THEMING_VALUES.TOP ]: "1500px",
-          [ THEMING_VALUES.MOBILE ]: "150px",
-        } ) }
-        width={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-          [ THEMING_VALUES.BOTTOM ]: "614px",
-          [ THEMING_VALUES.TOP ]: "1500px",
-          [ THEMING_VALUES.MOBILE ]: "300px",
-        } ) }
-      />
+    <SignInModelSvg/>
+    <PaddingContainer>
+      <LeftSideModel>
+        <GoogleButton text={ "Sign In" }
+                      onClick={ () => handleSignInClick( "google" ) }/>
+      </LeftSideModel>
       
-      { switchWelcomeTitle() }
-      <div>
-        <StyledBtn
-          icon={ "google" }
-          text={ "Log In with Google" }
-          shape={ "round" }
-          size={ "large" }
-          onClick={ e => handleSignInClick( GOOGLE_PROVIDER ) }
-        />
-      </div>
-      
-      <StyledBorder/>
-      
-      <StyledFormInput>
-        <FormInput
-          className={ "email-form-input" }
-          name={ "email" }
-          onChange={ handleChange }
-          value={ info.email }
-          block={ false }
-          label={ "Email Address" }
-          bordered={ false }
-        />
-        <FormInput
-          className={ "email-form-input" }
-          name={ "password" }
-          onChange={ handleChange }
-          value={ info.password }
-          block={ true }
-          label={ "Password" }
-          bordered={ false }
-        />
-      </StyledFormInput>
-      
-      <StyledBtn2
-        text={ "Continue with Email" }
-        shape={ "round" }
-        size={ "large" }
-        type={ "darkgray" }
-        onClick={ e => handleSignInClick( EMAIL_PROVIDER ) }
-      />
-    </StyledSignIn> );
+      <RightSideModel>
+        <EmailButton onClick={ () => handleSignInClick( "email" ) }
+                     text={ "Sign" + " In With Email" }/>
+        <Form>
+          <Input maxWidth={ "326px" } elId={ "username-signIn" }
+                 for={ "username" }/>
+          <Input maxWidth={ "326px" } password elId={ "password-signIn" }/>
+        </Form>
+      </RightSideModel>
+    
+    </PaddingContainer>
+  
+  </StyledSignIn> );
 }
+
+const Form = styled.form`
+margin-top: 2rem;
+`;
+
+const Input = styled( InputWithLine )`
+max-width: 326px;
+`;
+
+const RightSideModel = styled.div`
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-end;
+width: 45%;
+height: 100%;
+max-height: 251px;
+`;
+
+const LeftSideModel = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+width: 55%;
+height: 100%;
+max-height: 251px;
+align-items: center;
+`;
+
+const SignInModelSvg = styled( SignInModel )`
+position: absolute;
+height: 450px;
+top:50%;
+left:50%;
+transform: translate(-50%, -50%);
+z-index: -1;
+`;
 
 const switchText = theming( THEMING_VARIABLES.BACKGROUND, {
   [ THEMING_VALUES.DARK ]: "white", [ THEMING_VALUES.LIGHT ]: ( { theme } ) => {
-    return theme.themeState.primaryColor36405C;
+    return theme.primaryColor36405C;
   },
 } );
 
-const StyledBtn2 = styled( PrimaryButton )`
-  && {
-    color: ${ switchText };
-    width: 260px;
-    height: 60px;
-    background-color: transparent;
-    margin: 0 0 1.5em;
-    padding: 0 2em 0;
-    border: 2px solid ${ switchText };
-    span {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 21px;
-      line-height: 24px;
-      margin: auto 0;
-    }
-
-    @media ${ MEDIA_QUERIES.tablet } {
-      width: 352px;
-      height: 62px;
-      border: 2px solid ${ switchText };
-      span {
-        color: ${ switchText };
-      }
-    }
-  }
+const EmailButton = styled( EmailSignUpButton )`
+max-width: 326px;
+height: 68px;
+svg {
+  align-items: flex-end;
+  margin: 0 0 0 auto;
+}
 `;
 
-const StyledBtn = styled( PrimaryButton )`
-  && {
-    display: flex;
-    justify-content: space-evenly;
-    color: white;
-    background-color: ${ THEME.PRIMARY_COLOR_LIGHTER1 };
-    margin: 0 0 1.5em;
-    padding: 0 2em 0;
-    width: 260px;
-    height: 60px;
-    .anticon.anticon-google {
-      margin-top: 15px;
-      font-size: 32px;
-    }
-    span {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 21px;
-      line-height: 24px;
-      margin: auto 10px;
-    }
-
-    @media ${ MEDIA_QUERIES.tablet } {
-      width: 352px;
-      height: 62px;
-    }
-  }
+const GoogleButton = styled( GoogleSignInButton )`
+height: 68px;
 `;
 
-const StyledFormInput = styled.div`
-  width: 255px;
-  margin: 10px;
-  background-color: transparent;
-  
-  .ant-input.sc-fzplWN.hgfzoL {
-    background: transparent;
-    
-  }
-  
-  .email-form-input {
-      border-bottom: 1px solid #36405c;
-  }
-  & label {
-    color: ${ switchText };
-  }
-  
-  @media ${ MEDIA_QUERIES.tablet } {
-    & label {
-      color: ${ switchText };
-      font-style: normal;
-      font-weight: bold;
-      font-size: 21px;
-      line-height: 24px;
-    }
-    & input {
-      background-color: transparent;
-    
-    }
-  }
+const PaddingContainer = styled.div`
+position: absolute;
+display: flex;
+flex-direction: row;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+height: 73%;
+width: 93%;
+align-items: center;
 `;
 
 const StyledSignIn = styled.div`
-  color: ${ switchText };
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  margin: 6% auto 0 auto;
+position: relative;
+z-index: 200;
+color: ${ switchText };
+display: flex;
+flex-direction: column;
+height: 450px;
+width: 1105px;
+@media ${ MEDIA_QUERIES.desktop } {
   height: 100%;
-  width: 100%;
-  @media ${ MEDIA_QUERIES.desktop } {
-    height: 100%;
-  }
+}
 `;
 
 const StyledH2 = styled.h2`
@@ -247,12 +184,3 @@ const StyledH2 = styled.h2`
   }
 `;
 
-const StyledBorder = styled.span`
-  width: 90%;
-  border-bottom: 2px dashed #000;
-  margin: 0 0 1.5em;
-  @media screen and ${ MEDIA_QUERIES.tablet } {
-    width: 1144px;
-    max-width: 100%;
-  }
-`;

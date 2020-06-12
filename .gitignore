@@ -11,7 +11,7 @@
 .cache
 
 # production
-/build
+/buildNotSSR
 
 # misc
 .DS_Store

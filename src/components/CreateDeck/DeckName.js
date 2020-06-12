@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {FormInput} from '../FormItems/Input/FormInput.js';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {CardEditDeleteIcons} from '../Icon/CardEditDeleteIcons.js';
 import {APP_VIEW_MOBILE, APP_VIEW_DESKTOP} from '../../utilities/constants.js';
 

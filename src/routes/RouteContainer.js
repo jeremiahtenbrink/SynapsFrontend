@@ -53,7 +53,7 @@ rules[ THEMING_VARIABLES.APP_VIEW ] = {
   [ APP_VIEW_DESKTOP ]: {
     yes: theme => {
       
-      let color = theme.themeState.CONTAINER_BG;
+      let color = theme.CONTAINER_BG;
       const transparentPaths = [
         APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
       ];
@@ -70,7 +70,7 @@ background: ${ color };
 `;
     }, no: theme => {
       
-      let color = theme.themeState.CONTAINER_BG;
+      let color = theme.CONTAINER_BG;
       const transparentPaths = [
         APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
       ];

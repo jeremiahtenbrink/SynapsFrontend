@@ -4,6 +4,9 @@
  */
 
 import { css } from "styled-components";
+import { ButtonTheme } from "../components";
+import theme from "styled-theming";
+import { mapToTheme as map } from "styled-map";
 
 /**
  * @typedef {object} LOG_TYPES
@@ -44,14 +47,11 @@ export const DEBUG_LOG_SIZES = {
  *   SYNAPS_DARK: string, SECONDARY_DARKER1: string, SECONDARY_COLOR: string,
  *   SYNAPS_LIGHT: string}}
  */
-export const THEME = {
+let THEMEprep = {
   
-  flexCenterColumn: css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`,
+  secondaryButtonBg: "#4CB69F",
+  
+  light: "#4CB69F", dark: "#197d67",
   
   CONTAINER_BG: "white",
   
@@ -73,6 +73,17 @@ export const THEME = {
   
   MAX_DASHBOARD_CONTAINER_WIDTH: 1140,
 };
+
+THEMEprep = {
+  ...THEMEprep, flexCenterColumn: css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`,
+};
+
+export const THEME = { ...THEMEprep, ...ButtonTheme };
 
 /**
  * @typedef {Object} ThemeState

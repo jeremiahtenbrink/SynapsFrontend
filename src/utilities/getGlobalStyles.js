@@ -1,10 +1,10 @@
-import {createGlobalStyle} from 'styled-components';
-import reset from 'styled-reset';
+import { createGlobalStyle } from "styled-components";
+import { normalize } from "styled-normalize";
 
 const GlobalStyle = createGlobalStyle`
-${reset}
+${ normalize }
   body {
-        font-family: 'Source Sans Pro', sans-serif;
+        font-family: "Source Sans Pro";
   }  
 `;
 
