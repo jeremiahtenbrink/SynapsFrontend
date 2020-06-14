@@ -36,7 +36,7 @@
     "coverage": "react-scripts test --coverage --watchAll=false || true",
     "clear:run": "CI=true npm-run-all clear coverage || true",
     "postCssStyled": "node postcssStyleGuid.js",
-    "lint:css": "stylelint ./**/*.js"
+    "lint:css": "stylelint ./src/**/*.js"
   },
   "jest": {
     "collectCoverageFrom": [

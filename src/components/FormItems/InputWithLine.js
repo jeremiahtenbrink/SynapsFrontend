@@ -32,15 +32,9 @@ export const InputWithLine = ( props ) => {
   </FormItem> );
 };
 
-const SVGInput = styled.svg`
-      position:absolute;
-      left:0;
-      top:0;
-      transform: translate(-50%,0);
-      `;
 
 const InputLine = styled( Line )`
-      
+      display: block;
       `;
 
 const FormItem = styled( Form.Item )`
