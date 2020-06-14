@@ -1,8 +1,6 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import theming from "styled-theming";
-import PropTypes from "prop-types";
-import {parseProps} from "./StyledSvg.js";
+import { parseProps } from "./StyledSvg.js";
 
 /**
  *   StyledPath

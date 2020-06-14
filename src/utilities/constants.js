@@ -12,31 +12,49 @@ import { colorPallet } from "./colorPallet";
  */
 
 /**
- * @typedef {Obejct} theme
+ * @typedef {Object} theme
  * @property {ColorPallet} colors
+ * @property {string} FONT_FAMILY
+ * @property {string} DEFAULT_FONT_SIZE
+ * @property {string} FONT_LIGHT
+ * @property {string} FONT_DARK
+ * @property {number} FONT_WEIGHT
+ * @property {number} LINE_HEIGHT
+ *
  */
 let THEMEprep = {
   colors: colorPallet,
   
   CONTAINER_BG: "white",
   
-  PRIMARY_COLOR: "#0d2545", PRIMARY_COLOR_LIGHTER1: "#36405c",
+  PRIMARY_COLOR: "#0D2545",
+  PRIMARY_COLOR_LIGHTER1: "#36405C",
   
-  TEXT_LIGHT: "#F6F5F3", TEXT_DARK: "#323C56",
+  COLOR_WHITE: "#F0EDE6",
   
-  COLOR_WHITE: "#f0ede6",
+  SECONDARY_COLOR: "#A2D8C7",
+  SECONDARY_DARKER1: "#4CB69F",
   
-  SECONDARY_COLOR: "#A2D8C7", SECONDARY_DARKER1: "#4CB69F",
+  NAV_BAR_HEIGHT: 75,
+  FOOTER_HEIGHT: 30,
   
-  NAV_BAR_HEIGHT: 75, FOOTER_HEIGHT: 30,
+  NAV_BAR_DARK: "#0C2545",
+  NAV_BAR_LIGHT: "#F6F5F3",
   
-  NAV_BAR_DARK: "#0C2545", NAV_BAR_LIGHT: "#F6F5F3",
+  SYNAPS_DARK: "#36405C",
+  SYNAPS_LIGHT: "#FFFFFF",
   
-  SYNAPS_DARK: "#36405C", SYNAPS_LIGHT: "#FFFFFF",
-  
-  BRAIN_PIC_DARK: "#164167", BRAIN_PIC_LIGHT: "#e1ded7",
+  BRAIN_PIC_DARK: "#164167",
+  BRAIN_PIC_LIGHT: "#E1DED7",
   
   MAX_DASHBOARD_CONTAINER_WIDTH: 1140,
+  
+  FONT_FAMILY: `"Source Sans Pro",serif;`,
+  DEFAULT_FONT_SIZE: "24px",
+  FONT_LIGHT: "#F6F5F3",
+  FONT_DARK: "#323C56",
+  FONT_WEIGHT: 700,
+  LINE_HEIGHT: 1.1,
 };
 
 THEMEprep = {
@@ -52,47 +70,12 @@ export const THEME = { ...THEMEprep };
 
 /**
  * @typedef {Object} ThemeState
- * @property {Color} PRIMARY_COLOR
- * @property {Color} primaryColorB98C4
- * @property {Color} primaryColor86869A
- * @property {Color} primaryColor5C5F78
- * @property {Color} primaryColor36405C
- * @property {Color} primaryColor293046
- * @property {Color} primaryColor353544
  *
- * @property {Color} SECONDARY_COLOR
- * @property {Color} secondaryColorEAF5F1
- * @property {Color} secondaryColorD8EEE6
- * @property {Color} secondaryColorC6E6DB
- * @property {Color} secondaryColorB5DFD1
- * @property {Color} secondaryColor92B2AA
- * @property {Color} secondaryColor798A87
- *
- * @property {Color} white
- * @property {Color} grayF1F2F2
- * @property {Color} grayE6E7E8
- * @property {Color} grayD1D3D4
- * @property {Color} grayBCBEC0
- * @property {Color} grayA7A9AC
- * @property {Color} gray939598
- *
- * @property {number} largeRadius
- * @property {number} smallRadius
- * @property {number} NAV_BAR_HEIGHT
- * @property {number} FOOTER_HEIGHT
- *
- * @property {string} NAV_BAR_LIGHT
- * @property {string} NAV_BAR_DARK
- *
- * @property {THEMING_VALUES} NAV_STYLE
- *
- * @property {Color} BRAIN_PIC_DARK
- * @property {Color} BRAIN_PIC_LIGHT
  *
  */
 
-export const APP_VIEW_MOBILE = "APP_VIEW_MOBILE";
-export const APP_VIEW_DESKTOP = "APP_VIEW_DESKTOP";
+export const APP_VIEW_MOBILE = "mobile";
+export const APP_VIEW_DESKTOP = "desktop";
 
 /**
  * @typedef {string} APP_PATH

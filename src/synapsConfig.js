@@ -1,5 +1,3 @@
-import {DEBUG_LOG_SIZES, LOG_TYPES} from './utilities/constants.js';
-
 export const SYNAPS_CONFIG = {
   
   localStorageBasePath: '/storage/state/',

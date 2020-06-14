@@ -3,15 +3,13 @@ import { LoginSignUpRoute, ProtectedRoute } from "./index.js";
 import {
   CreateDeck, Dashboard, LandingPage, PreviewDeck, SignIn, Testing,
 } from "../views";
-import { Switch, Route } from "react-router";
-import { BaseContainer } from "../components/Container/BaseContainer.js";
-import {
-  THEMING_VALUES, THEMING_VARIABLES,
-} from "../customHooks/themingRules.js";
-import { APP_PATHS, APP_VIEW_DESKTOP, THEME } from "../utilities/constants.js";
+import { Route, Switch } from "react-router";
+import { BaseContainer } from "../components";
+import { THEMING_VARIABLES } from "../customHooks/themingRules.js";
+import { APP_PATHS, THEME } from "../utilities/constants.js";
 import QuizMode from "../views/QuizMode.js";
 import styled, { css } from "styled-components";
-import { setUpCssValues } from "../utilities/getStyles.js";
+import { onThemeValue } from "../utilities/themeHelper";
 
 /**
  *   RouteContainer
@@ -48,69 +46,70 @@ export const RouteContainer = ( props ) => {
   </RouteContainerDiv> );
 };
 
-const rules = {};
-rules[ THEMING_VARIABLES.APP_VIEW ] = {
-  [ APP_VIEW_DESKTOP ]: {
-    yes: theme => {
-      
-      let color = theme.CONTAINER_BG;
-      const transparentPaths = [
-        APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
-      ];
-      if( transparentPaths.includes( theme.path ) ){
-        color = "transparent";
-      }
-      
-      
-      return css`
-padding: 47px;
-border-radius: 10px;
-margin-top: ${ THEME.NAV_BAR_HEIGHT + 25 }px;
-background: ${ color };
-`;
-    }, no: theme => {
-      
-      let color = theme.CONTAINER_BG;
-      const transparentPaths = [
-        APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
-      ];
-      if( transparentPaths.includes( theme.path ) ){
-        color = "transparent";
-      }
-      
-      return css`
-background: ${ color };
-padding: 15px;
-border-radius: 0;
-margin-top: ${ THEME.NAV_BAR_HEIGHT }px;
-`;
-    },
-  },
-}
+let containerBGColor = THEME.CONTAINER_BG;
+const transparentPaths = [
+  APP_PATHS.LANDING_PAGE, APP_PATHS.SIGN_IN_PATH, APP_PATHS.SIGN_UP_PATH,
+];
 
-;rules[ THEMING_VARIABLES.FOOTER ] = {
-  [ THEMING_VALUES.VISIBLE ]: {
-    yes: theme => css`
-height: ${ theme.height - THEME.NAV_BAR_HEIGHT - THEME.FOOTER_HEIGHT }px;
-`, no: theme => css`
-height: ${ theme.height - THEME.NAV_BAR_HEIGHT }px;
-`,
-  },
-};
-
-const getCssStyles = setUpCssValues( rules );
-
-const RouteContainerDiv = styled( BaseContainer )`
-align-self: center;
-max-width: 1140px;
-position: relative;
-z-index: 10;
-${ ( { theme } ) => {
+const appView = onThemeValue( THEMING_VARIABLES.APP_VIEW )`
+desktop: ${ ( { theme } ) => {
+  if( transparentPaths.includes( theme.path ) ){
+    containerBGColor = "transparent";
+  }else{
+    containerBGColor = THEME.CONTAINER_BG;
+  }
   
-  const value = getCssStyles( theme );
+  let padding = 47;
+  let borderRadius = 10;
+  let marginTop = theme.NAV_BAR_HEIGHT + 25;
+  return css`
+padding: ${ padding }px;
+border-radius: ${ borderRadius }px;
+margin-top: ${ marginTop }px;
+background: ${ containerBGColor };
+`;
+} };
+
+mobile : ${ ( { theme } ) => {
+  if( transparentPaths.includes( theme.path ) ){
+    containerBGColor = "transparent";
+  }else{
+    containerBGColor = THEME.CONTAINER_BG;
+  }
   
-  return value;
+  let padding = 15;
+  let borderRadius = 0;
+  let marginTop = theme.NAV_BAR_HEIGHT;
+  return css`
+padding: ${ padding }px;
+border-radius: ${ borderRadius }px;
+margin-top: ${ marginTop }px;
+background: ${ containerBGColor };
+`;
 } };
 `;
 
+const footerStyle = onThemeValue( THEMING_VARIABLES.FOOTER )`
+visible:${ ( { theme } ) => {
+  return css`
+height: ${ ( theme.height - theme.NAV_BAR_HEIGHT - theme.FOOTER_HEIGHT ) }px;`;
+} };
+hidden: ${ ( { theme } ) => {
+  return css`
+height: ${ ( theme.height - theme.NAV_BAR_HEIGHT ) }px;
+`;
+} }
+`;
+
+const RouteContainerDiv = styled( BaseContainer )`
+align-self: center;
+
+      max-width: 1140px;
+position: relative;
+z-index: 10;
+      ${ footerStyle };
+${ appView };
+`;
+
 RouteContainer.propTypes = {};
+

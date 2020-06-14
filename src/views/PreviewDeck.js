@@ -18,16 +18,6 @@ const { css } = require(
   "styled-components/dist/styled-components.browser.cjs.js" );
 
 const options = {
-  // isCaseSensitive: false,
-  // includeScore: false,
-  // shouldSort: true,
-  // includeMatches: false,
-  // findAllMatches: false,
-  // minMatchCharLength: 1,
-  // location: 0,
-  // threshold: 0.6,
-  // distance: 100,
-  // useExtendedSearch: false,
   keys: [
     "question", "answer",
   ],
@@ -153,7 +143,7 @@ export const PreviewDeck = ( { computedMatch } ) => {
             count={ cardCount }
             appView={ appView }
             deckCreatedDate={ deck.created_at }
-            color={ appView === APP_VIEW_DESKTOP ? "#0d2545" : "#2A685B" }
+            color={ appView === APP_VIEW_DESKTOP ? "#0D2545" : "#2A685B" }
           />
           
           { appView === APP_VIEW_DESKTOP && <StudyButton
@@ -225,7 +215,7 @@ display: none;
 `;
 
 const Selected = styled.p`
-  color: ${ props => ( props.selected === true ? "#14E59E" : "#000" ) };
+  color: ${ props => ( props.selected === true ? "#14E59E" : "#000000" ) };
   margin-right: 9%;
 `;
 
@@ -339,7 +329,7 @@ const StyledPreviewDeckHolder = styled.div`
   max-height: 100%;
   min-height: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
   padding-bottom: 150px;
   margin: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 6.4%" :

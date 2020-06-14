@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Input, Form } from "antd";
+import { Form, Input } from "antd";
 import PropTypes from "prop-types";
-import {
-  APP_VIEW_DESKTOP, APP_VIEW_MOBILE,
-} from "../../../utilities/constants";
+import { APP_VIEW_DESKTOP, } from "../../../utilities/constants";
 import { ReactComponent as Line } from "../../../svgs/inputLine.svg";
 
 /**

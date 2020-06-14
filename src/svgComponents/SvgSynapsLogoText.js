@@ -1,5 +1,4 @@
 import React from "react";
-import withSvgContainer from "./withSvgContainer.js";
 
 /**
  * Synaps Logo Text Svg

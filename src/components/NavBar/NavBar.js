@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ContainerDiv, NavBarAvatar } from "../index.js";
+import { ContainerDiv, NavBarAvatar } from "..";
 import { signOut } from "../../actions";
 import theming from "styled-theming";
 import LogoLeft from "./LogoLeft.js";
@@ -92,8 +92,8 @@ const StyledBar = styled.div`
 `;
 
 const color = theming( THEMING_VARIABLES.BACKGROUND, {
-  [ THEMING_VALUES.DARK ]: THEME.TEXT_LIGHT,
-  [ THEMING_VALUES.LIGHT ]: THEME.TEXT_DARK,
+  [ THEMING_VALUES.DARK ]: THEME.FONT_LIGHT,
+  [ THEMING_VALUES.LIGHT ]: THEME.FONT_DARK,
 } );
 
 const Styledh2 = styled.h2`

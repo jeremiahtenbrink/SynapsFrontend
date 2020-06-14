@@ -1,3 +1,6 @@
+import { THEME } from "./constants";
+import { css } from "styled-components";
+
 export const onPropVal = ( key ) => ( args, ...funcs ) => {
   
   const values = { key };
@@ -24,9 +27,10 @@ export const onPropVal = ( key ) => ( args, ...funcs ) => {
 };
 
 export const onThemeValue = ( key ) => ( args, ...funcs ) => {
-  
+  debugger;
   const values = { key };
   mapKeyValuePairs( args, funcs, values );
+  
   return ( props ) => {
     const { theme } = props;
     if( theme ){
@@ -49,6 +53,8 @@ export const onThemeValue = ( key ) => ( args, ...funcs ) => {
 };
 
 const mapKeyValuePairs = ( args, funcs, storage ) => {
+  
+  debugger;
   args.forEach( ( key, i ) => {
     const split = key.split( ":" );
     
@@ -78,7 +84,7 @@ const stripChar = ( str ) => {
   let strToSendBack = "";
   let started = false;
   strArray.some( ( letter, l ) => {
-    if( letter.match( /^[A-Za-z]+$/ ) ){
+    if( letter.match( /^[A-Za-z_]+$/ ) ){
       if( !started ){
         started = true;
       }
@@ -93,3 +99,41 @@ const stripChar = ( str ) => {
   return strToSendBack;
 };
 
+/**
+ *
+ */
+const size = ( max, min, dynamicallyResize = true, maxAt = { x: 1400, y: 700 },
+  minAt = { x: 300, y: 600 } ) => {
+  
+};
+
+/**
+ *
+ * @param {string} size
+ * @param {string} color
+ * @param {string} weight
+ * @param {string} lineHeight
+ * @param {string} family
+ */
+const fontStyles = ( size, color, weight, lineHeight, family ) => {
+  return css`
+font-family:  ${ family || THEME.FONT_FAMILY };
+font-size: ${ size || THEME.FONT_FAMILY };
+color: ${ family || THEME.FONT_FAMILY };
+font-weight: ${ weight || THEME.FONT_FAMILY };
+line-height: ${ lineHeight || THEME.FONT_FAMILY };
+  `;
+};
+
+const inputPlaceholer = ( content ) => {
+  return css`
+input::placeholder,
+input::placeholder.placeholder,
+input::placeholder:-moz-placeholder,
+input::placeholder:-ms-input-placeholder,
+input::placeholder::-webkit-input-placeholder {
+${ content };
+}
+
+`;
+};

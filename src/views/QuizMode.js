@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { TitleText } from "../components/Text/TitleText/TitleText.js";
+import { TitleText } from "../components";
 import BigFlashCard from "../components/BigFlashCard/BigFlashCard.js";
 import { ReactComponent as SvgBack } from "../svgs/BackButton.svg";
 import { ReactComponent as SvgNext } from "../svgs/NextButton.svg";
@@ -240,6 +240,10 @@ const Container = styled.div`
   max-width: 1140px;
   border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "10px" :
   "0" };
+ 
+ 
+ 
+ 
   height: 100%;
   background-color: white;
   display: flex;

@@ -1,7 +1,6 @@
 import React from "react";
 import { ContainerDiv } from "../components";
 import styled from "styled-components";
-import { mapToTheme as map } from "styled-map";
 import theming from "styled-theming";
 import { THEME } from "../utilities/constants.js";
 

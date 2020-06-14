@@ -1,9 +1,8 @@
 import React from "react";
-import {useTheme} from "styled-components";
+import { useTheme } from "styled-components";
 
 /**
  * @typedef (CustomHook) useTheming
- * @param {string} componentName
  * @return {function(...[*]=)}
  */
 export const useTheming = () => {

@@ -1,14 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { SearchBar, TitleText } from "..";
-import { BaseContainer } from "../Container/BaseContainer.js";
-import {
-  APP_VIEW_DESKTOP, APP_VIEW_MOBILE,
-} from "../../utilities/constants.js";
+import { BaseContainer, SearchBar, TitleText } from "..";
+import { APP_VIEW_DESKTOP, } from "../../utilities/constants.js";
 import { DeckRow } from "./DeckRow.js";
-import {
-  THEMING_VARIABLES,
-} from "../../customHooks/themingRules.js";
+import { THEMING_VARIABLES, } from "../../customHooks/themingRules.js";
 import { setUpCssValues } from "../../utilities/getStyles.js";
 
 /**

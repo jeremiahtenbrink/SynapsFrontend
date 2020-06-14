@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { PreviewDeckCards, SearchBar, TitleText } from "../components";
-import { BaseContainer } from "../components/Container/BaseContainer.js";
+import styled from "styled-components";
 import PropTypes from "prop-types";
-import {
-  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, MEDIA_QUERIES, THEME,
-} from "../utilities/constants.js";
 import { getUserDecks } from "../actions";
 import Fuse from "fuse.js";
 import TitleAndDecks from "../components/TitleAndDecks/TitleAndDecks.js";
@@ -39,29 +34,21 @@ export const Dashboard = () => {
     dispatch( getUserDecks( usersState.user.uid ) );
   }, [] );
   
-  const deckClicked = ( deck = undefined ) => {
-    
-    if( !deck ){
-      console.log( APP_PATHS.CREATE_DECK_PATH );
-      changePath( APP_PATHS.CREATE_DECK_PATH );
-      return;
-    }
-    changePath( APP_PATHS.PREVIEW_DECK_PATH + "/" + deck.deck_name );
-    
-  };
   
   const getDecks = () => {
     
     if( decksState && decksState.decks ){
-      const fuse = new Fuse( decksState.decks, options );
+      const decksToSend = decksState.decks.filter( deck => deck.favorite ===
+        false );
+      const fuse = new Fuse( decksToSend, options );
       if( searchTerm !== "" ){
-        
+    
         const decks = fuse.search( searchTerm );
         console.log( decks );
         return decks;
-        
+    
       }else{
-        return decksState.decks;
+        return decksToSend;
       }
     }
     return [];
@@ -88,6 +75,9 @@ const StyledDashboard = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+ 
+  
+  
   
   
   /* width */

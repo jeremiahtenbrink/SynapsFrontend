@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { ReactComponent as DeckCardSvg } from "../svgs/DeckCard.svg";
-import { APP_VIEW_DESKTOP } from "../utilities/constants.js";
+import { APP_PATHS } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
 import { callEveryNode } from "../utilities/callEveryNode.js";
-import { APP_PATHS } from "../utilities/constants.js";
+import { onThemeValue } from "../utilities/themeHelper";
+import { updateDeck } from "../actions";
 
 /**
  *   DeckCard
@@ -15,7 +16,7 @@ import { APP_PATHS } from "../utilities/constants.js";
 const DeckCard = ( { deck } ) => {
   
   const deckCardRef = useRef();
-  const { changePath } = useAppHooks();
+  const { changePath, dispatch, usersState } = useAppHooks();
   const [ heartCenter, setHeartCenter ] = useState( null );
   const [ addButton, setAddButton ] = useState( null );
   const [ textEl, setTextEl ] = useState( null );
@@ -37,6 +38,9 @@ const DeckCard = ( { deck } ) => {
   
   const favoriteClicked = ( e ) => {
     e.stopPropagation();
+    debugger;
+    deck.favorite = !deck.favorite;
+    dispatch( updateDeck( usersState.user.uid, deck.deck_id, deck ) );
   };
   
   /**
@@ -71,15 +75,42 @@ const DeckCard = ( { deck } ) => {
     }
   };
   
-  return ( <Container onClick={ deckClicked }>
-    <DeckCardSvg ref={ deckCardRef }/>
-    <p>{ deck ? deck.deck_name : "Create Deck" }</p>
-  </Container> );
+  return (
+    <Container data-testid={ "deck-card-container" } onClick={ deckClicked }>
+      <DeckCardSvg ref={ deckCardRef }/>
+      <p>{ deck ? deck.deck_name : "Create Deck" }</p>
+    </Container> );
 };
+
+const appView = onThemeValue( "appView" )`
+desktop: ${ ( { theme } ) => {
+  debugger;
+  return css`
+height: 200px;
+ width: 155px;
+margin-right: 20px;
+color: ${ theme.SYNAPS_DARK };
+
+p {
+  font-size: 26px;
+}
+`;
+} };
+mobile: ${ ( { theme } ) => css`
+height: 140px;
+width: 108px;
+ margin-right: 10px;
+color: ${ theme.SYNAPS_DARK };
+p{
+  font-size: 18px;
+}
+` }
+`;
 
 const Container = styled.div`
 cursor: pointer;
 position: relative;
+${ appView };
 p {
 transform-box: fill-box;
 position: absolute;
@@ -89,32 +120,6 @@ transform: translate(-50%, -50%);
 font-weight: 600;
 
 }
-${ ( { theme } ) => {
-  if( theme.appView === APP_VIEW_DESKTOP ){
-    return css`
-    height: 200px;
-               width: 155px;
-              margin-right: 20px;
-    color: ${ theme.SYNAPS_DARK };
-    
-    p {
-    font-size: 32px;
-    }
-    `;
-  }else{
-    return css`
-        height: 140px;
-        width: 108px;
-         margin-right: 10px;
-      color: ${ theme.SYNAPS_DARK };
-      
-      p{
-      font-size: 18px;
-      }
-`;
-  }
-  
-} }
 `;
 
 DeckCard.propTypes = {};

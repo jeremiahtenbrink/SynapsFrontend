@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import CardAnimation from "../../CardCountAnimation/cardAnimation.js";
-import {
-  APP_VIEW_DESKTOP, APP_VIEW_MOBILE,
-} from "../../../utilities/constants.js";
+import { APP_VIEW_DESKTOP, } from "../../../utilities/constants.js";
 import moment from "moment";
 
 /**
