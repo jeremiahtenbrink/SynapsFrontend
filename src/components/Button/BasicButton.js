@@ -1,9 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { onPropVal, onThemeValue } from "../../utilities/themeHelper";
+import {
+  fontStyles, onPropVal, onThemeValue, positionAbsoluteCenter
+} from "../../utilities/themeHelper";
 import { Button } from "antd";
 import { darken, lighten } from "polished";
 import { withDimensions } from "../withHocs/withDimensions";
+import { colorPallet as THEME } from "../../utilities/colorPallet";
 
 /**
  *   Button
@@ -18,7 +21,6 @@ export const BasicButton = ( { children, dimensions, ...props } ) => {
   return ( <ContainerWithDimension { ...props }
                                    shape={ "round" }>
     { children }
-    { props.text && <p>{ props.text }</p> }
   </ContainerWithDimension> );
   
 };
@@ -82,7 +84,14 @@ transparent: ${ ( props ) => {
   return css`
 ${ background };
 `;
-} };
+} },
+gradient: ${ ( props ) => {
+  const background = THEME.GREEN_TO_BLUE_GRADIENT.backgroundImage;
+  debugger;
+  return css`
+${ background };
+`;
+} }
 `;
 
 const onTheme = onThemeValue( "background" )`
@@ -96,6 +105,50 @@ const Container = styled( Button )`
 && {
 ${ onTheme };
   display: flex;
+  border: 4px solid white;
+  p{
+    
+    ${ fontStyles( "28px", "white", 700, 1.1 ) };
+    width: 100%;
+    height: 100%;
+    ${ positionAbsoluteCenter() };
+    top: 70%;
+  }
+  .one{
+     top: 50%;
+     left: 50%;
+     opacity: .8;
+     color: ${ THEME.WHITE_DARKER_1 };
+  }
+  
+  .two{
+     top: 50.2%;
+     left: 50.2%;
+     opacity: .6;
+     color: ${ THEME.WHITE_DARKER_2 };
+  }
+  
+  .three{
+     top: 50.4%;
+     left: 50.4%;
+     opacity: .4;
+     color: ${ THEME.WHITE_DARKER_3 };
+  }
+  
+  .four{
+     top: 50.6%;
+     left: 50.6%;
+     opacity: .2;
+     color: ${ THEME.WHITE_DARKER_4 };
+  }
+  
+  .five{
+     top: 50.8%;
+     left: 50.8%;
+     opacity: .1;
+     color: ${ THEME.WHITE_DARKER_4 };
+  }
+  
 }`;
 
 

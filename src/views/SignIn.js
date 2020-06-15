@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BasicButton, InputWithLine } from "../components";
+import { InputWithLine } from "../components";
 import styled, { css } from "styled-components";
 import { EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn } from "../actions";
 import theming from "styled-theming";
@@ -11,8 +11,8 @@ import { APP_PATHS, MEDIA_QUERIES } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
 import { ReactComponent as SignUpModel } from "../svgs/SignUpModel.svg";
 import { ReactComponent as SignInModel } from "../svgs/SignInModel.svg";
-import { ReactComponent as EmailIcon } from "../svgs/EmailIcon.svg";
-import withIcon from "../components/withHocs/withIcon";
+import SvgButton from "../components/Button/SvgButton";
+import { between } from "polished";
 
 /**
  * Sign In
@@ -20,9 +20,6 @@ import withIcon from "../components/withHocs/withIcon";
  * @component
  * @example return (<SignIn />);
  */
-
-const GoogleButton = withIcon( BasicButton, );
-const EmailButton = withIcon( BasicButton, EmailIcon );
 
 export function SignIn( props ){
   const { dispatch, theme, path, appView, height } = useAppHooks();
@@ -71,17 +68,16 @@ export function SignIn( props ){
     { path === APP_PATHS.SIGN_IN_PATH ? <SignInModelSvg/> : <SignUpModel/> }
     <PaddingContainer>
       <LeftSideModel>
-        <SignInGoogleButton text={ "Sign In" } buttonType={ "primary" }
-                            dimensions={ { width: 353, height: 72 } }
+        <SignInGoogleButton text={ "Sign In" } primary page={ path }
+                            dimensions={ { width: 353, height: 72 } } google
                             onClick={ () => handleSignInClick( "google" ) }/>
+  
       </LeftSideModel>
   
       <RightSideModel>
         <SignInEmailButton onClick={ () => handleSignInClick( "email" ) }
                            dimensions={ { width: 353, height: 72 } }
-                           buttonType={ "secondary" }
-                           dark
-                           text={ "Sign In With Email" }/>
+                           email gradient page={ path }/>
         <Form>
           <Input maxWidth={ "326px" } elId={ "username-signIn" }
                  for={ "username" }/>
@@ -143,6 +139,13 @@ top:50%;
 left:50%;
 transform: translate(-50%, -50%);
 z-index: -1;
+${ props => {
+  if( props.width < 12 ){
+    return css`
+width: ${ between( "700px", "1100px", "767px", "1200px" ) };
+`;
+  }
+} }
 `;
 
 const switchText = theming( THEMING_VARIABLES.BACKGROUND, {
@@ -151,13 +154,13 @@ const switchText = theming( THEMING_VARIABLES.BACKGROUND, {
   },
 } );
 
-const SignInEmailButton = styled( EmailButton )`
-
+const SignInEmailButton = styled( SvgButton )`
+display: flex;
 
 `;
 
-const SignInGoogleButton = styled( GoogleButton )`
-
+const SignInGoogleButton = styled( SvgButton )`
+display: flex;
 `;
 
 const PaddingContainer = styled.div`
@@ -168,7 +171,7 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 height: 73%;
-width: 93%;
+width: 97%;
 align-items: center;
 `;
 

@@ -102,8 +102,8 @@ const stripChar = ( str ) => {
 /**
  *
  */
-const size = ( max, min, dynamicallyResize = true, maxAt = { x: 1400, y: 700 },
-  minAt = { x: 300, y: 600 } ) => {
+export const size = ( max, min, dynamicallyResize = true,
+  maxAt = { x: 1400, y: 700 }, minAt = { x: 300, y: 600 } ) => {
   
 };
 
@@ -115,17 +115,17 @@ const size = ( max, min, dynamicallyResize = true, maxAt = { x: 1400, y: 700 },
  * @param {string} lineHeight
  * @param {string} family
  */
-const fontStyles = ( size, color, weight, lineHeight, family ) => {
+export const fontStyles = ( size, color, weight, lineHeight, family ) => {
   return css`
 font-family:  ${ family || THEME.FONT_FAMILY };
 font-size: ${ size || THEME.FONT_FAMILY };
-color: ${ family || THEME.FONT_FAMILY };
+color: ${ color || THEME.FONT_LIGHT };
 font-weight: ${ weight || THEME.FONT_FAMILY };
 line-height: ${ lineHeight || THEME.FONT_FAMILY };
   `;
 };
 
-const inputPlaceholer = ( content ) => {
+export const inputPlaceholer = ( content ) => {
   return css`
 input::placeholder,
 input::placeholder.placeholder,
@@ -135,5 +135,14 @@ input::placeholder::-webkit-input-placeholder {
 ${ content };
 }
 
+`;
+};
+
+export const positionAbsoluteCenter = () => {
+  return css`
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
 `;
 };
