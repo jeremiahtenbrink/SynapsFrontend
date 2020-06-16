@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { APP_PATHS } from "../../utilities/constants";
 
@@ -9,10 +9,11 @@ import { APP_PATHS } from "../../utilities/constants";
  *
  */
 export const SvgButton = ( props ) => {
-  debugger;
+  
   const [ bgFillColor, setBgFillColor ] = useState( "transparent" );
   const [ bgStrokeColor, setBgStrokeColor ] = useState( "white" );
   const [ text, setText ] = useState();
+  const conRef = useRef();
   
   useEffect( () => {
     if( props.path === APP_PATHS.SIGN_IN_PATH ){
@@ -30,7 +31,7 @@ export const SvgButton = ( props ) => {
     }
   }, [ props ] );
   
-  return ( <Container { ...props }>
+  return ( <SvgContainer ref={ conRef } containerRef={ conRef } { ...props }>
     <svg width="100%" height="100%" viewBox="0 0 358 76" fill="none"
          xmlns="http://www.w3.org/2000/svg">
       <g id="svg-button">
@@ -273,7 +274,7 @@ export const SvgButton = ( props ) => {
           <rect width="29.4047" height="30" fill="white"
                 transform="translate(32.54 20.4476)"/>
         </clipPath>
-        
+  
         <linearGradient id="green_blue" x1="9.99973" y1="11.7316" x2="344"
                         y2="51.7316" gradientUnits="userSpaceOnUse">
           <stop stopColor="#00EFA9"/>
@@ -282,14 +283,11 @@ export const SvgButton = ( props ) => {
       </defs>
     </svg>
   
-  </Container> );
+  </SvgContainer> );
 };
 
-const Container = styled.div`
+const SvgContainer = styled.div`
 cursor: pointer;
-max-width: 358px;
-max-height: 76px;
-
 `;
 
 SvgButton.propTypes = {};

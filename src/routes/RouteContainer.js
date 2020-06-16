@@ -107,7 +107,7 @@ align-self: center;
       max-width: 1140px;
 position: relative;
 z-index: 10;
-      ${ footerStyle };
+${ footerStyle };
 ${ appView };
 `;
 

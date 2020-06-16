@@ -27,7 +27,7 @@ export const onPropVal = ( key ) => ( args, ...funcs ) => {
 };
 
 export const onThemeValue = ( key ) => ( args, ...funcs ) => {
-  debugger;
+  
   const values = { key };
   mapKeyValuePairs( args, funcs, values );
   
@@ -54,7 +54,6 @@ export const onThemeValue = ( key ) => ( args, ...funcs ) => {
 
 const mapKeyValuePairs = ( args, funcs, storage ) => {
   
-  debugger;
   args.forEach( ( key, i ) => {
     const split = key.split( ":" );
     
@@ -102,8 +101,34 @@ const stripChar = ( str ) => {
 /**
  *
  */
-export const size = ( max, min, dynamicallyResize = true,
-  maxAt = { x: 1400, y: 700 }, minAt = { x: 300, y: 600 } ) => {
+export const size = ( max, min, dynamicallyResize = true, ) => {
+  let parentNodeSize = null;
+  
+  return ( props ) => {
+    debugger;
+    if( parentNodeSize === null && props.containerRef.current ){
+      parentNodeSize = {
+        width: props.containerRef.current.parentNode.clientWidth,
+        height: props.containerRef.current.parentNode.clientHeight
+      };
+      
+    }
+    
+    if( !parentNodeSize ){
+      return css`
+width: ${ max.width }px;
+height:${ max.height }px`;
+    }else{
+      const parentNode = props.containerRef.current.parentNode;
+      const percentW = parentNode.clientWidth / parentNodeSize.width;
+      const percentH = parentNode.clientHeight / parentNodeSize.height;
+      const maxP = percentW > percentH ? percentH : percentW;
+      return css`
+width: ${ maxP * max.width }px;
+height: ${ maxP * max.height }px;
+`;
+    }
+  };
   
 };
 

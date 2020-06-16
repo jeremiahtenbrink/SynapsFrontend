@@ -38,7 +38,7 @@ const DeckCard = ( { deck } ) => {
   
   const favoriteClicked = ( e ) => {
     e.stopPropagation();
-    debugger;
+  
     deck.favorite = !deck.favorite;
     dispatch( updateDeck( usersState.user.uid, deck.deck_id, deck ) );
   };
@@ -84,7 +84,7 @@ const DeckCard = ( { deck } ) => {
 
 const appView = onThemeValue( "appView" )`
 desktop: ${ ( { theme } ) => {
-  debugger;
+  
   return css`
 height: 200px;
  width: 155px;

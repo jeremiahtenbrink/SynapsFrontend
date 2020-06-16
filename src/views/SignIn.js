@@ -13,6 +13,8 @@ import { ReactComponent as SignUpModel } from "../svgs/SignUpModel.svg";
 import { ReactComponent as SignInModel } from "../svgs/SignInModel.svg";
 import SvgButton from "../components/Button/SvgButton";
 import { between } from "polished";
+import { APP_VIEW_MOBILE } from "../utilities/constants";
+import { onThemeValue } from "../utilities/themeHelper";
 
 /**
  * Sign In
@@ -68,15 +70,13 @@ export function SignIn( props ){
     { path === APP_PATHS.SIGN_IN_PATH ? <SignInModelSvg/> : <SignUpModel/> }
     <PaddingContainer>
       <LeftSideModel>
-        <SignInGoogleButton text={ "Sign In" } primary page={ path }
-                            dimensions={ { width: 353, height: 72 } } google
+        <SignInGoogleButton text={ "Sign In" } primary page={ path } google
                             onClick={ () => handleSignInClick( "google" ) }/>
-  
+
       </LeftSideModel>
   
       <RightSideModel>
         <SignInEmailButton onClick={ () => handleSignInClick( "email" ) }
-                           dimensions={ { width: 353, height: 72 } }
                            email gradient page={ path }/>
         <Form>
           <Input maxWidth={ "326px" } elId={ "username-signIn" }
@@ -107,8 +107,30 @@ fill: #36405C;
   }
 } );
 
+const inputStyles = onThemeValue( "appView" )`
+mobile: ${ props => css`
+width: 100%;
+max-width: 300px;
+` }
+desktop: ${ props => css`
+width: ${ between( `${ .63 * 300 }px`, "250px", "767px", "1200px" ) };
+` }
+`;
+
 const Input = styled( InputWithLine )`
-max-width: 326px;
+${ inputStyles };
+`;
+
+const rightSideModel = onThemeValue( "appView" )`
+mobile ${ props => {
+  debugger;
+  return css`
+align-items: center;
+`;
+} };
+desktop: ${ props => css`
+align-items: flex-end;
+` }
 `;
 
 const RightSideModel = styled.div`
@@ -120,6 +142,7 @@ align-items: flex-end;
 width: 45%;
 height: 100%;
 max-height: 251px;
+${ rightSideModel };
 `;
 
 const LeftSideModel = styled.div`
@@ -140,10 +163,16 @@ left:50%;
 transform: translate(-50%, -50%);
 z-index: -1;
 ${ props => {
-  if( props.width < 12 ){
+  if( props.theme.appView === APP_VIEW_MOBILE ){
     return css`
+display: none;
+`;
+  }else{
+    if( props.theme.width < 1200 ){
+      return css`
 width: ${ between( "700px", "1100px", "767px", "1200px" ) };
 `;
+    }
   }
 } }
 `;
@@ -154,13 +183,46 @@ const switchText = theming( THEMING_VARIABLES.BACKGROUND, {
   },
 } );
 
-const SignInEmailButton = styled( SvgButton )`
-display: flex;
+const svgButton = onThemeValue( "appView" )`
+desktop: ${ props => {
+  if( props.theme.width < 1200 ){
+    return css`
+  width: ${ between( `${ .63 * 352 }px`, "352px", "767px", "1200px" ) };
+height: ${ between( `${ .63 * 76 }px`, "76px", "767px", "1200px" ) };
+`;
+  }else{
+    return css`
+width: 352px;
+height: 76px;
+`;
+  }
+} };
+mobile: ${ props => css`
+width: 352px;
+height: 76px;
+` }
+`;
 
+const appViewEmail = onThemeValue( "appView" )`
+mobile: ${ props => css`
+order: 4;
+align-self: center;
+` }
+`;
+
+const SignInEmailButton = styled( SvgButton )`
+  ${ svgButton }
+  ${ appViewEmail };
 `;
 
 const SignInGoogleButton = styled( SvgButton )`
-display: flex;
+  ${ svgButton }
+`;
+
+const paddingCont = onThemeValue( "appView" )`
+mobile: ${ props => css`
+flex-direction: column;
+` } }
 `;
 
 const PaddingContainer = styled.div`
@@ -173,6 +235,9 @@ transform: translate(-50%, -50%);
 height: 73%;
 width: 97%;
 align-items: center;
+${ paddingCont };
+
+
 `;
 
 const StyledSignIn = styled.div`

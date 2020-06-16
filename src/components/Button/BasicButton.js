@@ -80,14 +80,14 @@ ${ background };
 } };
 transparent: ${ ( props ) => {
   const background = lightOrDark( props, "#4CB69F" );
-  debugger;
+  
   return css`
 ${ background };
 `;
 } },
 gradient: ${ ( props ) => {
   const background = THEME.GREEN_TO_BLUE_GRADIENT.backgroundImage;
-  debugger;
+  
   return css`
 ${ background };
 `;
