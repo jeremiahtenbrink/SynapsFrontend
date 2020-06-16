@@ -38,7 +38,7 @@ export const NavBarAvatar = ( { avatarUrl, ...props } ) => {
   };
   
   const setOpenNotOpen = () => {
-    debugger;
+  
     if( openRef.current ){
       setOpen( !open );
       openRef.current = false;
@@ -50,7 +50,7 @@ export const NavBarAvatar = ( { avatarUrl, ...props } ) => {
   };
   
   const handleAvatarClick = () => {
-    debugger;
+  
     if( openRef.current ){
       setOpenNotOpen();
       openRef.current = false;

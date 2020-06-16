@@ -30,7 +30,7 @@ export const withDimensions = ( dimensions, Component ) => {
       }
     } );
     if( !setNewValue ){
-      debugger;
+  
       Component.componentStyle.rules.push( calcHeight );
     }
   }
