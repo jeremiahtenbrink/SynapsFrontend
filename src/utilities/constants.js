@@ -4,33 +4,7 @@
  */
 
 import { css } from "styled-components";
-
-/**
- * @typedef {object} LOG_TYPES
- * @param {logType} INFO
- * @param {logType} WARNING
- * @param {logType} ERROR
- * @param {logType} OBJECT
- */
-export const LOG_TYPES = {
-  VERBOSE: 1, INFO: 2, WARNING: 4, ERROR: 5, OBJECT: 6, PLAIN: 3,
-};
-
-/**
- * @typedef {string} DEBUG_LOG_SIZE
- *
- */
-
-/**
- * @typedef {object} DEBUG_LOG_SIZES
- * @param {DEBUG_LOG_SIZE} LARGE
- * @param {DEBUG_LOG_SIZE} MEDIUM
- * @param {DEBUG_LOG_SIZE} NORMAL
- * @param {DEBUG_LOG_SIZE} SMALL
- */
-export const DEBUG_LOG_SIZES = {
-  LARGE: "large", MEDIUM: "medium", NORMAL: "normal", SMALL: "small",
-};
+import { colorPallet } from "./colorPallet";
 
 /**
  * @typedef {("APP_VIEW_DESKTOP" | "APP_VIEW_MOBILE")} AppView
@@ -38,85 +12,70 @@ export const DEBUG_LOG_SIZES = {
  */
 
 /**
- * @type {{NAV_BAR_HEIGHT: number, MAX_DASHBOARD_CONTAINER_WIDTH: number,
- *   NAV_BAR_DARK: string, FOOTER_HEIGHT: number, BRAIN_PIC_DARK: string,
- *   NAV_BAR_LIGHT: string, BRAIN_PIC_LIGHT: string, PRIMARY_COLOR: string,
- *   SYNAPS_DARK: string, SECONDARY_DARKER1: string, SECONDARY_COLOR: string,
- *   SYNAPS_LIGHT: string}}
+ * @typedef {Object} theme
+ * @property {ColorPallet} colors
+ * @property {string} FONT_FAMILY
+ * @property {string} DEFAULT_FONT_SIZE
+ * @property {string} FONT_LIGHT
+ * @property {string} FONT_DARK
+ * @property {number} FONT_WEIGHT
+ * @property {number} LINE_HEIGHT
+ *
  */
-export const THEME = {
+let THEMEprep = {
+  colors: colorPallet,
   
-  flexCenterColumn: css`
+  CONTAINER_BG: "white",
+  
+  PRIMARY_COLOR: "#0D2545",
+  PRIMARY_COLOR_LIGHTER1: "#36405C",
+  
+  COLOR_WHITE: "#F0EDE6",
+  
+  SECONDARY_COLOR: "#A2D8C7",
+  SECONDARY_DARKER1: "#4CB69F",
+  
+  NAV_BAR_HEIGHT: 75,
+  FOOTER_HEIGHT: 30,
+  
+  NAV_BAR_DARK: "#0C2545",
+  NAV_BAR_LIGHT: "#F6F5F3",
+  
+  SYNAPS_DARK: "#36405C",
+  SYNAPS_LIGHT: "#FFFFFF",
+  
+  BRAIN_PIC_DARK: "#164167",
+  BRAIN_PIC_LIGHT: "#E1DED7",
+  
+  MAX_DASHBOARD_CONTAINER_WIDTH: 1140,
+  
+  FONT_FAMILY: `"Source Sans Pro",serif;`,
+  DEFAULT_FONT_SIZE: "24px",
+  FONT_LIGHT: "#F6F5F3",
+  FONT_DARK: "#323C56",
+  FONT_WEIGHT: 700,
+  LINE_HEIGHT: 1.1,
+};
+
+THEMEprep = {
+  ...THEMEprep, flexCenterColumn: css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `,
-  
-  CONTAINER_BG: "white",
-  
-  PRIMARY_COLOR: "#0d2545", PRIMARY_COLOR_LIGHTER1: "#36405c",
-  
-  TEXT_LIGHT: "#F6F5F3", TEXT_DARK: "#323C56", TEXT_SECONDARY_COLOR: "#4CB69F",
-  
-  COLOR_WHITE: "#f0ede6",
-  
-  SECONDARY_COLOR: "#A2D8C7", SECONDARY_DARKER1: "#4CB69F",
-  
-  NAV_BAR_HEIGHT: 75, FOOTER_HEIGHT: 30,
-  
-  NAV_BAR_DARK: "#0C2545", NAV_BAR_LIGHT: "#F6F5F3",
-  
-  SYNAPS_DARK: "#36405C", SYNAPS_LIGHT: "#FFFFFF",
-  
-  BRAIN_PIC_DARK: "#164167", BRAIN_PIC_LIGHT: "#e1ded7",
-  
-  MAX_DASHBOARD_CONTAINER_WIDTH: 1140,
 };
+
+export const THEME = { ...THEMEprep };
 
 /**
  * @typedef {Object} ThemeState
- * @property {Color} PRIMARY_COLOR
- * @property {Color} primaryColorB98C4
- * @property {Color} primaryColor86869A
- * @property {Color} primaryColor5C5F78
- * @property {Color} primaryColor36405C
- * @property {Color} primaryColor293046
- * @property {Color} primaryColor353544
  *
- * @property {Color} SECONDARY_COLOR
- * @property {Color} secondaryColorEAF5F1
- * @property {Color} secondaryColorD8EEE6
- * @property {Color} secondaryColorC6E6DB
- * @property {Color} secondaryColorB5DFD1
- * @property {Color} secondaryColor92B2AA
- * @property {Color} secondaryColor798A87
- *
- * @property {Color} white
- * @property {Color} grayF1F2F2
- * @property {Color} grayE6E7E8
- * @property {Color} grayD1D3D4
- * @property {Color} grayBCBEC0
- * @property {Color} grayA7A9AC
- * @property {Color} gray939598
- *
- * @property {number} largeRadius
- * @property {number} smallRadius
- * @property {number} NAV_BAR_HEIGHT
- * @property {number} FOOTER_HEIGHT
- *
- * @property {string} NAV_BAR_LIGHT
- * @property {string} NAV_BAR_DARK
- *
- * @property {THEMING_VALUES} NAV_STYLE
- *
- * @property {Color} BRAIN_PIC_DARK
- * @property {Color} BRAIN_PIC_LIGHT
  *
  */
 
-export const APP_VIEW_MOBILE = "APP_VIEW_MOBILE";
-export const APP_VIEW_DESKTOP = "APP_VIEW_DESKTOP";
+export const APP_VIEW_MOBILE = "mobile";
+export const APP_VIEW_DESKTOP = "desktop";
 
 /**
  * @typedef {string} APP_PATH

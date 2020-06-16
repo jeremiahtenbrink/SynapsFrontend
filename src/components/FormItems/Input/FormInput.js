@@ -1,8 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Input, Form} from 'antd';
-import PropTypes from 'prop-types';
-import {APP_VIEW_DESKTOP, APP_VIEW_MOBILE} from '../../../utilities/constants';
+import React from "react";
+import styled from "styled-components";
+import { Form, Input } from "antd";
+import PropTypes from "prop-types";
+import { APP_VIEW_DESKTOP, } from "../../../utilities/constants";
+import { ReactComponent as Line } from "../../../svgs/inputLine.svg";
 
 /**
  * Form Input
@@ -19,76 +20,66 @@ import {APP_VIEW_DESKTOP, APP_VIEW_MOBILE} from '../../../utilities/constants';
  *  return ( <FormInput onChange={handleChange} value={inputValue} /> );
  *
  */
-export const FormInput = ({
-  appView,
-  value,
-  width = '90%',
-  height = '38px',
-  bordered = 'false',
-  borderRadius = 'small',
-  borderStyle,
-  label,
-  error,
-  placeholder,
-  fontWeight = 600,
-  ...props
-}) => {
-  if (bordered) {
-    if (borderRadius === 'large') {
+export const FormInput = ( {
+  appView, value, width = "90%", height = "38px", bordered = "false", borderRadius = "small", borderStyle, label, error, placeholder, fontWeight = 600, ...props
+} ) => {
+  if( bordered ){
+    if( borderRadius === "large" ){
       // bordered input with large radius
-      return (
-        <StyledFormItem label={label}>
-          <StyledAntdInputLargeRadius
-            appView={appView}
-            width={width}
-            height={height}
-            borderStyle={borderStyle}
-            value={value}
-            placeholder={placeholder}
-            fontWeight={fontWeight}
-            {...props}
-          />
-        </StyledFormItem>
-      );
-    } else {
+      return ( <StyledFormItem label={ label } { ...props }>
+        <StyledAntdInputLargeRadius
+          appView={ appView }
+          width={ width }
+          height={ height }
+          borderStyle={ borderStyle }
+          value={ value }
+          placeholder={ placeholder }
+          fontWeight={ fontWeight }
+          { ...props }
+        />
+        <InputLine/>
+      </StyledFormItem> );
+    }else{
       // bordered input with regular radius
-      return (
-        <StyledFormItem label={label}>
-          <StyledAntdInputSmallRadius
-            appView={appView}
-            width={width}
-            height={height}
-            borderStyle={borderStyle}
-            value={value}
-            placeholder={placeholder}
-            fontWeight={fontWeight}
-            {...props}
-          />
-        </StyledFormItem>
-      );
+      return ( <StyledFormItem label={ label } { ...props }>
+        <StyledAntdInputSmallRadius
+          appView={ appView }
+          width={ width }
+          height={ height }
+          borderStyle={ borderStyle }
+          value={ value }
+          placeholder={ placeholder }
+          fontWeight={ fontWeight }
+          { ...props }
+        />
+        <InputLine/>
+      </StyledFormItem> );
     }
-  } else {
+  }else{
     // no border input
-    return (
-      <StyledFormItem label={label}>
-        <StyledBorderBottom>
-          <StyledNoBorderAntdInput
-            appView={appView}
-            width={width}
-            height={height}
-            borderStyle={borderStyle}
-            value={value}
-            placeholder={placeholder}
-            fontWeight={fontWeight}
-            {...props}
-          />
-        </StyledBorderBottom>
-      </StyledFormItem>
-    );
+    return ( <StyledFormItem label={ label } { ...props }>
+      <StyledBorderBottom>
+        <StyledNoBorderAntdInput
+          appView={ appView }
+          width={ width }
+          height={ height }
+          borderStyle={ borderStyle }
+          value={ value }
+          placeholder={ placeholder }
+          fontWeight={ fontWeight }
+          { ...props }
+        />
+      </StyledBorderBottom>
+      <InputLine/>
+    </StyledFormItem> );
   }
 };
 
-const StyledFormItem = styled(Form.Item)`
+const InputLine = styled( Line )`
+
+`;
+
+const StyledFormItem = styled( Form.Item )`
   && {
     .ant-form-item-label {
       padding: 0 0 0;
@@ -99,15 +90,15 @@ const StyledFormItem = styled(Form.Item)`
     }
     text-align: left;
     background-color: transparent;
-    border: ${props => props.borderStyle};
+    border: ${ props => props.borderStyle };
   }
 `;
 
 const StyledBorderBottom = styled.div`
-  border-bottom: ${props => props.borderStyle};
+  border-bottom: ${ props => props.borderStyle };
 `;
 
-const StyledNoBorderAntdInput = styled(Input)`
+const StyledNoBorderAntdInput = styled( Input )`
   && {
     border: 0px;
     .ant-form-item-label {
@@ -117,45 +108,47 @@ const StyledNoBorderAntdInput = styled(Input)`
       box-shadow: none;
     }
     .ant-input {
-      width: ${props => props.width};
-      ${props =>
-        props.appView === APP_VIEW_DESKTOP ? 'border: 1px solid #36405C;' : ''}
+      width: ${ props => props.width };
+      ${ props => props.appView === APP_VIEW_DESKTOP ?
+  "border: 1px solid #36405C;" : "" }
       background-color: transparent;
       font-style: normal;
-      font-weight: ${props => props.fontWeight};
+      font-weight: ${ props => props.fontWeight };
       font-size: 19px;
-      line-height: 24px;
+      line-height: 9px;
     }
-    height: ${props => (props.appView === APP_VIEW_DESKTOP ? '38px' : '58px')};
+    height: ${ props => ( props.appView === APP_VIEW_DESKTOP ? "38px" :
+  "58px" ) };
   }
 `;
 
-const StyledAntdInputLargeRadius = styled(Input)`
+const StyledAntdInputLargeRadius = styled( Input )`
   && {
-    border-radius: ${props => props.theme.largeRadius};
+    border-radius: ${ props => props.theme.largeRadius };
     .ant-form-item-label {
       padding: 0 0 0;
     }
     :focus {
       box-shadow: none;
     }
-    width: ${props => props.width};
-    height: ${props => (props.appView === APP_VIEW_DESKTOP ? '38px' : '58px')};
+    width: ${ props => props.width };
+    height: ${ props => ( props.appView === APP_VIEW_DESKTOP ? "38px" :
+  "58px" ) };
     background-color: transparent;
-    border: ${props => props.borderStyle};
-    ${props =>
-      props.appView === APP_VIEW_DESKTOP ? 'border: 1px solid #36405C;' : ''}
+    border: ${ props => props.borderStyle };
+    ${ props => props.appView === APP_VIEW_DESKTOP ?
+  "border: 1px solid #36405C;" : "" }
     font-style: normal;
-    font-weight: ${props => props.fontWeight};
+    font-weight: ${ props => props.fontWeight };
     font-size: 19px;
-    line-height: 24px;
+    line-height: 9px;
   }
 `;
 
-const StyledAntdInputSmallRadius = styled(Input)`
+const StyledAntdInputSmallRadius = styled( Input )`
   && {
-    border-radius: ${props =>
-      props.appView === 'APP_VIEW_MOBILE' ? props.theme.smallRadius : '0px'};
+    border-radius: ${ props => props.appView === "APP_VIEW_MOBILE" ?
+  props.theme.smallRadius : "0px" };
     .ant-form-item-label {
       padding: 0 0 0;
     }
@@ -163,16 +156,17 @@ const StyledAntdInputSmallRadius = styled(Input)`
     :focus {
       box-shadow: none;
     }
-    width: ${props => props.width};
-    height: ${props => (props.appView === APP_VIEW_DESKTOP ? '38px' : '58px')};
+    width: ${ props => props.width };
+    height: ${ props => ( props.appView === APP_VIEW_DESKTOP ? "38px" :
+  "58px" ) };
     background-color: transparent;
-    border: ${props => props.borderStyle};
-    ${props =>
-      props.appView === APP_VIEW_DESKTOP ? 'border: 1px solid #36405C;' : ''}
+    border: ${ props => props.borderStyle };
+    ${ props => props.appView === APP_VIEW_DESKTOP ?
+  "border: 1px solid #36405C;" : "" }
     font-style: normal;
-    font-weight: ${props => props.fontWeight};
+    font-weight: ${ props => props.fontWeight };
     font-size: 19px;
-    line-height: 24px;
+    line-height: 9px;
   }
 `;
 
@@ -182,6 +176,6 @@ FormInput.propTypes = {
   bordered: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  size: PropTypes.oneOf(['large', 'default', 'small']),
-  borderRadius: PropTypes.oneOf(['large', 'small']),
+  size: PropTypes.oneOf( [ "large", "default", "small" ] ),
+  borderRadius: PropTypes.oneOf( [ "large", "small" ] ),
 };

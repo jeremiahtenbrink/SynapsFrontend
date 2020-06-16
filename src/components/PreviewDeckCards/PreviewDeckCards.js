@@ -1,11 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { Card } from "antd";
-import { CreateButton } from "../Button/CreateButton.js";
+import { ReactComponent as AddCardButton } from "../../svgs/addCardButton.svg";
 import { APP_VIEW_DESKTOP } from "../../utilities/constants.js";
 import { ReactComponent as Check } from "../../images/Vector.svg";
 import { useAppHooks } from "../../customHooks/useAppHooks.js";
+import { onThemeValue } from "../../utilities/themeHelper";
 
 /**
  * Preview Deck Cards
@@ -20,7 +21,6 @@ import { useAppHooks } from "../../customHooks/useAppHooks.js";
  *  <PreviewDeckCards text={"Card Title"} />
  * )
  * @param text
- * @param icon
  * @param loading
  * @param block
  * @param hoverEffect
@@ -29,7 +29,6 @@ import { useAppHooks } from "../../customHooks/useAppHooks.js";
  * @param {Card}card
  * @param type
  * @param size
- * @param cardOrDeck
  * @param props
  * @return {*}
  */
@@ -53,27 +52,26 @@ export const PreviewDeckCards = ( {
   };
   
   return ( <StyledAntdCard
-      type={ type }
-      size={ size }
-      block={ block && "block" }
-      selected={ selected }
-      { ...props }
-    >
-      { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
-      ( <p className={ "deck-text" }>
-          Add { cardType === "deck" ? "Deck" : "Card" }
-        </p> ) }
-      { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
-      <CreateButton width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
-                    height={ appView === APP_VIEW_DESKTOP ? "55px" :
-                      "49PX" }/> }
-      { ( deck || card ) &&
-      <p className={ "deck-text" }>{ cardType === "deck" ? deck.deck_name :
-        card.question }</p> }
-      { selected && <StyledCheck> </StyledCheck> }
-    
-    
-    </StyledAntdCard> );
+    type={ type }
+    size={ size }
+    block={ block && "block" }
+    selected={ selected }
+    { ...props }
+  >
+    { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
+    ( <p className={ "deck-text" }>
+      Add { cardType === "deck" ? "Deck" : "Card" }
+    </p> ) }
+    { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
+    <AddCardButton width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
+                   height={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }/> }
+    { ( deck || card ) &&
+    <p className={ "deck-text" }>{ cardType === "deck" ? deck.deck_name :
+      card.question }</p> }
+    { selected && <StyledCheck> </StyledCheck> }
+  
+  
+  </StyledAntdCard> );
 };
 
 const StyledCheck = styled( Check )`
@@ -85,6 +83,21 @@ const StyledCheck = styled( Check )`
 
 `;
 
+const size = onThemeValue( "appView" )`
+mobile: ${ props => {
+  return css`
+width: 108px;
+height: 153px;
+`;
+} },
+desktop: ${ props => {
+  return css`
+width: 153px;
+height: 196px;
+`;
+} }
+`;
+
 const StyledAntdCard = styled( Card )`
 
 
@@ -93,8 +106,7 @@ const StyledAntdCard = styled( Card )`
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 108px;
-    height: 153px;
+    ${ size };
     margin-top: 20px;
     border-radius: 13px;
     border: ${ props => props.selected === true ? "4px solid D7EEE7" :

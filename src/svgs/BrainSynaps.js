@@ -1,6 +1,4 @@
-import React, {useRef} from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
+import React, { useRef } from "react";
 import StyledSvg from "./StyledSvg.js";
 import StyledGroup from "./StyledGroup.js";
 import StyledMainGroup from "./StyledMainGroup.js";

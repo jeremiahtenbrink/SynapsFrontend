@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Uploader } from "../Uploader/Uploader.js";
+import { Uploader } from "..";
 import TextArea from "../FormItems/Input/TextArea.js";
 import CreateCardText from "../Text/CreateCardText.js";
 import { CardEditDeleteIcons } from "../Icon/CardEditDeleteIcons.js";
 import propTypes from "prop-types";
 import {
-  APP_VIEW_MOBILE, APP_VIEW_DESKTOP,
+  APP_VIEW_DESKTOP, APP_VIEW_MOBILE,
 } from "../../utilities/constants.js";
 
 export const CreateCard = ( {

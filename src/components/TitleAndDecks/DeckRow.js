@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import DeckCard from "../../svgComponents/DeckCard.js";
 import { APP_VIEW_DESKTOP } from "../../utilities/constants.js";
+import { ReactComponent as EmptyCard } from "../../svgs/emtyDeckCard.svg";
 
 /**
  *   DeckRow
@@ -12,6 +13,7 @@ import { APP_VIEW_DESKTOP } from "../../utilities/constants.js";
 export const DeckRow = ( { decks, name, createDeckCard } ) => {
   return ( <Container data-testid={ "deck-row" + name }>
     { createDeckCard && <DeckCard key={ "create-deck" }/> }
+    { decks.length === 0 && <EmptyCard/> }
     { decks.map( deck => {
       return <DeckCard key={ deck.deck_id } deck={ deck }/>;
     } ) }

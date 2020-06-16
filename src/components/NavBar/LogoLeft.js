@@ -43,8 +43,7 @@ const LogoLeft = () => {
                         top={ "-10px" }/>
       <SvgSynapsLogoText onClick={ () => logoClicked() }
                          svgFill={ theme.BACKGROUND === THEMING_VALUES.DARK ?
-                           theme.themeState.white :
-                           theme.themeState.SYNAPS_DARK }
+                           theme.white : theme.SYNAPS_DARK }
                          width={ "60%" }
                          height={ "100%" }
       />
@@ -56,7 +55,7 @@ const LogoLeft = () => {
       flexDirection={ "row" } overFlowY={ "visible" } overFlowX={ "visible" }
       position={ "relative" }>
       <SvgSynapsLogoText onClick={ () => logoClicked() }
-                         svgFill={ THEME.SYNAPS_LIGHT } zIndex={ 10 }
+                         svgFill={ THEME.BACGROUDND } zIndex={ 10 }
                          margin={ "15% auto 0 auto" }/>
       
       <Brain containerPosition={ "absolute" } height={ "300px" }

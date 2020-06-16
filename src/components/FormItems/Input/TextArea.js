@@ -1,20 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import {Input} from 'antd';
-import {
-  APP_VIEW_MOBILE,
-  APP_VIEW_DESKTOP,
-} from '../../../utilities/constants.js';
-const {TextArea} = Input;
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components/macro";
+import { Input } from "antd";
+import { APP_VIEW_DESKTOP, } from "../../../utilities/constants.js";
 
-const StyledTextArea = ({
-  onChange,
-  height = '23px',
-  value,
-  autoSize,
-  clickHandler,
-  drillName = 'defaultName',
+const { TextArea } = Input;
+
+const StyledTextArea = ( {
+  onChange, height = "23px", value, autoSize, clickHandler, drillName = "defaultName",
   placeholder,
   appView,
   ...props

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import theming from "styled-theming";
-import PropTypes from "prop-types";
 
 /**
  *   StyledSvg

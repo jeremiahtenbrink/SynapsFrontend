@@ -10,7 +10,8 @@ export const UPLOAD_PHOTO = "UPLOAD_PHOTO";
  * Upload Image
  * @category Actions
  * @param file
- * @returns {function}
+ * @param uid
+ * @returns {function(*): Promise<AxiosResponse<any>>}
  */
 export const uploadImage = ( file, uid ) => dispatch => {
   dispatch( { type: UPLOADING_PHOTO_INIT, payload: file } );

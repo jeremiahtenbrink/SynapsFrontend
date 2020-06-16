@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theming from "styled-theming";
-import { ContainerDiv } from "../Container/ContainerDiv.js";
+import { ContainerDiv } from "..";
 import PropTypes from "prop-types";
 import { APP_PATHS, THEME } from "../../utilities/constants.js";
 import {

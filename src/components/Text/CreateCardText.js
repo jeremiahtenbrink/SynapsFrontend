@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {APP_VIEW_MOBILE, APP_VIEW_DESKTOP} from '../../utilities/constants.js';
 
 const StyledCardText = ({text, highlighted, appView}) => {

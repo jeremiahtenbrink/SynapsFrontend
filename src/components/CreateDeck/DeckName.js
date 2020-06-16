@@ -1,18 +1,13 @@
-import React, {useEffect} from 'react';
-import {FormInput} from '../FormItems/Input/FormInput.js';
-import styled from 'styled-components';
-import {CardEditDeleteIcons} from '../Icon/CardEditDeleteIcons.js';
-import {APP_VIEW_MOBILE, APP_VIEW_DESKTOP} from '../../utilities/constants.js';
+import React from "react";
+import { FormInput } from "..";
+import styled from "styled-components/macro";
+import { CardEditDeleteIcons } from "../Icon/CardEditDeleteIcons.js";
+import {
+  APP_VIEW_DESKTOP, APP_VIEW_MOBILE
+} from "../../utilities/constants.js";
 
-export const DeckName = ({
-  value,
-  name,
-  setNewDeck,
-  newDeck,
-  setDisableInput,
-  highlighted,
-  setHighlighted,
-  clickHandler,
+export const DeckName = ( {
+  value, name, setNewDeck, newDeck, setDisableInput, highlighted, setHighlighted, clickHandler,
   changeHandler,
   appView,
   ...props

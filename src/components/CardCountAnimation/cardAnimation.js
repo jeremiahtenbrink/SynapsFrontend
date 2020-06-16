@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import { genPercentAdd } from "antd/lib/upload/utils";
 
 import { LeftCard } from "./leftCard.js";
 import { RightCard } from "./rightCard.js";

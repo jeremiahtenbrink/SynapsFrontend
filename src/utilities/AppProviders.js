@@ -57,7 +57,7 @@ const AppProvider = props => {
   return (
     
     <ErrorBoundary>
-      <ThemeProvider theme={ { changeTheme, themeState, ...themeRules } }>
+      <ThemeProvider theme={ { changeTheme, ...themeState, ...themeRules } }>
         <Provider store={ store }>
           <AfterStoreTheme { ...props }/>
         </Provider>
@@ -82,7 +82,7 @@ const AfterStoreTheme = props => {
 };
 
 const AfterHooks = props => {
-  const getHooks = useAppHooks();
+  useAppHooks();
   useThemeContext();
   useDimensions();
   useAppView();

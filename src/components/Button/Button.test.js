@@ -1,11 +1,10 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 
-import {PrimaryButton} from './PrimaryButton.js';
+import { BasicButton } from "./BasicButton.js";
 
-
-test('StyledButton render correctly', () => {
-    const tree = renderer.create(<PrimaryButton />).toJSON();
-    expect(tree).toMatchSnapshot();
-});
+test( "StyledButton render correctly", () => {
+  const tree = renderer.create( <BasicButton/> ).toJSON();
+  expect( tree ).toMatchSnapshot();
+} );
 

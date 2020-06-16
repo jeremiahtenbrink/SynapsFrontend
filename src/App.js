@@ -18,10 +18,9 @@ import { useAppHooks } from "./customHooks/useAppHooks.js";
  * @category Views
  * @component
  * @example return (<App />);
- * @param getHooks
  * @return {*}
  */
-export default function App( props ){
+export default function App(){
   
   const [ alertMessage, setAlert ] = useState( "" );
   const { theme, usersState, getHooks } = useAppHooks();
@@ -29,7 +28,7 @@ export default function App( props ){
   
   useAuthStateChange( getHooks );
   
-  const deleteClick = ( e ) => {
+  const deleteClick = () => {
   
   };
   
@@ -59,7 +58,7 @@ export default function App( props ){
       left={ "50%" }
       transform={ "translate(-50%, 0)" }
       top={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-        [ THEMING_VALUES.BOTTOM ]: "800px",
+        [ THEMING_VALUES.BOTTOM ]: "65px",
         [ THEMING_VALUES.TOP ]: "65px",
         [ THEMING_VALUES.MOBILE ]: "624px",
       } ) }
@@ -90,7 +89,7 @@ App.propTypes = {
 
 const backgroundColor = theming( THEMING_VARIABLES.BACKGROUND, {
   [ THEMING_VALUES.DARK ]: THEME.PRIMARY_COLOR,
-  [ THEMING_VALUES.LIGHT ]: THEME.NAV_BAR_LIGHT,
+  [ THEMING_VALUES.LIGHT ]: THEME.COLOR_WHITE,
 } );
 
 const StyledApp = styled.div`
@@ -103,8 +102,15 @@ const StyledApp = styled.div`
   display: flex;
   max-width: 100vw;
   width: 100vw;
+  
+  
+  
+  
   align-items: center;
   max-height: 100vh;
   min-height: 100vh;
   overflow: hidden;
+  fill: ${ backgroundColor };
+  
+}
 `;

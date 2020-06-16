@@ -17,6 +17,7 @@ import {
  * @returns {object}
  */
 export const useThemeRules = () => {
+  
   let baseConfig = DEFAULT_THEME_RULE_VALUES;
   if( localStorage.getItem( SYNAPS_CONFIG.localStorageBasePath +
     "/themeRules" ) ){
