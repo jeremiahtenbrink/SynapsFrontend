@@ -3,20 +3,31 @@
 exports[`StyledTitleText render correctly 1`] = `
 .c0 {
   width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c0 p {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.1;
 }
 
 .c1 {
   color: #2A685B;
-  font-weight: 900;
+  font-weight: 600;
   font-size: 45px;
-  margin-left: 10%;
-  margin-top: 24px;
   text-align: left;
-  margin-bottom: 36px;
 }
 
 <div
   className="c0"
+  data-testid="title-container"
 >
   <div
     className="c1"

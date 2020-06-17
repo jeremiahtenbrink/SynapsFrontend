@@ -7,10 +7,6 @@ exports[`StyledInput render correctly 1`] = `
 }
 
 .c0.c0 .ant-form-item-label {
-  padding: 0 0 0;
-}
-
-.c0.c0 .ant-form-item-label {
   padding: 0 0 0 0;
   line-height: 1;
 }
@@ -23,7 +19,7 @@ exports[`StyledInput render correctly 1`] = `
   font-style: normal;
   font-weight: 600;
   font-size: 19px;
-  line-height: 24px;
+  line-height: 9px;
 }
 
 .c1.c1 .ant-form-item-label {

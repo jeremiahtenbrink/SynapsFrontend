@@ -1,7 +1,8 @@
-import React from 'react';
-import {render} from '@testing-library/react';
-import AppProvider from './AppProviders.js';
-import {getStore} from './getStore.js';
+import React from "react";
+import { render } from "@testing-library/react";
+import AppProvider from "./AppProviders.js";
+import { getStore } from "./getStore.js";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const store = getStore();
 
@@ -17,9 +18,13 @@ const store = getStore();
  * @return {CustomRenderResults}
  *
  */
-export const customRender = (ui, options) => render(ui, {
-  wrapper: AppProvider, ...options,
-});
+export const customRender = ( ui, options ) => render( ui, {
+  wrapper: Provider, ...options,
+} );
+
+const Provider = ( props ) => {
+  return <Router><AppProvider/></Router>;
+};
 
 /**
  * Get Child Nodes
@@ -32,12 +37,12 @@ export const customRender = (ui, options) => render(ui, {
  * @return {HTMLElement[]}
  */
 export const getChildNodes = c => {
-  console.log('inside of get next node.');
+  console.log( "inside of get next node." );
   const childNodes = [];
-  if(c.hasChildNodes()){
-    c.childNodes.forEach(child => {
-      childNodes.push(child);
-    });
+  if( c.hasChildNodes() ){
+    c.childNodes.forEach( child => {
+      childNodes.push( child );
+    } );
   }
   return childNodes;
 };
@@ -53,28 +58,28 @@ export const getChildNodes = c => {
  * @param {string} type
  * @return {HTMLElement[]}
  */
-export const getNodesByType = (c, type) => {
+export const getNodesByType = ( c, type ) => {
   const stack = [];
   const toReturn = [];
-  stack.push(c);
-  while(stack.length > 0){
+  stack.push( c );
+  while( stack.length > 0 ){
     let node = stack.pop();
-    if(node.hasChildNodes()){
-      node.childNodes.forEach(child => {
-        stack.push(child);
-      });
+    if( node.hasChildNodes() ){
+      node.childNodes.forEach( child => {
+        stack.push( child );
+      } );
     }
-    if(node.nodeName === type.toUpperCase()){
-      toReturn.push(node);
+    if( node.nodeName === type.toUpperCase() ){
+      toReturn.push( node );
     }
   }
   
   return toReturn;
 };
 
-export * from '@testing-library/react';
+export * from "@testing-library/react";
 
-export {store};
+export { store };
 
 /**
  * @typedef {object} CustomRenderResults
