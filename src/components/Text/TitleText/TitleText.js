@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import CardAnimation from "../../CardCountAnimation/cardAnimation.js";
 import { APP_VIEW_DESKTOP, } from "../../../utilities/constants.js";
 import moment from "moment";
+import { onThemeValue } from "../../../utilities/themeHelper";
 
 /**
  * Title Text
@@ -21,7 +22,7 @@ import moment from "moment";
  */
 export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreatedDate } ) => {
   
-  return ( <StyledTitleContainer b >
+  return ( <StyledTitleContainer data-testid={ "title-container" }>
     <StyledTitle color={ color }>{ text }</StyledTitle>
     { count && appView !== APP_VIEW_DESKTOP &&
     <CardAnimation open={ true } count={ count }/> }
@@ -31,17 +32,23 @@ export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreate
   </StyledTitleContainer> );
 };
 
+const titleStyles = onThemeValue( "appView" )`
+mobile: ${ () => css`
+flex-direction: row;
+justify-content: space-around;
+` };
+desktop: ${ () => css`
+align-items: flex-start;
+margin-left: 5%;
 
-/**
- * @typedef function StyledTitleContainer
- * @param {string} backGroundColor
- */
+` }
+`;
+
 const StyledTitleContainer = styled.div`
 width: 100%;
 display: flex;
 flex-direction: column;
-align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
-  "flex-start" : "center" };
+${ titleStyles };
 p{
 font-size: 24px;
 font-weight: bold;

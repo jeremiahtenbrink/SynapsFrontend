@@ -1,14 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledSearchBar render correctly 1`] = `
+.c0 {
+  height: 100%;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 .c0.c0 > .ant-input {
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
+  border-color: #343D58;
+  border-width: 2px;
+  font-size: 18px;
 }
 
 .c0.c0 > .ant-input:focus {
   box-shadow: none;
+}
+
+.c0.c0 span.ant-input-suffix {
+  font-size: 26px;
+}
+
+.c0.c0 span.ant-input-suffix svg {
+  fill: #343D58;
+  stroke: #343D58;
+  stroke-width: 40px;
 }
 
 <span
@@ -16,6 +38,7 @@ exports[`StyledSearchBar render correctly 1`] = `
 >
   <input
     className="ant-input"
+    data-testid="search-bar"
     onChange={[Function]}
     onKeyDown={[Function]}
     style={null}

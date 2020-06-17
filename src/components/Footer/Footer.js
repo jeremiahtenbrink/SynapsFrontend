@@ -1,17 +1,14 @@
 import React from "react";
-import styled from "styled-components";
-import theming from "styled-theming";
+import styled, { css } from "styled-components";
 import { ContainerDiv } from "..";
 import PropTypes from "prop-types";
 import { APP_PATHS, THEME } from "../../utilities/constants.js";
-import {
-  THEMING_VALUES, THEMING_VARIABLES,
-} from "../../customHooks/themingRules.js";
 import SvgPlusIcon from "../../svgComponents/SvgPlusIcon.js";
 import { Icon } from "antd";
 import { ReactComponent as Delete } from "../../svgs/delete.svg";
 import { ReactComponent as Edit } from "../../svgs/edit.svg";
 import { useAppHooks } from "../../customHooks/useAppHooks.js";
+import { onThemeValue } from "../../utilities/themeHelper";
 
 /**
  * Footer
@@ -46,7 +43,7 @@ export const Footer = ( props ) => {
           onClick={ () => setDeleteClicked( true ) }></Delete></> );
       }
     }else{
-      return <SvgPlusIcon onClick={ () => addDeck() }/>;
+      return <PlusIcon onClick={ () => addDeck() }/>;
     }
   };
   
@@ -55,20 +52,24 @@ export const Footer = ( props ) => {
     { path === "./preview" && <Blur/> }
     <ContainerDiv
       className={ "footer-container" }
-      maxHeight={ THEME.footerHeight + "px" }
-      height={ THEME.footerHeight + "px" }
+      maxHeight={ THEME.FOOTER_HEIGHT + "px" }
+      height={ THEME.FOOTER_HEIGHT + "px" }
       alignItems={ "center" }
       justifyContent={ selectingCards ? "space-around" : "center" }
       position={ "relative" }
       overFlowY={ "visible" }
       flexDirection={ "row" }
-    
+  
     >
       { getFooterIcons() }
-    
+  
     </ContainerDiv>
   </StyledFooter> );
 };
+
+const PlusIcon = styled( SvgPlusIcon )`
+height: 25px;
+`;
 
 const Icons = styled( Icon )`
 font-size: 40px;
@@ -86,17 +87,21 @@ height: 80px;
 background-image: linear-gradient(transparent, #ffffff8c);
 `;
 
-const bottom = theming( THEMING_VARIABLES.FOOTER, {
-  [ THEMING_VALUES.HIDDEN ]: "-75px", [ THEMING_VALUES.VISIBLE ]: "0",
-} );
-
+const onTheme = onThemeValue( "footer" )`
+visible: ${ () => css`
+bottom: 0;
+` };
+hidden: ${ () => css`
+bottom: ${ -THEME.FOOTER_HEIGHT }px;
+` }
+`;
 const StyledFooter = styled.div`
   position: absolute;
   display: flex;
-  bottom: ${ bottom };
+  ${ onTheme };
   margin-top: auto;
   min-width: 100vw;
-  z-index: 1;
+  z-index: 100;
   height: ${ THEME.FOOTER_HEIGHT }px;
   background: #E1DED7;
   align-items: center;

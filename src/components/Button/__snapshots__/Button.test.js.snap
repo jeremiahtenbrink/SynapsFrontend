@@ -2,12 +2,67 @@
 
 exports[`StyledButton render correctly 1`] = `
 .c0.c0 {
-  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border: 4px solid white;
+}
+
+.c0.c0 p {
+  font-family: "Source Sans Pro",serif;
+  font-size: 28px;
+  color: white;
+  font-weight: 700;
+  line-height: 1.1;
   width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  top: 70%;
+}
+
+.c0.c0 .one {
+  top: 50%;
+  left: 50%;
+  opacity: .8;
+  color: #f2f0ed;
+}
+
+.c0.c0 .two {
+  top: 50.2%;
+  left: 50.2%;
+  opacity: .6;
+  color: #edebe7;
+}
+
+.c0.c0 .three {
+  top: 50.4%;
+  left: 50.4%;
+  opacity: .4;
+  color: #e9e6e2;
+}
+
+.c0.c0 .four {
+  top: 50.6%;
+  left: 50.6%;
+  opacity: .2;
+  color: #e5e2dc;
+}
+
+.c0.c0 .five {
+  top: 50.8%;
+  left: 50.8%;
+  opacity: .1;
+  color: #e5e2dc;
 }
 
 <button
-  className="ant-btn c0 ant-btn-primary"
+  className="ant-btn c0 ant-btn-round"
   onClick={[Function]}
   type="button"
 />

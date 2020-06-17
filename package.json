@@ -37,7 +37,6 @@
     "clear": "react-scripts test --clearCache",
     "coverage": "react-scripts test --coverage --watchAll=false || true",
     "clear:run": "CI=true npm-run-all clear coverage || true",
-    "postCssStyled": "postcss  -p sugarss -o output.css -m",
     "lint:css": "stylelint ./src/**/*.js"
   },
   "jest": {

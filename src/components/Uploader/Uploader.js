@@ -55,7 +55,7 @@ export const Uploader = ( props ) => {
 };
 
 Uploader.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
 };
 
 const StyledUpload = styled( Upload )`

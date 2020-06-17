@@ -1,33 +1,33 @@
-import React from 'react';
+import React from "react";
 import {
-  customRender, getNodesByType, getByTestId, fireEvent, store, getByRole,
-} from '../../utilities/test-utils.js';
-import { Uploader } from './Uploader.js';
-import moxios from 'moxios';
+  customRender, fireEvent, getByRole, getByTestId, getNodesByType, store,
+} from "../../utilities/test-utils.js";
+import { Uploader } from "./Uploader.js";
+import moxios from "moxios";
 
 /**
  * Test the styled uploader
  */
-describe( 'Styled Uploader', () => {
+describe( "Styled Uploader", () => {
   //Test that styled uploaded hasn't changed sience last snapshot.
-  test( 'snapshot renders', async() => {
+  test( "snapshot renders", async() => {
     //Call custom render to wrap the component in fake providers.
     const { debug, container } = customRender( <Uploader id={ 1 }/> );
     
     // log out the component to the console when debug is turned on in env
-
+    debug();
     
     // get the button from the container.
-    const button = await getByTestId( container, 'upload' );
+    const button = await getByTestId( container, "upload" );
     
     // test button against snapshot
     expect( button ).toMatchSnapshot();
   } );
   
-  test( 'To have a click button.', async done => {
+  test( "To have a click button.", async done => {
     // create fake file.
-    const file = new File( [ '(⌐□_□)' ], 'chucknorris.png', {
-      type: 'image/png',
+    const file = new File( [ "(⌐□_□)" ], "chucknorris.png", {
+      type: "image/png",
     } );
     
     // install moxios to catch the axios request going out.
@@ -41,9 +41,9 @@ describe( 'Styled Uploader', () => {
       const { photosState } = store.getState();
       
       // get all the html elements needed to upload the file
-      let button = getByRole( container, 'button' );
-      let uploadIcon = getByTestId( container, 'upload-icon' );
-      let inputNode = getNodesByType( container, 'input' )[ 0 ];
+      let button = getByRole( container, "button" );
+      let uploadIcon = getByTestId( container, "upload-icon" );
+      let inputNode = getNodesByType( container, "input" )[ 0 ];
       
       // check to make sure state is empty
       expect( photosState.photos ).toEqual( {} );
@@ -67,7 +67,7 @@ describe( 'Styled Uploader', () => {
               logOutMessageOrDebug( { debug } );
               logOutMessageOrDebug( { message: photosState.toString() } );
               // get the image from the dom
-              const avatar = getByTestId( container, 'upload-image' );
+              const avatar = getByTestId( container, "upload-image" );
               expect( avatar ).toBeInTheDocument();
               expect( uploadIcon ).not.toBeInTheDocument();
               expect( photosState.photos[ 1 ].file ).toEqual( {

@@ -14,5 +14,4 @@ export * from "./Text/TitleText/TitleText.js";
 export * from "./CardIcon/CardIcon.js";
 export * from "./Footer/Footer.js";
 export * from "../routes/RouteContainer.js";
-export * from "./SmallDeckSvg/SmallDeckSvg.js";
 export * from "./ErrorBoundary/ErrorBoundary.js";
