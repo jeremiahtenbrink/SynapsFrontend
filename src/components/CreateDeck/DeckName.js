@@ -1,10 +1,11 @@
 import React from "react";
 import { FormInput } from "..";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { CardEditDeleteIcons } from "../Icon/CardEditDeleteIcons.js";
 import {
   APP_VIEW_DESKTOP, APP_VIEW_MOBILE
 } from "../../utilities/constants.js";
+import { onAppView } from "../../utilities/themeHelper";
 
 export const DeckName = ( {
   value, name, setNewDeck, newDeck, setDisableInput, highlighted, setHighlighted, clickHandler, changeHandler, appView, ...props
@@ -49,6 +50,12 @@ const DeckNameContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  
+  ${ onAppView`
+  desktop:${ props => css`
+margin-left: 25px;
+` };
+  ` }
 `;
 
 const DeckTitlePrompt = styled.h1`

@@ -48,9 +48,10 @@ const CreateCards = ( { changeHandler, clickHandler, highlighted, visible, appVi
 
 const styles = onThemeValue( "appView" )`
 desktop: ${ () => css`
-height: 40%;
+height: 50%;
 flex-direction: row;
 justify-content: space-between;
+align-self:flex-end;
 ` };
 mobile: ${ () => css`
 height: 60%;

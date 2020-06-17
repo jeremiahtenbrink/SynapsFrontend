@@ -3,7 +3,9 @@ import styled, { css } from "styled-components";
 import DeckCard from "../../svgComponents/DeckCard.js";
 import { APP_VIEW_DESKTOP } from "../../utilities/constants.js";
 import { ReactComponent as EmptyCard } from "../../svgs/emtyDeckCard.svg";
-import { onPropVal, onThemeValue } from "../../utilities/themeHelper";
+import {
+  onAppView, onPropVal, onThemeValue
+} from "../../utilities/themeHelper";
 
 /**
  *   DeckRow
@@ -34,8 +36,14 @@ ${ emptyStyles };
 
 const favDeckStyles = onPropVal( "name" )`
 Favorites: ${ () => css`
-height: 200px;
+min-height: 200px;
 margin-top:2.5rem;
+` }
+`;
+
+const deckRowStyles = onAppView`
+mobile: ${ props => css`
+justify-content: space-evenly;
 ` }
 `;
 
@@ -43,12 +51,17 @@ const Container = styled.div`
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
-align-items: center;
+align-items: flex-start;
 justify-content: flex-start;
+margin: 0 auto;
+width: 90%;
+${ deckRowStyles };
 ${ ( { theme } ) => {
   if( theme.appView === APP_VIEW_DESKTOP ){
     return css`
-    height: 216px;
+    min-height: 216px;
+    height: 100%;
+    padding-bottom: 20px;
   `;
   }else{
     return css`

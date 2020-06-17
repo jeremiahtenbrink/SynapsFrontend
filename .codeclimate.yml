@@ -7,3 +7,8 @@ exclude_patterns:
   - 'coverage/'
   - '*.test.js'
   - '*.spec.js'
+
+
+plugins:
+  stylelint:
+    enabled: true

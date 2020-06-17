@@ -87,7 +87,7 @@ order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "1" : "2" };
 `;
 
 const BackArrow = styled.div`
-display: flex;
+
 `;
 
 const TopContainer = styled.div`

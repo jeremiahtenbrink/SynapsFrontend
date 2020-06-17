@@ -39,7 +39,8 @@ const ButtonContainer = styled.div``;
 const appViewStyles = onAppView`
 desktop: ${ () => css`
 width: 30%;
-height: 25%;
+height: 100%;
+margin-top:10%;
 flex-direction: column;
 align-items: center;
 justify-content: center;
@@ -55,6 +56,9 @@ padding: 0 0 40px 0;
 
 const Container = styled.div`
 display: flex;
+p {
+  width: 100%;
+}
 ${ appViewStyles };
 `;
 

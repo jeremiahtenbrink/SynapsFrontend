@@ -33,6 +33,9 @@ const TitleAndDecks = ( { onSearch, decks, title, ...props } ) => {
 
 const Container = styled.div`
 display: flex;
+flex-direction: column;
+justify-content: center;
+
 `;
 
 const titleStyles = onThemeValue( "appView" )`
@@ -50,6 +53,8 @@ align-items: center;
 
 const TitleContainer = styled( BaseContainer )`
 display: flex;
+align-items: flex-start;
+margin-bottom: 10px;
 ${ titleStyles };
 
 /* width */

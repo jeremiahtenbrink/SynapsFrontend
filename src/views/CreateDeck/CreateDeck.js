@@ -209,7 +209,7 @@ export const CreateDeck = props => {
         highlighted={ highlighted.title }
         setHighlighted={ setHighlighted }
       />
-  
+
     </CardNameContainer>
     <CreateCards appView={ appView } highlighted={ highlighted }
                  cardNum={ cardNum } changeHandler={ changeHandler }
@@ -239,6 +239,7 @@ const StyledCreateDeck = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   ${ styles };
 `;
 

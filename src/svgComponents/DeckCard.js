@@ -111,6 +111,7 @@ const Container = styled.div`
 cursor: pointer;
 position: relative;
 ${ appView };
+margin-bottom: 2rem;
 p {
 transform-box: fill-box;
 position: absolute;

@@ -36,10 +36,11 @@ const titleStyles = onThemeValue( "appView" )`
 mobile: ${ () => css`
 flex-direction: row;
 justify-content: space-around;
-align-items: center;
 ` };
 desktop: ${ () => css`
-align-items: center;
+align-items: flex-start;
+margin-left: 5%;
+
 ` }
 `;
 
