@@ -1,21 +1,7 @@
 export const SYNAPS_CONFIG = {
   
-  localStorageBasePath: '/storage/state/',
+  localStorageBasePath: "/storage/state/",
   useLocalStorageToStorePrevContext: false,
-  localStorageContextBasePath: '/storage/context/',
+  localStorageContextBasePath: "/storage/context/",
+  debug: false,
 };
-
-const empty = [
-  'Storage Backup Middleware',
-  'Styled Theming',
-  'Theme',
-  'Nav Bar',
-  'App Hooks',
-  'Use Hooks Init',
-  'Use App View',
-  'App View',
-  'Use History',
-  'Use App View',
-  'Use Dimensions',
-  'Use Hooks Init',
-];

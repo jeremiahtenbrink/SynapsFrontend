@@ -3,7 +3,6 @@ import { InputWithLine } from "../components";
 import styled, { css } from "styled-components";
 import { EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn } from "../actions";
 import theming from "styled-theming";
-import { useTheming } from "../customHooks/useTheming.js";
 import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "../customHooks/themingRules.js";
@@ -23,14 +22,9 @@ import { onThemeValue } from "../utilities/themeHelper";
  * @example return (<SignIn />);
  */
 
-export function SignIn( props ){
-  const { dispatch, theme, path, appView, height } = useAppHooks();
+export function SignIn(){
+  const { dispatch, path } = useAppHooks();
   const [ info, setInfo ] = useState( { email: "", password: "", error: {} } );
-  const getValue = useTheming();
-  
-  const handleChange = e => {
-    setInfo( { ...info, [ e.target.name ]: e.target.value } );
-  };
   
   const handleSignInClick = type => {
     if( type === EMAIL_PROVIDER ){
@@ -54,39 +48,38 @@ export function SignIn( props ){
     }
   };
   
-  const switchWelcomeTitle = () => {
-    if( path === APP_PATHS.SIGN_IN_PATH ){
-      return <StyledH2>Hey! Welcome Back.</StyledH2>;
-    }else{
-      return ( <StyledH2
-        style={ {
-          display: "none",
-        } }
-      ></StyledH2> );
-    }
-  };
+  let googleProps = { google: true, page: path };
+  let emailProps = { email: true, page: path };
+  if( path === APP_PATHS.SIGN_IN_PATH ){
+    googleProps[ "primary" ] = true;
+    emailProps[ "gradient" ] = true;
+  }else{
+    googleProps[ "secondary" ] = true;
+    emailProps[ "primary" ] = true;
+  }
   
   return ( <StyledSignIn data-testid={ "sign-in-container" }>
-    { path === APP_PATHS.SIGN_IN_PATH ? <SignInModelSvg/> : <SignUpModel/> }
-    <PaddingContainer>
-      <LeftSideModel>
-        <SignInGoogleButton text={ "Sign In" } primary page={ path } google
+    { path === APP_PATHS.SIGN_IN_PATH ? <SignInModelSvg/> : <SignUpModelSvg/> }
+    <PaddingContainer data-testid={ "padding-container" }>
+      <LeftSideModel data-testid={ "left-side-model" }>
+        
+        <SignInGoogleButton text={ "Sign In" }{ ...googleProps }
                             onClick={ () => handleSignInClick( "google" ) }/>
-
+      
       </LeftSideModel>
-  
-      <RightSideModel>
+      
+      <RightSideModel data-testid={ "right-side-model" }>
         <SignInEmailButton onClick={ () => handleSignInClick( "email" ) }
-                           email gradient page={ path }/>
+                           { ...emailProps } />
         <Form>
           <Input maxWidth={ "326px" } elId={ "username-signIn" }
                  for={ "username" }/>
           <Input maxWidth={ "326px" } password elId={ "password-signIn" }/>
         </Form>
       </RightSideModel>
-
+    
     </PaddingContainer>
-
+  
   </StyledSignIn> );
 }
 
@@ -95,24 +88,13 @@ margin-top: 2rem;
 
 `;
 
-const backgroundColor = theming( THEMING_VARIABLES.BACKGROUND, {
-  [ THEMING_VALUES.DARK ]: () => {
-    return css`
-fill: {linearGradient('#00EFA9','#3F56F0'), 90};
- `;
-  }, [ THEMING_VALUES.LIGHT ]: () => {
-    return css`
-fill: #36405C;
-`;
-  }
-} );
 
 const inputStyles = onThemeValue( "appView" )`
-mobile: ${ props => css`
+mobile: ${ () => css`
 width: 100%;
 max-width: 300px;
 ` }
-desktop: ${ props => css`
+desktop: ${ () => css`
 width: ${ between( `${ .63 * 300 }px`, "250px", "767px", "1200px" ) };
 ` }
 `;
@@ -122,13 +104,12 @@ ${ inputStyles };
 `;
 
 const rightSideModel = onThemeValue( "appView" )`
-mobile ${ props => {
-  debugger;
+mobile: ${ () => {
   return css`
 align-items: center;
 `;
 } };
-desktop: ${ props => css`
+desktop: ${ () => css`
 align-items: flex-end;
 ` }
 `;
@@ -155,9 +136,31 @@ max-height: 251px;
 align-items: center;
 `;
 
+const SignUpModelSvg = styled( SignUpModel )`
+position: absolute;
+height: 530px;
+top:50%;
+left:50%;
+transform: translate(-50%, -50%);
+z-index: -1;
+${ props => {
+  if( props.theme.appView === APP_VIEW_MOBILE ){
+    return css`
+display: none;
+`;
+  }else{
+    if( props.theme.width < 1200 ){
+      return css`
+width: ${ between( "700px", "1100px", "767px", "1200px" ) };
+`;
+    }
+  }
+} }
+`;
+
 const SignInModelSvg = styled( SignInModel )`
 position: absolute;
-height: 450px;
+height: 530px;
 top:50%;
 left:50%;
 transform: translate(-50%, -50%);
@@ -192,19 +195,19 @@ height: ${ between( `${ .63 * 76 }px`, "76px", "767px", "1200px" ) };
 `;
   }else{
     return css`
-width: 352px;
+width: 250px;
 height: 76px;
 `;
   }
 } };
-mobile: ${ props => css`
-width: 352px;
+mobile: ${ () => css`
+width: 250px;
 height: 76px;
 ` }
 `;
 
 const appViewEmail = onThemeValue( "appView" )`
-mobile: ${ props => css`
+mobile: ${ () => css`
 order: 4;
 align-self: center;
 ` }
@@ -220,7 +223,7 @@ const SignInGoogleButton = styled( SvgButton )`
 `;
 
 const paddingCont = onThemeValue( "appView" )`
-mobile: ${ props => css`
+mobile: ${ () => css`
 flex-direction: column;
 ` } }
 `;
@@ -253,18 +256,4 @@ width: 1105px;
 }
 `;
 
-const StyledH2 = styled.h2`
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 24px;
-  margin: 1rem 0 1em;
-  color: #b7bfbc;
-  @media screen and ${ MEDIA_QUERIES.tablet } {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 24px;
-  }
-`;
 

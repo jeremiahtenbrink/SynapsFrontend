@@ -11,6 +11,7 @@ import { THEME } from "../utilities/constants.js";
  * @returns SvgComponent
  */
 function SvgBrainPic( props ){
+  
   return ( <ContainerDiv position={ "absolute" } margin={ props.margin }
                          width={ props.width } top={ props.top }
                          left={ props.left }

@@ -17,7 +17,7 @@ import { useAppHooks } from "../../customHooks/useAppHooks.js";
  *
  */
 const LogoLeft = () => {
-  const { appView, changePath, usersState, theme } = useAppHooks();
+  const { appView, changePath, usersState, path, theme } = useAppHooks();
   
   const logoClicked = () => {
     
@@ -55,24 +55,26 @@ const LogoLeft = () => {
       flexDirection={ "row" } overFlowY={ "visible" } overFlowX={ "visible" }
       position={ "relative" }>
       <SvgSynapsLogoText onClick={ () => logoClicked() }
-                         svgFill={ THEME.BACGROUDND } zIndex={ 10 }
+                         svgFill={ THEME.BRAIN_PIC_LIGHT } zIndex={ 10 }
                          margin={ "15% auto 0 auto" }/>
-      
+  
+      { path !== APP_PATHS.SIGN_IN_PATH && path !== APP_PATHS.SIGN_UP_PATH &&
+      path !== APP_PATHS.LANDING_PAGE &&
       <Brain containerPosition={ "absolute" } height={ "300px" }
-             zIndex={ 5 } svgFill={ THEME.BRAIN_PIC_DARK }
+             zIndex={ 5 } fill={ THEME.BRAIN_PIC_DARK }
              maxWidth={ "600px" }
              maxHeight={ "600px" }
              width={ "300px" } top={ "-25%" } svgWidth={ "100%" }
              svgHeight={ "100%" }
-             left={ "-40%" }/>
+             left={ "-40%" }/> }
     </ContainerDiv> );
   }
   
 };
 
 const Brain = styled( SvgBrainPic )`
-transform: rotateY("180deg");
-`;
+        transform: rotateY("180deg");
+        `;
 
 LogoLeft.propTypes = {};
 

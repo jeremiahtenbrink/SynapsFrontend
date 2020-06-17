@@ -6,13 +6,13 @@ import { RightCard } from "./rightCard.js";
 import { MiddleCard } from "./middleCard.js";
 
 function CardAnimation( { open, count } ){
-  return ( <Container>
+  return ( <Container data-testid={ "card-animation-container" }>
       <p>{ count }</p>
       <StyledLeft open={ open }/>
       <StyledMiddle/>
       <StyledRight open={ open }/>
     </Container>
-  
+
   );
 }
 
@@ -48,8 +48,9 @@ const Container = styled.div`
     position: relative;
     width: 50px;
     height: 50px;
-    p {
+    && > p {
       color: white;
+      font-size: 14px;
       font-weight: bold;
       font-family: "Fredoka One", "Source Sans Pro",serif;
       position: absolute;

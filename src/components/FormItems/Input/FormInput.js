@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Form, Input } from "antd";
 import PropTypes from "prop-types";
 import { APP_VIEW_DESKTOP, } from "../../../utilities/constants";
-import { ReactComponent as Line } from "../../../svgs/inputLine.svg";
 
 /**
  * Form Input
@@ -37,7 +36,6 @@ export const FormInput = ( {
           fontWeight={ fontWeight }
           { ...props }
         />
-        <InputLine/>
       </StyledFormItem> );
     }else{
       // bordered input with regular radius
@@ -52,7 +50,6 @@ export const FormInput = ( {
           fontWeight={ fontWeight }
           { ...props }
         />
-        <InputLine/>
       </StyledFormItem> );
     }
   }else{
@@ -70,20 +67,13 @@ export const FormInput = ( {
           { ...props }
         />
       </StyledBorderBottom>
-      <InputLine/>
     </StyledFormItem> );
   }
 };
 
-const InputLine = styled( Line )`
-
-`;
 
 const StyledFormItem = styled( Form.Item )`
   && {
-    .ant-form-item-label {
-      padding: 0 0 0;
-    }
     .ant-form-item-label {
       padding: 0 0 0 0;
       line-height: 1;
@@ -100,7 +90,7 @@ const StyledBorderBottom = styled.div`
 
 const StyledNoBorderAntdInput = styled( Input )`
   && {
-    border: 0px;
+    border: 0;
     .ant-form-item-label {
       padding: 0 0 0;
     }
@@ -110,7 +100,7 @@ const StyledNoBorderAntdInput = styled( Input )`
     .ant-input {
       width: ${ props => props.width };
       ${ props => props.appView === APP_VIEW_DESKTOP ?
-  "border: 1px solid #36405C;" : "" }
+  "border: 1px solid #36405C;" : "" };
       background-color: transparent;
       font-style: normal;
       font-weight: ${ props => props.fontWeight };
@@ -137,7 +127,7 @@ const StyledAntdInputLargeRadius = styled( Input )`
     background-color: transparent;
     border: ${ props => props.borderStyle };
     ${ props => props.appView === APP_VIEW_DESKTOP ?
-  "border: 1px solid #36405C;" : "" }
+  "border: 1px solid #36405C;" : "" };
     font-style: normal;
     font-weight: ${ props => props.fontWeight };
     font-size: 19px;
@@ -162,7 +152,7 @@ const StyledAntdInputSmallRadius = styled( Input )`
     background-color: transparent;
     border: ${ props => props.borderStyle };
     ${ props => props.appView === APP_VIEW_DESKTOP ?
-  "border: 1px solid #36405C;" : "" }
+  "border: 1px solid #36405C;" : "" };
     font-style: normal;
     font-weight: ${ props => props.fontWeight };
     font-size: 19px;

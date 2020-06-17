@@ -22,7 +22,20 @@ export const onPropVal = ( key ) => ( args, ...funcs ) => {
       console.warn( "The theme props doesn't seem to have your desired key" );
       console.warn( "key: ", key );
     }
-    
+  
+  };
+};
+
+export const onAppView = ( args, ...funcs ) => {
+  
+  const values = {};
+  mapKeyValuePairs( args, funcs, values );
+  
+  return ( props ) => {
+    const appView = props.theme && props.theme.appView;
+    if( appView in values ){
+      return values[ appView ]( props );
+    }
   };
 };
 
@@ -54,7 +67,7 @@ export const onThemeValue = ( key ) => ( args, ...funcs ) => {
 
 const mapKeyValuePairs = ( args, funcs, storage ) => {
   
-  args.forEach( ( key, i ) => {
+  args.forEach( ( key ) => {
     const split = key.split( ":" );
     
     if( split.length !== 2 ){
@@ -82,7 +95,7 @@ const stripChar = ( str ) => {
   const strArray = str.split( "" );
   let strToSendBack = "";
   let started = false;
-  strArray.some( ( letter, l ) => {
+  strArray.some( ( letter ) => {
     if( letter.match( /^[A-Za-z_]+$/ ) ){
       if( !started ){
         started = true;
@@ -101,11 +114,11 @@ const stripChar = ( str ) => {
 /**
  *
  */
-export const size = ( max, min, dynamicallyResize = true, ) => {
+export const size = ( max ) => {
   let parentNodeSize = null;
   
   return ( props ) => {
-    debugger;
+    
     if( parentNodeSize === null && props.containerRef.current ){
       parentNodeSize = {
         width: props.containerRef.current.parentNode.clientWidth,

@@ -1,23 +1,29 @@
-import React from 'react';
-import styled from 'styled-components/macro';
-import {APP_VIEW_MOBILE, APP_VIEW_DESKTOP} from '../../utilities/constants.js';
+import React from "react";
+import styled, { css } from "styled-components/macro";
+import { onAppView } from "../../utilities/themeHelper";
 
-const StyledCardText = ({text, highlighted, appView}) => {
-  return (
-    <StyledTitle appView={appView} highlighted={highlighted}>
-      {text}
-    </StyledTitle>
-  );
+const StyledCardText = ( { text, highlighted, appView } ) => {
+  return ( <StyledTitle appView={ appView } highlighted={ highlighted }
+                        data-testid={ "card-text-component" }>
+    { text }
+  </StyledTitle> );
 };
 
+const styles = onAppView`
+desktop: ${ () => css`
+color: #36405C;
+font-weight: normal;
+line-height: 30px;
+` }
+mobile: ${ () => css`
+color: #2A685B;
+font-weight: bold;
+` }
+`;
+
 const StyledTitle = styled.h1`
-  color: ${props =>
-    props.appView === APP_VIEW_DESKTOP ? '#36405C' : '#2A685B'};
-  font-weight: ${props =>
-    props.appView === APP_VIEW_MOBILE ? 'bold' : 'normal'};
-  font-size: ${props => (props.appView === APP_VIEW_MOBILE ? '20px' : '24px')};
   text-align: left;
-  ${props => (props.appView === APP_VIEW_DESKTOP ? 'line-height: 30px;' : '')}
+  ${ styles };
 `;
 
 export default StyledCardText;

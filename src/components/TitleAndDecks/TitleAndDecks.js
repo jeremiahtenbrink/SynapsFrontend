@@ -1,10 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { BaseContainer, SearchBar, TitleText } from "..";
-import { APP_VIEW_DESKTOP, } from "../../utilities/constants.js";
 import { DeckRow } from "./DeckRow.js";
-import { THEMING_VARIABLES, } from "../../customHooks/themingRules.js";
-import { setUpCssValues } from "../../utilities/getStyles.js";
+import { onThemeValue } from "../../utilities/themeHelper";
 
 /**
  *   TitleAndDecks
@@ -14,58 +12,45 @@ import { setUpCssValues } from "../../utilities/getStyles.js";
  */
 const TitleAndDecks = ( { onSearch, decks, title, ...props } ) => {
   
-  return ( <Container data-testis={ "title-and-deck-row-container" }>
-    <TitleContainer className={ "title-container" }>
-      <TitleText color={ "#36405C" }
-                 text={ title }
-      />
-      
-      { onSearch && <SearchBar height={ "37px" }
-                               borderRadius={ "15px" }
-                               onSearch={ onSearch }
-                               onChange={ onSearch }
-                               width={ "90%" }
-      /> }
-    </TitleContainer>
-    <DeckRow decks={ decks } name={ title }
-             createDeckCard={ title === "My" + " Decks" }/>
-  </Container> );
+  return (
+    <Container data-testis={ "title-and-deck-row-container" } { ...props }>
+      <TitleContainer className={ "title-container" }>
+        <TitleText color={ "#36405C" }
+                   text={ title }
+        />
+        
+        { onSearch && <SearchBar height={ "37px" }
+                                 borderRadius={ "15px" }
+                                 onSearch={ onSearch }
+                                 onChange={ onSearch }
+                                 width={ "90%" }
+        /> }
+      </TitleContainer>
+      <DeckRow decks={ decks } name={ title }
+               createDeckCard={ title === "My" + " Decks" }/>
+    </Container> );
 };
-
-const themeValues = {
-  [ THEMING_VARIABLES.APP_VIEW ]: {
-    [ APP_VIEW_DESKTOP ]: { prop: "height", yes: "267px", no: "100%" },
-  },
-};
-
-const containerCss = setUpCssValues( themeValues );
 
 const Container = styled.div`
-${ ( { theme } ) => containerCss( theme ) };
-
+display: flex;
 `;
 
-const themingVariables = {
-  [ THEMING_VARIABLES.APP_VIEW ]: {
-    [ APP_VIEW_DESKTOP ]: {
-      yes: css`
-flex-direction: row;
-height: 50px;
-align-items: center;
-`, no: css`
+const titleStyles = onThemeValue( "appView" )`
+mobile: ${ () => css`
 flex-direction: column;
 height: 60px;
 align-items: flex-start;
-`,
-    },
-  },
-};
-
-const sendProps = setUpCssValues( themingVariables );
+` };
+desktop: ${ () => css`
+flex-direction: row;
+height: 50px;
+align-items: center;
+` }
+`;
 
 const TitleContainer = styled( BaseContainer )`
 display: flex;
-${ props => sendProps( props ) };
+${ titleStyles };
 
 /* width */
 ::-webkit-scrollbar { display: none; }

@@ -6,12 +6,13 @@ import { SYNAPS_CONFIG } from "../synapsConfig.js";
  * @category ReduxMiddleware
  */
 export const logger = store => next => action => {
-  console.log( `Dispatching --> ${ action.type }` );
-  console.log( action, "Action" );
+  
+  log( `Dispatching --> ${ action.type }` );
+  log( "Action", action );
   
   let result = next( action );
   
-  console.log( store.getState(), "Next state." );
+  log( "Next state.", store.getState() );
   
   return result;
 };
@@ -50,4 +51,13 @@ export const storageBackUp = store => next => action => {
     } );
   }
   return result;
+};
+
+const log = ( message, object ) => {
+  if( SYNAPS_CONFIG.debug ){
+    console.log( message );
+    if( object ){
+      console.log( object );
+    }
+  }
 };

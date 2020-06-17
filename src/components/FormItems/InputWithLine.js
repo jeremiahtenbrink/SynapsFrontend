@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { Form, Input } from "antd";
-import { ReactComponent as Line } from "../../svgs/inputLine.svg";
 
 /**
  *   InputWithLine
@@ -25,14 +24,10 @@ export const InputWithLine = ( props ) => {
                  onChange={ e => setUserName( e.target.value ) }
                  value={ userName }
                  placeholder={ props.for }{ ...props }/> }
-    <InputLine></InputLine>
+
 
   </FormItem> );
 };
-
-const InputLine = styled( Line )`
-
-      `;
 
 const FormItem = styled( Form.Item )`
       &&{
@@ -51,20 +46,13 @@ const FormItem = styled( Form.Item )`
       
       `;
 
-const input = keyframes`
-0%,100% {
-        color: #666;
-        background: transparent;
-    }
-`;
-
 const FormInput = styled( Input )`
-
+display: flex;
 
 `;
 
 const FormPassword = styled( Input.Password )`
-
+display: flex;
 `;
 
 InputWithLine.propTypes = {};

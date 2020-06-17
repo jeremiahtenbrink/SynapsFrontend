@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled, { css } from "styled-components";
+import { onThemeValue } from "../../../utilities/themeHelper";
 
 /**
  * Title Text
@@ -10,23 +10,33 @@ import styled from 'styled-components/macro';
  *  <TitleText text={"Create Deck"} />
  *
  */
-export const CreateCardTitleText = ({text, appView}) => {
-  return <StyledTitle appView={appView}>{text}</StyledTitle>;
+export const CreateCardTitleText = ( { children, ...props } ) => {
+  return <StyledTitle { ...props }>{ children }</StyledTitle>;
 };
 
+const styles = onThemeValue( "appView" )`
+desktop: ${ () => css`
+color:  #36405C;
+font-weight: 600;
+font-size: 47px;
+ line-height: 30px;
+` };
+mobile: ${ () => css`
+color:  #2A685B;
+font-weight: 900;
+font-size: 45px;
+ line-height: 1;
+` }
+`;
+
 const StyledTitle = styled.h1`
-  color: ${props =>
-    props.appView === 'APP_VIEW_MOBILE' ? '#2A685B' : '#36405C'};
   font-style: normal;
-  font-weight: ${props => (props.appView === 'MOBILE_VIEW_MOBILE' ? 900 : 600)};
-  font-size: ${props =>
-    props.appView === 'APP_VIEW_MOBILE' ? '45px' : '47px'};
-  line-height: ${props =>
-    props.appView === 'APP_VIEW_MOBILE' ? '24px' : '30px'};
   text-align: left;
-  margin-bottom: 10px;
+  h1 {
+    margin: 0;
+  }
+  ${ styles };
 `;
 
 CreateCardTitleText.propTypes = {
-  text: PropTypes.string.isRequired,
 };
