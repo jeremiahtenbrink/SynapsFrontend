@@ -23,7 +23,7 @@ const StudyButton = ( { render, deck } ) => {
   };
   return ( <Container data-testid={ "study-button-container" }>
     <SvgButton onClick={ study } secondary
-               page={ path }><Ptext>Study</Ptext></SvgButton>
+               page={ path }>Study</SvgButton>
   </Container> );
 };
 
@@ -31,16 +31,11 @@ StudyButton.propTypes = {};
 
 export default StudyButton;
 
-const Ptext = styled.p`
-font-size: 32px;
-color: white;
-`;
-
 const studyOnAppView = onThemeValue( "appView" )`
 desktop: ${ () => css`
 align-self: flex-start;
 border-radius: 33px;
-margin-left: 9%;
+margin: 0 0 0 0;
 > span {
 font-size: 24px;
 }
@@ -59,6 +54,7 @@ const Container = styled.div`
 box-sizing: border-box;
 margin-top: 20px;
 margin-bottom: 6px;
+line-height: 0;
   > span {
   font-weight: bold;
   color: white;

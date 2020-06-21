@@ -15,6 +15,7 @@ export const SvgButton = ( props ) => {
   const { theme } = useAppHooks();
   const [ bgFillColor, setBgFillColor ] = useState( "transparent" );
   const [ bgStrokeColor, setBgStrokeColor ] = useState( "white" );
+  const [ textColor, setTextColor ] = useState( "white" );
   const [ text, setText ] = useState();
   const conRef = useRef();
   
@@ -28,12 +29,20 @@ export const SvgButton = ( props ) => {
     if( props.primary ){
       setBgFillColor( "#36405C" );
       setBgStrokeColor( theme.background === "light" ? "#4F84EA" : "white" );
+      setTextColor( "white" );
     }else if( props.secondary ){
+      debugger;
       setBgFillColor( "#4CB69F" );
       setBgStrokeColor( theme.background === "light" ? "#00ECAA" : "white" );
+      setTextColor( "white" );
     }else if( props.gradient ){
       setBgFillColor( `url(#green_blue)` );
       setBgStrokeColor( "white" );
+      setTextColor( "white" );
+    }else if( props.white ){
+      setBgFillColor( "white" );
+      setBgStrokeColor( "#00ECAA" );
+      setTextColor( "#36405C" );
     }
   }, [ props ] );
   
@@ -280,7 +289,7 @@ export const SvgButton = ( props ) => {
           <rect width="29.4047" height="30" fill="white"
                 transform="translate(32.54 20.4476)"/>
         </clipPath>
-        
+  
         <linearGradient id="green_blue" x1="9.99973" y1="11.7316" x2="344"
                         y2="51.7316" gradientUnits="userSpaceOnUse">
           <stop stopColor="#00EFA9"/>
@@ -289,14 +298,15 @@ export const SvgButton = ( props ) => {
       </defs>
       ;
     </svg>
-    <CenterP>{ props.children }</CenterP>
+    <CenterP textColor={ textColor }>{ props.children }</CenterP>
   </SvgContainer> );
 };
 const CenterP = styled.p`
 position: absolute;
 font-size: 24px;
-color: white;
-top: 50%;
+font-weight: bold;
+color: ${ props => props.textColor };
+top: 44%;
 left: 50%;
 transform: translate(-50%, -50%);
 `;

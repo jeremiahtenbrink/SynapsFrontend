@@ -1,11 +1,11 @@
 import {
-  RETRIEVE_DECKS_START, RETRIEVE_DECKS_SUCCESS, RETRIEVE_DECKS_FAILURE,
-  POSTING_DECK_START, POSTING_DECK_SUCCESS, POSTING_DECK_FAILURE,
-  DELETING_DECK_START, DELETING_DECK_SUCCESS, DELETING_DECK_FAILURE,
-  UPDATING_DECK_START, UPDATING_DECK_SUCCESS, UPDATING_DECK_FAILURE,
-  RETRIEVE_USER_DECKS_START, RETRIEVE_USER_DECKS_SUCCESS,
-  RETRIEVE_USER_DECKS_FAILURE, RETRIEVE_DECK_START, RETRIEVE_DECK_SUCCESS,
-  RETRIEVE_DECK_FAILURE,
+  DELETING_DECK_FAILURE, DELETING_DECK_START, DELETING_DECK_SUCCESS,
+  POSTING_DECK_FAILURE, POSTING_DECK_START, POSTING_DECK_SUCCESS,
+  RETRIEVE_DECK_FAILURE, RETRIEVE_DECK_START, RETRIEVE_DECK_SUCCESS,
+  RETRIEVE_DECKS_FAILURE, RETRIEVE_DECKS_START, RETRIEVE_DECKS_SUCCESS,
+  RETRIEVE_USER_DECKS_FAILURE, RETRIEVE_USER_DECKS_START,
+  RETRIEVE_USER_DECKS_SUCCESS, UPDATING_DECK_FAILURE, UPDATING_DECK_START,
+  UPDATING_DECK_SUCCESS,
 } from "../actions";
 
 /**
@@ -101,10 +101,13 @@ export const decksReducer = ( state = initialState, action ) => {
       };
     case UPDATING_DECK_SUCCESS:
       return {
-        ...state,
-        fetchingDecks: false,
-        decks: action.payload,
-        errorDecksMessage: undefined,
+        ...state, fetchingDecks: false, decks: state.decks.map( deck => {
+          if( deck.deck_id === action.payload.deck_id ){
+            return action.payload;
+          }else{
+            return deck;
+          }
+        } ), errorDecksMessage: undefined,
       };
     case UPDATING_DECK_FAILURE:
       return {

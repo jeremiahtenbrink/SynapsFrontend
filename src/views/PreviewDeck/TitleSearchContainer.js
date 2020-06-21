@@ -70,9 +70,9 @@ const StyledIconLeft = styled( Icon )`
 `;
 
 const SearchContainer = styled.div`
-  margin:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 21% 2px 0" :
+  margin:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 14% 10px 0" :
   "0 auto" };
-  width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "58%" : "50%" };
+  width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "100%" : "50%" };
   max-width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "70%" :
   "100%" };
 `;
@@ -100,7 +100,6 @@ justify-content: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
   "flex-end" : "center" };
 align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "flex-end" :
   "center" };
-margin-top: 15px;
 order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2" : "1" };
 
 .back-arrow{
@@ -118,7 +117,6 @@ display: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "none" :
 
 const Container = styled.div`
 display: flex;
-margin-top: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2rem" : "" };
 flex-direction: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "row" :
   "column" };
 

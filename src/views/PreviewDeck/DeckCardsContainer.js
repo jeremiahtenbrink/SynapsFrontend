@@ -57,15 +57,11 @@ margin: 0;
 
 const Container = styled.div`
   overflow-y: scroll;
-  height: 100%;
-  top: 0;
-  left: 0;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   padding-bottom: 150px;
  ${ containerStyles };
- border: 1px solid red;
 
 `;
 

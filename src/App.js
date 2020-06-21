@@ -26,7 +26,7 @@ export default function App(){
   const { theme, usersState, getHooks } = useAppHooks();
   const getValue = useTheming();
   
-  useAuthStateChange( getHooks );
+  useAuthStateChange();
   
   const deleteClick = () => {
   
@@ -42,7 +42,7 @@ export default function App(){
   }, [ usersState ] );
   
   return ( <StyledApp className="App">
-    { theme.BRAIN_SVG !== THEMING_VALUES.HIDDEN && ( <SvgBrainPic
+    { theme.brainSvg !== THEMING_VALUES.HIDDEN && ( <SvgBrainPic
       maxWidth={ "3000px" }
       maxHeight={ "3000px" }
       height={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
@@ -51,8 +51,7 @@ export default function App(){
         [ THEMING_VALUES.MOBILE ]: "624px",
       } ) }
       width={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-        [ THEMING_VALUES.BOTTOM ]: "1800px",
-        [ THEMING_VALUES.TOP ]: "1800px",
+        [ THEMING_VALUES.BOTTOM ]: "1800px", [ THEMING_VALUES.TOP ]: "1800px",
         [ THEMING_VALUES.MOBILE ]: "624px",
       } ) }
       left={ "50%" }

@@ -118,7 +118,7 @@ padding-bottom:0;
 
 const footerStyles = onThemeValue( "footer" )`
 visible: ${ props => css`
-height:( ${ props.theme.height } - ${ THEME.NAV_BAR_HEIGHT } - ${ THEME.FOOTER_HEIGHT }) + px;
+min-height:( ${ props.theme.height } - ${ THEME.NAV_BAR_HEIGHT } - ${ THEME.FOOTER_HEIGHT }) + px;
 padding-bottom: ${ THEME.FOOTER_HEIGHT }+ px;
 ` };
 hidden:
@@ -130,6 +130,7 @@ const StyledPreviewDeck = styled.div`
   flex-direction: column;
   max-width: 1140px;
   width: 100%;
+  overflow: scroll;
   ${ appViewPrevDeck };
   ${ footerStyles };
 `;

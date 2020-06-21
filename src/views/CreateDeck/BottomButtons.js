@@ -21,7 +21,7 @@ const BottomButtons = ( { submitForm, doneSubmit, appView, ...props } ) => {
     </ButtonContainer>
     <ButtonContainer>
       <BottomButton
-        secondary
+        white
         onClick={ doneSubmit }
       >{ appView === APP_VIEW_MOBILE ? "Done" :
         "Done Adding Cards" }</BottomButton>

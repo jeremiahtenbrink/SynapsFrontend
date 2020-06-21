@@ -58,7 +58,7 @@ export const onThemeValue = ( key ) => ( args, ...funcs ) => {
           }
         }
       }else{
-        console.warn( "The theme props doesn't seem to have your desired key" );
+        console.warn( "Theme doesn't seem to have your key" );
         console.warn( "key: ", key );
       }
     }
