@@ -9,9 +9,9 @@ import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "./customHooks/themingRules.js";
 import { THEME } from "./utilities/constants.js";
-import theming from "styled-theming";
 import { useTheming } from "./customHooks/useTheming.js";
 import { useAppHooks } from "./customHooks/useAppHooks.js";
+import { onThemeValue } from "./utilities/themeHelper";
 
 /**
  * App
@@ -51,7 +51,8 @@ export default function App(){
         [ THEMING_VALUES.MOBILE ]: "624px",
       } ) }
       width={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
-        [ THEMING_VALUES.BOTTOM ]: "1800px", [ THEMING_VALUES.TOP ]: "1800px",
+        [ THEMING_VALUES.BOTTOM ]: "1800px",
+        [ THEMING_VALUES.TOP ]: "1800px",
         [ THEMING_VALUES.MOBILE ]: "624px",
       } ) }
       left={ "50%" }
@@ -86,10 +87,10 @@ App.propTypes = {
   getHooks: PropTypes.func,
 };
 
-const backgroundColor = theming( THEMING_VARIABLES.BACKGROUND, {
-  [ THEMING_VALUES.DARK ]: THEME.PRIMARY_COLOR,
-  [ THEMING_VALUES.LIGHT ]: THEME.COLOR_WHITE,
-} );
+const backgroundColor = onThemeValue( THEMING_VARIABLES.BACKGROUND )`
+dark: ${ THEME.PRIMARY_COLOR };
+light:${ THEME.COLOR_WHITE };
+  `;
 
 const StyledApp = styled.div`
   background: ${ backgroundColor };
