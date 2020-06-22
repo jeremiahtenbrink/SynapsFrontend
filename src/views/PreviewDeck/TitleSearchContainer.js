@@ -27,7 +27,7 @@ const TitleSearchContainer = ( { selectMode, unSelected, search, deck } ) => {
       
       <SearchContainer className={ "search-container" }>
         <SearchBar
-          height={ appView === APP_VIEW_DESKTOP ? "37px" : "24px" }
+          height={ appView === APP_VIEW_DESKTOP ? "37px" : "37px" }
           borderRadius={ "14px" }
           onChange={ search }
           onSearch={ search }
@@ -47,7 +47,7 @@ const TitleSearchContainer = ( { selectMode, unSelected, search, deck } ) => {
         deckCreatedDate={ deck.created_at }
         color={ appView === APP_VIEW_DESKTOP ? "#0D2545" : "#2A685B" }
       />
-      
+  
       <StudyButton
         deck={ deck }
         render={ appView === APP_VIEW_DESKTOP }
@@ -62,7 +62,9 @@ const TitleSearchContainer = ( { selectMode, unSelected, search, deck } ) => {
 
 const Selected = styled.p`
   color: ${ props => ( props.selected === true ? "#14E59E" : "#000000" ) };
-  margin-right: 9%;
+  margin: 0 0 0 0;
+  width: 20%;
+  align-self: center;
 `;
 
 const StyledIconLeft = styled( Icon )`
@@ -70,9 +72,9 @@ const StyledIconLeft = styled( Icon )`
 `;
 
 const SearchContainer = styled.div`
-  margin:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 21% 2px 0" :
+  margin:${ props => props.theme.appView === APP_VIEW_DESKTOP ? "0 14% 10px 0" :
   "0 auto" };
-  width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "58%" : "50%" };
+  width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "100%" : "68%" };
   max-width: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "70%" :
   "100%" };
 `;
@@ -87,7 +89,13 @@ order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "1" : "2" };
 `;
 
 const BackArrow = styled.div`
-
+align-self: center;
+i{
+align-self: center;
+}
+p {
+margin: 0 0 0 0;
+}
 `;
 
 const TopContainer = styled.div`
@@ -100,7 +108,6 @@ justify-content: ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
   "flex-end" : "center" };
 align-items: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "flex-end" :
   "center" };
-margin-top: 15px;
 order: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2" : "1" };
 
 .back-arrow{
@@ -118,7 +125,6 @@ display: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "none" :
 
 const Container = styled.div`
 display: flex;
-margin-top: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "2rem" : "" };
 flex-direction: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "row" :
   "column" };
 

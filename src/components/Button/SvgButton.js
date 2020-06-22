@@ -10,11 +10,12 @@ import { useAppHooks } from "../../customHooks/useAppHooks";
  *  @component
  *
  */
-export const SvgButton = ( props ) => {
+export const SvgButton = ( { fontSize, ...props } ) => {
   
   const { theme } = useAppHooks();
   const [ bgFillColor, setBgFillColor ] = useState( "transparent" );
   const [ bgStrokeColor, setBgStrokeColor ] = useState( "white" );
+  const [ textColor, setTextColor ] = useState( "white" );
   const [ text, setText ] = useState();
   const conRef = useRef();
   
@@ -28,12 +29,20 @@ export const SvgButton = ( props ) => {
     if( props.primary ){
       setBgFillColor( "#36405C" );
       setBgStrokeColor( theme.background === "light" ? "#4F84EA" : "white" );
+      setTextColor( "white" );
     }else if( props.secondary ){
+      debugger;
       setBgFillColor( "#4CB69F" );
       setBgStrokeColor( theme.background === "light" ? "#00ECAA" : "white" );
+      setTextColor( "white" );
     }else if( props.gradient ){
       setBgFillColor( `url(#green_blue)` );
       setBgStrokeColor( "white" );
+      setTextColor( "white" );
+    }else if( props.white ){
+      setBgFillColor( "white" );
+      setBgStrokeColor( "#00ECAA" );
+      setTextColor( "#36405C" );
     }
   }, [ props ] );
   
@@ -44,22 +53,22 @@ export const SvgButton = ( props ) => {
         <rect id="Rectangle 73" opacity="0.17" x="4.4209" y="1.98218"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 74" opacity="0.17" x="5.39648" y="2.73291"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 75" opacity="0.17" x="6.37207" y="3.48364"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 77" opacity="0.17" x="7.34766" y="4.23438"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 76" x="3.44531" y="1.23145" width="350" height="70"
               rx="32" fill={ bgFillColor } stroke={ bgStrokeColor }
-              strokeWidth="2"
+              strokeWidth="4"
               strokeLinecap="round"/>
         <g id="googleIcon" opacity={ props.google ? 1 : 0 }>
           <g id="Google__G__Logo" opacity="0.17" clipPath="url(#clip0)">
@@ -280,7 +289,7 @@ export const SvgButton = ( props ) => {
           <rect width="29.4047" height="30" fill="white"
                 transform="translate(32.54 20.4476)"/>
         </clipPath>
-        
+  
         <linearGradient id="green_blue" x1="9.99973" y1="11.7316" x2="344"
                         y2="51.7316" gradientUnits="userSpaceOnUse">
           <stop stopColor="#00EFA9"/>
@@ -289,14 +298,16 @@ export const SvgButton = ( props ) => {
       </defs>
       ;
     </svg>
-    <CenterP>{ props.children }</CenterP>
+    <CenterP fontSize={ fontSize }
+             textColor={ textColor }>{ props.children }</CenterP>
   </SvgContainer> );
 };
 const CenterP = styled.p`
 position: absolute;
-font-size: 24px;
-color: white;
-top: 50%;
+font-size: ${ props => props.fontSize || "24px" };
+font-weight: bold;
+color: ${ props => props.textColor };
+top: 44%;
 left: 50%;
 transform: translate(-50%, -50%);
 `;

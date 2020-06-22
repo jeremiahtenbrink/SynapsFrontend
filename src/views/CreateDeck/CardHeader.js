@@ -34,11 +34,11 @@ height: 50%;
 ` };
 `;
 const Container = styled.div`
- width: 100%;
-  padding: 0 2px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+width: 100%;
+padding: 0 2px;
+display: flex;
+justify-content: space-around;
+align-items: center;
 flex-direction: row;
 margin-top: 0;
   ${ styles };

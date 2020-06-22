@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import theming from "styled-theming";
 
 /**
  *   StyledSvg
@@ -8,50 +7,41 @@ import theming from "styled-theming";
  *  @component
  *
  */
-const StyledSvg = (props) => {
+const StyledSvg = ( props ) => {
   
-  const newProps = parseProps(props);
+  const newProps = parseProps( props );
   
-  
-  
-  return (
-    <StyledSvgComponent {...newProps} >
-      {props.children}
-    </StyledSvgComponent>
-  );
+  return ( <StyledSvgComponent { ...newProps } >
+    { props.children }
+  </StyledSvgComponent> );
 };
 
-export const parseProps = (props = {}) => {
+export const parseProps = ( props = {} ) => {
   const newProps = {};
-  Object.keys(props).forEach(key => {
-    if(key.includes("-")){
-      const keyArray = key.split("-");
+  Object.keys( props ).forEach( key => {
+    if( key.includes( "-" ) ){
+      const keyArray = key.split( "-" );
       let newKey;
-      for(let i = 0; i < keyArray.length; i++){
-        if(i === 0){
-          newKey = keyArray[i];
+      for( let i = 0; i < keyArray.length; i++ ){
+        if( i === 0 ){
+          newKey = keyArray[ i ];
         }else{
-          newKey += keyArray[i].charAt(0).toUpperCase() +
-            keyArray[i].slice(1);
+          newKey += keyArray[ i ].charAt( 0 ).toUpperCase() +
+            keyArray[ i ].slice( 1 );
         }
       }
-      newProps[newKey] = props[key];
+      newProps[ newKey ] = props[ key ];
     }else{
-      newProps[key] = props[key];
+      newProps[ key ] = props[ key ];
     }
     
-  });
+  } );
   
   return newProps;
 };
 
-export const overflow = theming("showOverflow", {
-  show: "visible",
-  hide: "hidden",
-});
-
 const StyledSvgComponent = styled.svg`
-overflow: ${overflow};
+overflow: visible;
 `;
 
 StyledSvg.propTypes = {};

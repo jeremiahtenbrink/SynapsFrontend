@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ContainerDiv, NavBarAvatar } from "..";
 import { signOut } from "../../actions";
-import theming from "styled-theming";
 import LogoLeft from "./LogoLeft.js";
 import { APP_PATHS, THEME } from "../../utilities/constants.js";
-import {
-  THEMING_VALUES, THEMING_VARIABLES,
-} from "../../customHooks/themingRules.js";
+import { THEMING_VARIABLES } from "../../customHooks/themingRules.js";
 import { useHistory } from "react-router";
 import { useAppHooks } from "../../customHooks/useAppHooks.js";
+import { onThemeValue } from "../../utilities/themeHelper";
 
 /**
  * Nav Bar
@@ -79,22 +77,23 @@ export const NavBar = ( props ) => {
 NavBar.propTypes = {};
 
 const StyledBar = styled.div`
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  z-index: 15;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: ${ THEME.NAV_BAR_HEIGHT + "px" };
-
+background: transparent;
+display: flex;
+justify-content: center;
+z-index: 15;
+position: absolute;
+top: 0;
+width: 100%;
+height: ${ THEME.NAV_BAR_HEIGHT + "px" };
+overflow-x: hidden;
+overflow-y: visible;
  
 `;
 
-const color = theming( THEMING_VARIABLES.BACKGROUND, {
-  [ THEMING_VALUES.DARK ]: THEME.FONT_LIGHT,
-  [ THEMING_VALUES.LIGHT ]: THEME.FONT_DARK,
-} );
+const color = onThemeValue( THEMING_VARIABLES.BACKGROUND )`
+dark: ${ THEME.FONT_LIGHT },
+light: ${ THEME.FONT_DARK },
+`;
 
 const Styledh2 = styled.h2`
   display: flex;

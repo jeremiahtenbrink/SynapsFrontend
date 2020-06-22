@@ -9,9 +9,9 @@ import {
   THEMING_VALUES, THEMING_VARIABLES,
 } from "./customHooks/themingRules.js";
 import { THEME } from "./utilities/constants.js";
-import theming from "styled-theming";
 import { useTheming } from "./customHooks/useTheming.js";
 import { useAppHooks } from "./customHooks/useAppHooks.js";
+import { onThemeValue } from "./utilities/themeHelper";
 
 /**
  * App
@@ -26,7 +26,7 @@ export default function App(){
   const { theme, usersState, getHooks } = useAppHooks();
   const getValue = useTheming();
   
-  useAuthStateChange( getHooks );
+  useAuthStateChange();
   
   const deleteClick = () => {
   
@@ -42,7 +42,7 @@ export default function App(){
   }, [ usersState ] );
   
   return ( <StyledApp className="App">
-    { theme.BRAIN_SVG !== THEMING_VALUES.HIDDEN && ( <SvgBrainPic
+    { theme.brainSvg !== THEMING_VALUES.HIDDEN && ( <SvgBrainPic
       maxWidth={ "3000px" }
       maxHeight={ "3000px" }
       height={ getValue( THEMING_VARIABLES.BRAIN_SVG, {
@@ -87,10 +87,10 @@ App.propTypes = {
   getHooks: PropTypes.func,
 };
 
-const backgroundColor = theming( THEMING_VARIABLES.BACKGROUND, {
-  [ THEMING_VALUES.DARK ]: THEME.PRIMARY_COLOR,
-  [ THEMING_VALUES.LIGHT ]: THEME.COLOR_WHITE,
-} );
+const backgroundColor = onThemeValue( THEMING_VARIABLES.BACKGROUND )`
+dark: ${ THEME.PRIMARY_COLOR };
+light:${ THEME.COLOR_WHITE };
+  `;
 
 const StyledApp = styled.div`
   background: ${ backgroundColor };
@@ -102,15 +102,9 @@ const StyledApp = styled.div`
   display: flex;
   max-width: 100vw;
   width: 100vw;
-  
-  
-  
-  
   align-items: center;
   max-height: 100vh;
   min-height: 100vh;
   overflow: hidden;
   fill: ${ backgroundColor };
-  
-}
 `;

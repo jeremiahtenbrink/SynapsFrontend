@@ -1,8 +1,7 @@
 import { createRule } from "./useStyledThemingRules.js";
 import {
-  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE, THEME,
+  APP_PATHS, APP_VIEW_DESKTOP, APP_VIEW_MOBILE,
 } from "../utilities/constants.js";
-import theming from "styled-theming";
 
 /**
  * @typedef {Object} THEMING_VARIABLES
@@ -42,11 +41,6 @@ export const THEMING_VALUES = {
   MOBILE: "mobile",
   DESKTOP: "desktop",
 };
-
-const brainPicTheme = theming( "appView", "routes", {
-  [ APP_PATHS.DASHBOARD_PATH ]: THEME.BRAIN_PIC_DARK,
-  [ APP_PATHS.DASHBOARD_PATH ]: THEME.BRAIN_PIC_DARK,
-} );
 
 /**
  * @typedef {Object} ThemeRuleValues

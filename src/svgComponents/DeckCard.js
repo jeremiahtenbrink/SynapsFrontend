@@ -47,16 +47,22 @@ const DeckCard = ( { deck } ) => {
    * @property {HTMLElement} el
    */
   const setDeckCardElements = ( el ) => {
-    
-    if( el.id === "heart" ){
+  
+    if( el.id === "heartButton" ){
       if( !deck ){
-        el.setAttribute( "opacity", 0 );
+      
       }else{
         el.addEventListener( "click", favoriteClicked );
       }
-    }else if( el.id === "heartCenter" ){
+    }else if( el.id === "heartOutline" ){
       if( !deck || !deck.favorite ){
-        el.setAttribute( "opacity", 0 );
+        el.removeAttribute( "fill" );
+        el.firstElementChild.removeAttribute( "fill" );
+        el.lastElementChild.setAttribute( "stroke", "#323C56" );
+      }else{
+        el.setAttribute( "fill", "#323C56" );
+        el.lastElementChild.setAttribute( "stroke", "url(#heart_outline)" );
+      
       }
       setHeartCenter( el );
     }else if( el.id === "addButton" ){
@@ -65,13 +71,7 @@ const DeckCard = ( { deck } ) => {
       }
       setAddButton( addButton );
     }else if( el.id === "text" ){
-      el.childNodes[ 0 ].childNodes[ 0 ].childNodes.forEach( ( child, i ) => {
-        if( i === 0 ){
-          child.textContent = "";
-        }else{
-          child.textContent = "";
-        }
-      } );
+      el.setAttribute( "opacity", 0 );
     }
   };
   

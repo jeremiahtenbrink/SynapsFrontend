@@ -59,10 +59,10 @@ export const Footer = ( props ) => {
       position={ "relative" }
       overFlowY={ "visible" }
       flexDirection={ "row" }
-  
+
     >
       { getFooterIcons() }
-  
+
     </ContainerDiv>
   </StyledFooter> );
 };
@@ -105,6 +105,6 @@ const StyledFooter = styled.div`
   height: ${ THEME.FOOTER_HEIGHT }px;
   background: #E1DED7;
   align-items: center;
-  
+  overflow-x: hidden;
 `;
 

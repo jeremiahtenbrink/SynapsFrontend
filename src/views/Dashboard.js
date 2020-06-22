@@ -5,6 +5,7 @@ import { getUserDecks } from "../actions";
 import Fuse from "fuse.js";
 import TitleAndDecks from "../components/TitleAndDecks/TitleAndDecks.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
+import { InsideRouteContainer } from "../components";
 
 const options = {
   keys: [
@@ -34,7 +35,6 @@ export const Dashboard = () => {
     dispatch( getUserDecks( usersState.user.uid ) );
   }, [] );
   
-  
   const getDecks = () => {
     
     if( decksState && decksState.decks ){
@@ -42,11 +42,11 @@ export const Dashboard = () => {
         false );
       const fuse = new Fuse( decksToSend, options );
       if( searchTerm !== "" ){
-    
+  
         const decks = fuse.search( searchTerm );
         console.log( decks );
         return decks;
-    
+  
       }else{
         return decksToSend;
       }
@@ -69,21 +69,9 @@ Dashboard.propTypes = {
   history: PropTypes.object,
 };
 
-const StyledDashboard = styled.div`
-  display: flex;
-  flex-direction: column;
+const StyledDashboard = styled( InsideRouteContainer )`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
- 
-  
-  
-  
-  
-  /* width */
-::-webkit-scrollbar {
-display: none;
-}
-
 `;
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { TitleText } from "../components";
+import { InsideRouteContainer, TitleText } from "../components";
 import BigFlashCard from "../components/BigFlashCard/BigFlashCard.js";
 import { ReactComponent as SvgBack } from "../svgs/BackButton.svg";
 import { ReactComponent as SvgNext } from "../svgs/NextButton.svg";
@@ -235,21 +235,15 @@ const ButtonContainer = styled.div`
   "30px" };
 `;
 
-const Container = styled.div`
+const Container = styled( InsideRouteContainer )`
   width: 100%;
   max-width: 1140px;
   border-radius: ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "10px" :
   "0" };
- 
- 
- 
- 
   height: 100%;
   background-color: white;
-  display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
 `;
 
 const SynapsH1 = styled.h1`

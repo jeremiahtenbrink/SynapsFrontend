@@ -20,9 +20,10 @@ import { onThemeValue } from "../../../utilities/themeHelper";
  * @param deckCreatedDate
  * @return {*}
  */
-export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreatedDate } ) => {
+export const TitleText = ( { text, color = "#2A685B", count, appView, deckCreatedDate, ...props } ) => {
   
-  return ( <StyledTitleContainer data-testid={ "title-container" }>
+  return ( <StyledTitleContainer data-testid={ "title-container" }
+                                 color={ color } { ...props } >
     <StyledTitle color={ color }>{ text }</StyledTitle>
     { count && appView !== APP_VIEW_DESKTOP &&
     <CardAnimation open={ true } count={ count }/> }
@@ -36,10 +37,13 @@ const titleStyles = onThemeValue( "appView" )`
 mobile: ${ () => css`
 flex-direction: row;
 justify-content: space-around;
+align-items: center;
+order: 2;
 ` };
 desktop: ${ () => css`
 align-items: flex-start;
 margin-left: 5%;
+
 
 ` }
 `;
@@ -53,6 +57,7 @@ p{
 font-size: 24px;
 font-weight: bold;
 line-height: 1.1;
+color: ${ props => props.color };
 }
 `;
 

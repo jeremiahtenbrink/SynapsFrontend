@@ -9,6 +9,7 @@ import DeckCardsContainer from "./DeckCardsContainer";
 import { onThemeValue } from "../../utilities/themeHelper";
 import TitleSearchContainer from "./TitleSearchContainer";
 import StudyButton from "./StudyButton";
+import { InsideRouteContainer } from "../../components";
 
 const options = {
   keys: [
@@ -118,18 +119,18 @@ padding-bottom:0;
 
 const footerStyles = onThemeValue( "footer" )`
 visible: ${ props => css`
-height:( ${ props.theme.height } - ${ THEME.NAV_BAR_HEIGHT } - ${ THEME.FOOTER_HEIGHT }) + px;
-padding-bottom: ${ THEME.FOOTER_HEIGHT }+ px;
+min-height:( ${ props.theme.height } - ${ THEME.NAV_BAR_HEIGHT } - ${ THEME.FOOTER_HEIGHT }) + px;
+padding-bottom: ${ 600 }+ px;
 ` };
 hidden:
 `;
 
-const StyledPreviewDeck = styled.div`
+const StyledPreviewDeck = styled( InsideRouteContainer )`
   align-self: flex-start;
-  display: flex;
-  flex-direction: column;
   max-width: 1140px;
   width: 100%;
+  height: 100%;
+  overflow: scroll;
   ${ appViewPrevDeck };
   ${ footerStyles };
 `;

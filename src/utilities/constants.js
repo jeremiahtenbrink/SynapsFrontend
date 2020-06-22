@@ -113,13 +113,13 @@ export const SIZES = {
  * @type {Devices}
  */
 export const MEDIA_QUERIES = {
-  mobileS: `(min-width: ${ SIZES.mobileS }px)`,
-  mobileM: `(min-width: ${ SIZES.mobileM }px)`,
-  mobileL: `(min-width: ${ SIZES.mobileL }px)`,
-  tablet: `(min-width: ${ SIZES.tablet }px)`,
-  laptop: `(min-width: ${ SIZES.laptop }px)`,
-  laptopL: `(min-width: ${ SIZES.laptopL }px)`,
-  desktop: `(min-width: ${ SIZES.desktop }px)`,
+  mobileS: `(max-width: ${ SIZES.mobileS }px)`,
+  mobileM: `(max-width: ${ SIZES.mobileM }px)`,
+  mobileL: `(max-width: ${ SIZES.mobileL }px)`,
+  tablet: `(max-width: ${ SIZES.tablet }px)`,
+  laptop: `(max-width: ${ SIZES.laptop }px)`,
+  laptopL: `(max-width: ${ SIZES.laptopL }px)`,
+  desktop: `(max-width: ${ SIZES.desktop }px)`,
 };
 
 /**

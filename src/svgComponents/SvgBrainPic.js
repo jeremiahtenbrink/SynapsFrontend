@@ -1,8 +1,8 @@
 import React from "react";
 import { ContainerDiv } from "../components";
 import styled from "styled-components";
-import theming from "styled-theming";
 import { THEME } from "../utilities/constants.js";
+import { onThemeValue } from "../utilities/themeHelper";
 
 /**
  * Svg Brain Pic
@@ -21,7 +21,7 @@ function SvgBrainPic( props ){
                          backgroundColor={ props.backgroundColor }
                          zIndex={ props.zIndex } id={ "svg-container" }
                          overFlowY={ "visible" } onClick={ props.onClick }
-                         overFlowX={ "visible" }
+                         overFlowX={ "hidden" }
                          transform={ props.transform } style={ props.style }
   >
     <SVG
@@ -52,17 +52,10 @@ function SvgBrainPic( props ){
   </ContainerDiv> );
 }
 
-const fillColor = theming( "background", {
-  light: props => {
-    
-    console.log( props );
-    return THEME.BRAIN_PIC_DARK;
-  }, dark: props => {
-    
-    console.log( props );
-    return THEME.BRAIN_PIC_LIGHT;
-  },
-} );
+const fillColor = onThemeValue( "background" )`
+light: ${ THEME.BRAIN_PIC_DARK };
+dark: ${ THEME.BRAIN_PIC_LIGHT };
+`;
 
 const SVG = styled.svg`
 fill: ${ fillColor };

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { signOut } from "../../actions";
 import { APP_PATHS } from "../../utilities/constants.js";
 import { useAppHooks } from "../../customHooks/useAppHooks.js";
+import { APP_VIEW_DESKTOP } from "../../utilities/constants";
 
 /**
  * Nav Bar Avatar
@@ -17,7 +18,7 @@ import { useAppHooks } from "../../customHooks/useAppHooks.js";
 export const NavBarAvatar = ( { avatarUrl, ...props } ) => {
   
   const [ open, setOpen ] = useState( false );
-  const { dispatch, usersState, changePath } = useAppHooks();
+  const { dispatch, usersState, changePath, appView } = useAppHooks();
   const openRef = useRef();
   
   const handleClick = ( path ) => {
@@ -67,9 +68,12 @@ export const NavBarAvatar = ( { avatarUrl, ...props } ) => {
                     content={ getContent() }
                     visible={ open }
                     trigger="click">
-    { avatarUrl ? <StyledAntAvatar src={ avatarUrl } { ...props } size={ 40 }
+    { avatarUrl ? <StyledAntAvatar src={ avatarUrl } { ...props }
+                                   size={ appView === APP_VIEW_DESKTOP ? 50 :
+                                     40 }
                                    onClick={ handleAvatarClick }
-    /> : <StyledAntAvatar { ...props } size={ 40 }
+    /> : <StyledAntAvatar { ...props }
+                          size={ appView === APP_VIEW_DESKTOP ? 50 : 40 }
                           onClick={ handleAvatarClick }
     /> }
   </Popover> );
@@ -79,9 +83,9 @@ const StyledAntAvatar = styled( Avatar )`
   && {
     position: absolute;
     background-color: #585858;
+    right: 13%;
+    top: 60%;
     filter: contrast(0.5);
-    top: 35px;
-    right: 8%;
     transform: translate(0, -50%);
   }
 `;
