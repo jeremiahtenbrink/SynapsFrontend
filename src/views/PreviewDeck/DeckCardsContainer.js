@@ -56,7 +56,6 @@ margin: 0;
 `;
 
 const Container = styled.div`
-  overflow-y: scroll;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;

@@ -58,12 +58,9 @@ desktop: ${ ( { theme } ) => {
   }else{
     containerBGColor = THEME.CONTAINER_BG;
   }
-  
-  let padding = 47;
   let borderRadius = 10;
   let marginTop = theme.NAV_BAR_HEIGHT + 25;
   return css`
-padding: ${ padding }px;
 border-radius: ${ borderRadius }px;
 margin-top: ${ marginTop }px;
 background: ${ containerBGColor };
@@ -76,12 +73,9 @@ mobile : ${ ( { theme } ) => {
   }else{
     containerBGColor = THEME.CONTAINER_BG;
   }
-  
-  let padding = 15;
   let borderRadius = 0;
   let marginTop = theme.NAV_BAR_HEIGHT;
   return css`
-padding: ${ padding }px;
 border-radius: ${ borderRadius }px;
 margin-top: ${ marginTop }px;
 background: ${ containerBGColor };

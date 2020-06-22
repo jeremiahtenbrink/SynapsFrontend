@@ -5,6 +5,7 @@ import SvgSynapsLogoText from "../svgComponents/SvgSynapsLogoText.js";
 import { SvgBrainPaths } from "../svgComponents";
 import { MEDIA_QUERIES, THEME } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
+import { InsideRouteContainer } from "../components";
 
 /**
  * Landing Page
@@ -161,7 +162,7 @@ const Menu3 = styled.div`
   color: #000000;
 `;
 
-const StyledLandingPage = styled.div`
+const StyledLandingPage = styled( InsideRouteContainer )`
   margin: 75px auto;
 `;
 

@@ -10,6 +10,7 @@ import { onThemeValue } from "../../utilities/themeHelper";
 import CardHeader from "./CardHeader";
 import BottomButtons from "./BottomButtons";
 import CreateCards from "./CreateCards";
+import { InsideRouteContainer } from "../../components";
 
 /**
  * Create Deck View
@@ -235,9 +236,7 @@ max-width: 1140px;
 ` }
 `;
 
-const StyledCreateDeck = styled.div`
-  display: flex;
-  flex-direction: column;
+const StyledCreateDeck = styled( InsideRouteContainer )`
   align-items: center;
   justify-content: space-between;
   ${ styles };

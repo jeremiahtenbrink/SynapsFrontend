@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InputWithLine } from "../components";
+import { InputWithLine, InsideRouteContainer } from "../components";
 import styled, { css } from "styled-components";
 import { EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn } from "../actions";
 import { THEMING_VARIABLES } from "../customHooks/themingRules.js";
@@ -238,12 +238,12 @@ ${ paddingCont };
 
 `;
 
-const StyledSignIn = styled.div`
+const StyledSignIn = styled( InsideRouteContainer )`
 position: relative;
 z-index: 200;
 color: ${ switchText };
-display: flex;
-flex-direction: column;
+justify-self: center;
+align-self: center;
 height: 450px;
 width: 1105px;
 @media ${ MEDIA_QUERIES.desktop } {

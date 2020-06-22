@@ -47,7 +47,7 @@ const TitleSearchContainer = ( { selectMode, unSelected, search, deck } ) => {
         deckCreatedDate={ deck.created_at }
         color={ appView === APP_VIEW_DESKTOP ? "#0D2545" : "#2A685B" }
       />
-      
+    
       <StudyButton
         deck={ deck }
         render={ appView === APP_VIEW_DESKTOP }

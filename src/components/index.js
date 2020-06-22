@@ -5,6 +5,7 @@ export * from "./Button/BasicButton.js";
 export * from "./SmallFlashCard/SmallFlashCard.js";
 export * from "./Container/ContainerDiv.js";
 export { BaseContainer } from "./Container/BaseContainer.js";
+export { InsideRouteContainer } from "./Container/InsideRouteContainer";
 export * from "./PreviewDeckCards/PreviewDeckCards.js";
 export * from "./FormItems/Input/FormInput.js";
 export * from "./FormItems/InputWithLine.js";

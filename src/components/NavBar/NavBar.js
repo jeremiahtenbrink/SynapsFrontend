@@ -85,7 +85,7 @@ const StyledBar = styled.div`
   top: 0;
   width: 100%;
   height: ${ THEME.NAV_BAR_HEIGHT + "px" };
-
+overflow-x: hidden;
  
 `;
 

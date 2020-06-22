@@ -21,7 +21,7 @@ function SvgBrainPic( props ){
                          backgroundColor={ props.backgroundColor }
                          zIndex={ props.zIndex } id={ "svg-container" }
                          overFlowY={ "visible" } onClick={ props.onClick }
-                         overFlowX={ "visible" }
+                         overFlowX={ "hidden" }
                          transform={ props.transform } style={ props.style }
   >
     <SVG

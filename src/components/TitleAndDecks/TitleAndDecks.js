@@ -23,7 +23,6 @@ const TitleAndDecks = ( { onSearch, decks, title, ...props } ) => {
                                  borderRadius={ "15px" }
                                  onSearch={ onSearch }
                                  onChange={ onSearch }
-                                 width={ "90%" }
         /> }
       </TitleContainer>
       <DeckRow decks={ decks } name={ title }

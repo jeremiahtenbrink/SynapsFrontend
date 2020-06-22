@@ -36,14 +36,13 @@ ${ emptyStyles };
 
 const favDeckStyles = onPropVal( "name" )`
 Favorites: ${ () => css`
-min-height: 200px;
 margin-top:2.5rem;
 ` }
 `;
 
 const deckRowStyles = onAppView`
 mobile: ${ props => css`
-justify-content: space-evenly;
+justify-content: flex-start;
 ` }
 `;
 
