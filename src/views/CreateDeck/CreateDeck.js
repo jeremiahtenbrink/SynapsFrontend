@@ -191,7 +191,7 @@ export const CreateDeck = props => {
   };
   
   return ( <StyledCreateDeck data-testid={ "create-deck-container" }>
-    <CardNameContainer>
+    <CardNameContainer data-testid={ "card-name-container" }>
       { appView === APP_VIEW_MOBILE && ( <CancelButtonContainer>
         <CancelButton onClick={ doneSubmit }>Cancel</CancelButton>
       </CancelButtonContainer> ) }
@@ -210,7 +210,7 @@ export const CreateDeck = props => {
         highlighted={ highlighted.title }
         setHighlighted={ setHighlighted }
       />
-
+  
     </CardNameContainer>
     <CreateCards appView={ appView } highlighted={ highlighted }
                  cardNum={ cardNum } changeHandler={ changeHandler }
@@ -247,10 +247,6 @@ const CardNameContainer = styled.div`
   ${ props => ( props.theme.appView === APP_VIEW_DESKTOP ? "height: 25%;" :
   "" ) };
   width: 100%;
-  margin-bottom: ${ props => props.theme.appView === APP_VIEW_MOBILE ? "30px" :
-  "0px" };
-  ${ props => props.theme.appView === APP_VIEW_DESKTOP ?
-  "margin-bottom: 35px;" : "" }
 `;
 
 const CancelButtonContainer = styled.div`

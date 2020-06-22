@@ -77,15 +77,16 @@ export const NavBar = ( props ) => {
 NavBar.propTypes = {};
 
 const StyledBar = styled.div`
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  z-index: 15;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: ${ THEME.NAV_BAR_HEIGHT + "px" };
+background: transparent;
+display: flex;
+justify-content: center;
+z-index: 15;
+position: absolute;
+top: 0;
+width: 100%;
+height: ${ THEME.NAV_BAR_HEIGHT + "px" };
 overflow-x: hidden;
+overflow-y: visible;
  
 `;
 

@@ -10,7 +10,7 @@ import { useAppHooks } from "../../customHooks/useAppHooks";
  *  @component
  *
  */
-export const SvgButton = ( props ) => {
+export const SvgButton = ( { fontSize, ...props } ) => {
   
   const { theme } = useAppHooks();
   const [ bgFillColor, setBgFillColor ] = useState( "transparent" );
@@ -298,12 +298,13 @@ export const SvgButton = ( props ) => {
       </defs>
       ;
     </svg>
-    <CenterP textColor={ textColor }>{ props.children }</CenterP>
+    <CenterP fontSize={ fontSize }
+             textColor={ textColor }>{ props.children }</CenterP>
   </SvgContainer> );
 };
 const CenterP = styled.p`
 position: absolute;
-font-size: 24px;
+font-size: ${ props => props.fontSize || "24px" };
 font-weight: bold;
 color: ${ props => props.textColor };
 top: 44%;

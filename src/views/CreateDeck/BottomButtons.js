@@ -16,6 +16,7 @@ const BottomButtons = ( { submitForm, doneSubmit, appView, ...props } ) => {
     <ButtonContainer>
       <BottomButton
         secondary
+        fontSize={ appView === APP_VIEW_DESKTOP ? "24px" : "18px" }
         onClick={ submitForm }
       >{ "Add Another Card" }</BottomButton>
     </ButtonContainer>
@@ -23,6 +24,7 @@ const BottomButtons = ( { submitForm, doneSubmit, appView, ...props } ) => {
       <BottomButton
         white
         onClick={ doneSubmit }
+        fontSize={ appView === APP_VIEW_DESKTOP ? "24px" : "18px" }
       >{ appView === APP_VIEW_MOBILE ? "Done" :
         "Done Adding Cards" }</BottomButton>
     </ButtonContainer>
@@ -31,7 +33,7 @@ const BottomButtons = ( { submitForm, doneSubmit, appView, ...props } ) => {
 
 const BottomButton = styled( SvgButton )`
   ${ props => props.theme.appView === APP_VIEW_DESKTOP ? "margin-top: 10px;" :
-  "" }
+  "" };
 `;
 
 const ButtonContainer = styled.div``;
