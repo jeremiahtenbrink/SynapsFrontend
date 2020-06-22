@@ -63,16 +63,23 @@ export const PreviewDeckCards = ( {
       Add { cardType === "deck" ? "Deck" : "Card" }
     </p> ) }
     { ( !deck && cardType === "deck" || !card && cardType === "card" ) &&
-    <AddCardButton width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
-                   height={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }/> }
+    <SvgButton width={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }
+               height={ appView === APP_VIEW_DESKTOP ? "55px" : "49PX" }/> }
     { ( deck || card ) &&
     <p className={ "deck-text" }>{ cardType === "deck" ? deck.deck_name :
       card.question }</p> }
     { selected && <StyledCheck> </StyledCheck> }
-  
-  
+
+
   </StyledAntdCard> );
 };
+
+const SvgButton = styled( AddCardButton )`
+position: absolute;
+top: 70%;
+left: 50%;
+transform: translate(-50%, -50%);
+`;
 
 const StyledCheck = styled( Check )`
   align-self: flex-end;

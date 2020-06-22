@@ -92,6 +92,7 @@ max-width: 300px;
 ` }
 desktop: ${ () => css`
 width: ${ between( `${ .63 * 300 }px`, "250px", "767px", "1200px" ) };
+max-width: 250px;
 ` }
 `;
 
@@ -116,7 +117,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: flex-end;
-width: 45%;
+width: 40%;
 height: 100%;
 max-height: 251px;
 ${ rightSideModel };
@@ -231,7 +232,7 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 height: 73%;
-width: 97%;
+width: 95%;
 align-items: center;
 ${ paddingCont };
 
@@ -246,8 +247,8 @@ justify-self: center;
 align-self: center;
 height: 450px;
 width: 1105px;
-@media ${ MEDIA_QUERIES.desktop } {
-  height: 100%;
+@media ${ MEDIA_QUERIES.tablet } {
+  align-self: flex-start;
 }
 `;
 

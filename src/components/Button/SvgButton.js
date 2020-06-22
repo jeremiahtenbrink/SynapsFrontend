@@ -53,22 +53,22 @@ export const SvgButton = ( { fontSize, ...props } ) => {
         <rect id="Rectangle 73" opacity="0.17" x="4.4209" y="1.98218"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 74" opacity="0.17" x="5.39648" y="2.73291"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 75" opacity="0.17" x="6.37207" y="3.48364"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 77" opacity="0.17" x="7.34766" y="4.23438"
               width="350" height="70" rx="32" fill={ bgFillColor }
               stroke={ bgStrokeColor }
-              strokeWidth="2" strokeLinecap="round"/>
+              strokeWidth="4" strokeLinecap="round"/>
         <rect id="Rectangle 76" x="3.44531" y="1.23145" width="350" height="70"
               rx="32" fill={ bgFillColor } stroke={ bgStrokeColor }
-              strokeWidth="2"
+              strokeWidth="4"
               strokeLinecap="round"/>
         <g id="googleIcon" opacity={ props.google ? 1 : 0 }>
           <g id="Google__G__Logo" opacity="0.17" clipPath="url(#clip0)">

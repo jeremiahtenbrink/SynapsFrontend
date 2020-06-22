@@ -65,6 +65,7 @@ ${ ( { theme } ) => {
   }else{
     return css`
     height: max-content;
+    justify-content: center;
     
 `;
   }
