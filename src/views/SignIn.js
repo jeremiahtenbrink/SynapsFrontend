@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import { InputWithLine } from "../components";
 import styled, { css } from "styled-components";
 import { EMAIL_PROVIDER, GOOGLE_PROVIDER, signIn } from "../actions";
-import theming from "styled-theming";
-import {
-  THEMING_VALUES, THEMING_VARIABLES,
-} from "../customHooks/themingRules.js";
+import { THEMING_VARIABLES } from "../customHooks/themingRules.js";
 import { APP_PATHS, MEDIA_QUERIES } from "../utilities/constants.js";
 import { useAppHooks } from "../customHooks/useAppHooks.js";
 import { ReactComponent as SignUpModel } from "../svgs/SignUpModel.svg";
 import { ReactComponent as SignInModel } from "../svgs/SignInModel.svg";
 import SvgButton from "../components/Button/SvgButton";
 import { between } from "polished";
-import { APP_VIEW_MOBILE } from "../utilities/constants";
+import { APP_VIEW_MOBILE, THEME } from "../utilities/constants";
 import { onThemeValue } from "../utilities/themeHelper";
 
 /**
@@ -87,7 +84,6 @@ const Form = styled.div`
 margin-top: 2rem;
 
 `;
-
 
 const inputStyles = onThemeValue( "appView" )`
 mobile: ${ () => css`
@@ -180,11 +176,10 @@ width: ${ between( "700px", "1100px", "767px", "1200px" ) };
 } }
 `;
 
-const switchText = theming( THEMING_VARIABLES.BACKGROUND, {
-  [ THEMING_VALUES.DARK ]: "white", [ THEMING_VALUES.LIGHT ]: ( { theme } ) => {
-    return theme.primaryColor36405C;
-  },
-} );
+const switchText = onThemeValue( THEMING_VARIABLES.BACKGROUND )`
+dark: ${ THEME.FONT_LIGHT };
+light: ${ THEME.FONT_DARK };
+`;
 
 const svgButton = onThemeValue( "appView" )`
 desktop: ${ props => {
